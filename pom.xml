@@ -3,19 +3,31 @@
   <groupId>uniqueimpact</groupId>
   <artifactId>discordRP</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
-  <dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>7</source>
+                    <target>7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
 		
 		<dependency>
 		    <groupId>net.dv8tion</groupId>
 		    <artifactId>JDA</artifactId>
-		    <version>4.2.0_227</version>
+		    <version>5.0.0-beta.5</version>
 		</dependency>
 
 		<dependency>
 			<groupId>club.minnced</groupId>
 			<artifactId>discord-webhooks</artifactId>
-			<version>0.5.8</version>
+			<version>0.8.2</version>
 		</dependency>
 		
   </dependencies>

@@ -7,19 +7,20 @@ import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import javax.security.auth.login.LoginException;
-
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import uniqueimpact.discordRP.discord.listeners.MessageListener;
 
 public class DiscordRunner {
 	
 	private static final Scanner SCANNER = new Scanner(System.in);
 	
-	public static void runDiscordBot() {
+	public static void runDiscordBot() throws InterruptedException {
+
+		// Get the Bot Token
 		String botToken;
 		try {
 			File myFile = new File("token.txt");
@@ -39,14 +40,24 @@ public class DiscordRunner {
 				e1.printStackTrace();
 			}
 	    }
-		try {
-			JDA jda = JDABuilder.createDefault(botToken)
-					.enableIntents(GatewayIntent.GUILD_MEMBERS)
-					.setMemberCachePolicy(MemberCachePolicy.ALL)
-					.setChunkingFilter(ChunkingFilter.ALL)
-					.build();
-			jda.addEventListener(new MessageEvent());
-		} catch (LoginException e) {}
+
+		// Create the builder
+		JDABuilder builder = JDABuilder.createDefault(botToken)
+				.enableIntents(GatewayIntent.MESSAGE_CONTENT)
+				.setMemberCachePolicy(MemberCachePolicy.ALL)
+				.setChunkingFilter(ChunkingFilter.ALL);
+
+		// Add event listeners to the builder
+		builder.addEventListeners(
+				new MessageListener());
+
+		// Create and start the bot
+		JDA bot = builder.build();
+		bot.awaitReady();
+
+		// Set up the commands
+		CommandSetup.addCommands(bot);
+
 	}
 
 }

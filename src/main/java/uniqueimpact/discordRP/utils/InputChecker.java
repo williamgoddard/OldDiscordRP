@@ -23,7 +23,7 @@ public class InputChecker {
 	}
 	
 	public static boolean validDiscordID(String input) {
-		if (input.length() == 18) {
+		if (input.length() >= 18 && input.length() <= 19) {
 			Pattern pattern = Pattern.compile("^[0-9]*$");
 			Matcher matcher = pattern.matcher(input);
 			return matcher.find();
