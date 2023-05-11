@@ -39,12 +39,12 @@ public class RoomCommand implements Command {
     private String create(SlashCommandInteractionEvent command) {
 
         String name = command.getOption("room").getAsString();
-        String desc = command.getOption("description").getAsString();
-        Double maxItems = command.getOption("capacity").getAsDouble();
+        String desc = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
+        Double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : null;
 
         Inventory inv;
         try {
-            inv = new Inventory(maxItems);
+            inv = new Inventory(capacity);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -57,7 +57,7 @@ public class RoomCommand implements Command {
         }
 
         roleplay.getRooms().add(room);
-        return "The room was added successfully.";
+        return "The room was created successfully.";
 
     }
 

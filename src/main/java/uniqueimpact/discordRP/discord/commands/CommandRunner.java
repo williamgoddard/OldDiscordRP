@@ -1797,7 +1797,7 @@ public class CommandRunner {
 				"pointing a gun at", "trying to bribe", "preparing a nuclear assault against", "about to yeet away", "splashing water at", "dabbing on",
 				"beating up", "rapidly approaching", "assassinating", "sneaking up on", "plotting a dastardly scheme against", "tickling", "poking", "fighting",
 				"galloping away upon", "now", "claiming to be more important than", "suing", "hiding", "claiming ownership of", "chasing", "frightening",
-				"declaring war on", "catapulting", "incincerating", "ravaging", "overenthusiastically interested in", "jealous about", "watering", "pawning off"};
+				"declaring war on", "catapulting", "incinerating", "ravaging", "overenthusiastically interested in", "jealous about", "watering", "pawning off"};
 		String[] victims = {"my fridge", "my mother", "my father", "me", "you", "my entire family", "my homework", "my hopes and dreams", "my house", "an egg",
 				"my beard", "my toes", "my bed", "my career", "the children", "the moon", "Antarctica", "the sea", "my favourite mug", "my shadow", "my money",
 				"my front door", "my car", "all of the birds", "the ozone layer", "my tomatoes", "my orange juice", "the Eiffel Tower", "my Xbox 360 Kinect",

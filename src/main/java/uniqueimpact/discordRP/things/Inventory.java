@@ -13,12 +13,19 @@ public class Inventory implements Serializable {
 	private double capacity;
 	private List<Item> items;
 	
-	public Inventory(double capacity) throws InvalidInputException {
+	public Inventory(Double capacity) throws InvalidInputException {
+
+		if (capacity == null) {
+			capacity = 0.0;
+		}
+
 		if (capacity < 0) {
 			throw new InvalidInputException("Inventory capacity must be at least 0.");
 		}
+
 		this.capacity = capacity;
 		this.items = new ArrayList<Item>();
+
 	}
 	
 	public double getCapacity() {
