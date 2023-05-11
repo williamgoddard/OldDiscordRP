@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import uniqueimpact.discordRP.discord.listeners.MessageListener;
+import uniqueimpact.discordRP.discord.listeners.ReadyListener;
 
 public class DiscordRunner {
 	
@@ -49,7 +50,9 @@ public class DiscordRunner {
 
 		// Add event listeners to the builder
 		builder.addEventListeners(
-				new MessageListener());
+				new MessageListener(),
+				new ReadyListener(),
+				new CommandListener());
 
 		// Create and start the bot
 		JDA bot = builder.build();

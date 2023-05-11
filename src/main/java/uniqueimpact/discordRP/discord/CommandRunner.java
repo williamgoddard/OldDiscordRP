@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import uniqueimpact.discordRP.things.Door;
 import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Item;
