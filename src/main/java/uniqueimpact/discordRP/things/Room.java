@@ -18,17 +18,53 @@ public class Room implements Serializable {
 	private List<Door> doors;
 	
 	public Room(String name, String description, Inventory inv) throws InvalidInputException {
+
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
+
 		if (!InputChecker.validDescription(description)) {
 			throw new InvalidInputException("Description must be at most 1500 characters.");
 		}
+
 		this.name = name;
 		this.description = description;
 		this.inv = inv;
-		this.players = new ArrayList<Player>();
-		this.doors = new ArrayList<Door>();
+		this.players = new ArrayList<>();
+		this.doors = new ArrayList<>();
+
+	}
+
+	public void edit(String name, String description, Double capacity) throws InvalidInputException {
+
+		if (name == null && description == null && capacity == null) {
+			throw new InvalidInputException("At least one field must be selected for editing.");
+		}
+
+		if (!(name == null || InputChecker.validName(name))) {
+			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		if (!(description == null || InputChecker.validDescription(description))) {
+			throw new InvalidInputException("Description must be at most 1500 characters.");
+		}
+
+		if (!(capacity == null || capacity >= 0)) {
+			throw new InvalidInputException("Inventory capacity must be at least 0.");
+		}
+
+		if (name != null) {
+			this.name = name;
+		}
+
+		if (description != null) {
+			this.description = description;
+		}
+
+		if (capacity != null) {
+			this.inv.setCapacity(capacity);
+		}
+
 	}
 
 	public String getName() {
@@ -36,9 +72,11 @@ public class Room implements Serializable {
 	}
 
 	public void setName(String name) throws InvalidInputException {
+
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
+
 		this.name = name;
 	}
 	
@@ -47,9 +85,11 @@ public class Room implements Serializable {
 	}
 
 	public void setDescription(String description) throws InvalidInputException {
+
 		if (!InputChecker.validDescription(description)) {
 			throw new InvalidInputException("Description must be at most 1500 characters.");
 		}
+
 		this.description = description;
 	}
 
@@ -66,13 +106,16 @@ public class Room implements Serializable {
 	}
 	
 	public List<Player> getPlayers(Boolean includeHidden) {
-		List<Player> resultPlayers = new ArrayList<Player>();
-		for (int i = 0; i < players.size(); i++) {
-			if (includeHidden || !players.get(i).isHidden()) {
-				resultPlayers.add(players.get(i));
+
+		List<Player> resultPlayers = new ArrayList<>();
+		for (Player player : players) {
+			if (includeHidden || !player.isHidden()) {
+				resultPlayers.add(player);
 			}
 		}
+
 		return resultPlayers;
+
 	}
 
 	public void setPlayers(List<Player> players) {
@@ -84,33 +127,42 @@ public class Room implements Serializable {
 	}
 	
 	public List<Door> getDoors(boolean includeHidden) {
-		List<Door> resultDoors = new ArrayList<Door>();
-		for (int i = 0; i < doors.size(); i++) {
-			if (includeHidden || !doors.get(i).isHidden()) {
-				resultDoors.add(doors.get(i));
+
+		List<Door> resultDoors = new ArrayList<>();
+		for (Door door : doors) {
+			if (includeHidden || !door.isHidden()) {
+				resultDoors.add(door);
 			}
 		}
+
 		return resultDoors;
+
 	}
 	
 	public List<Door> getSpecificDoors(boolean locked) {
-		List<Door> resultDoors = new ArrayList<Door>();
-		for (int i = 0; i < doors.size(); i++) {
-			if (locked == doors.get(i).isLocked()) {
-				resultDoors.add(doors.get(i));
+
+		List<Door> resultDoors = new ArrayList<>();
+		for (Door door : doors) {
+			if (locked == door.isLocked()) {
+				resultDoors.add(door);
 			}
 		}
+
 		return resultDoors;
+
 	}
 	
 	public List<Door> getSpecificDoors(boolean locked, boolean includeHidden) {
-		List<Door> resultDoors = new ArrayList<Door>();
-		for (int i = 0; i < doors.size(); i++) {
-			if ((includeHidden || !doors.get(i).isHidden()) && (locked == doors.get(i).isLocked())) {
-				resultDoors.add(doors.get(i));
+
+		List<Door> resultDoors = new ArrayList<>();
+		for (Door door : doors) {
+			if ((includeHidden || !door.isHidden()) && (locked == door.isLocked())) {
+				resultDoors.add(door);
 			}
 		}
+
 		return resultDoors;
+
 	}
 
 	public void setDoors(List<Door> doors) {

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class InputChecker {
 	
 	public static boolean validName(String input) {
-		if (input.length() >= 1 && input.length() <= 32) {
+		if (input.length() >= 1 && input.length() <= 40) {
 			Pattern pattern = Pattern.compile("^[a-zA-Z0-9_-]*$");
 			Matcher matcher = pattern.matcher(input);
 			return matcher.find();

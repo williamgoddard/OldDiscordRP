@@ -1,4 +1,4 @@
-package uniqueimpact.discordRP.discord;
+package uniqueimpact.discordRP.discord.utils;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.channel.ChannelType;

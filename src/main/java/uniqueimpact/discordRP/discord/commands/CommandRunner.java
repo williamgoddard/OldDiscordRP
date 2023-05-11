@@ -1,4 +1,4 @@
-package uniqueimpact.discordRP.discord;
+package uniqueimpact.discordRP.discord.commands;
 
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 import net.dv8tion.jda.api.entities.Role;
+import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
+import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Door;
 import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Item;
@@ -15,12 +17,13 @@ import uniqueimpact.discordRP.things.Roleplay;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
+@Deprecated
 public class CommandRunner {
 	
 	private static Random random = new Random();
 	private static Roleplay roleplay = Roleplay.getInstance();
 	
-	public static void runCommand(String command, GuildMessageReceivedEvent event) {
+	public static void runCommand(String command) {
 		
 		boolean isHost = false;
 		for (Role role : event.getMember().getRoles()) {
@@ -1498,147 +1501,6 @@ public class CommandRunner {
 				channel.sendMessage(DiscordOutputGenerator.convertPlayerAdmin(player)).queue();
 			} else {
 				channel.sendMessage("Invalid command format: The correct format is `!seeplayer <player>`").queue();
-			}
-		} else {
-			channel.sendMessage("You must have the Host role to use this command.").queue();
-		}
-	}
-	
-	private static void commandAddRoom(String[] command, TextChannel channel, boolean isHost) {
-		if (isHost) {
-			if (command.length >= 3) {
-				try {
-					String name = command[1];
-					double maxItems;
-					try {
-						maxItems = Double.parseDouble(command[2]);
-					} catch (NumberFormatException e) {
-						channel.sendMessage("Maximum room capacity must be a number.").queue();
-						return;
-					}
-					String desc = "";
-					if (command.length >= 4) {
-						desc = command[3];
-						for (int i = 4; i < command.length; i++) {
-							desc += " " + command[i];
-						}
-					}
-					Inventory inventory = new Inventory(maxItems);
-					Room room = new Room(name, desc, inventory);
-					roleplay.getRooms().add(room);
-					channel.sendMessage("The room was added successfully.").queue();
-				} catch (InvalidInputException e) {
-					channel.sendMessage(e.getMessage()).queue();
-				}
-			} else {
-				channel.sendMessage("Invalid command format: The correct format is `!addroom <name> <max-items> [desc]`").queue();
-			}
-		} else {
-			channel.sendMessage("You must have the Host role to use this command.").queue();
-		}
-	}
-	
-	private static void commandDelRoom(String[] command, TextChannel channel, boolean isHost) {
-		if (isHost) {
-			if (command.length >= 2) {
-				try {
-					Room room = roleplay.findRoom(command[1]);
-					if (room.getPlayers().size() == 0) {
-						roleplay.getRooms().remove(room);
-						for (int i = 0; i < room.getDoors().size(); i++) {
-							Door door = room.getDoors().get(i);
-							Room otherRoom = door.getOtherRoom(room);
-							otherRoom.getDoors().remove(door);
-						}
-						channel.sendMessage("The room was deleted successfully.").queue();
-					} else {
-						channel.sendMessage("The room could not be deleted because it contains players.").queue();
-					}
-				} catch (InvalidInputException e) {
-					channel.sendMessage(e.getMessage()).queue();
-				}
-			} else {
-				channel.sendMessage("Invalid command format: The correct format is `!delroom <room>`").queue();
-			}
-		} else {
-			channel.sendMessage("You must have the Host role to use this command.").queue();
-		}
-	}
-	
-	private static void commandEditRoom(String[] command, TextChannel channel, boolean isHost) {
-		if (isHost) {
-			if (command.length >= 3) {
-				try {
-					Room room = roleplay.findRoom(command[1]);
-					switch (command[2]) {
-					case "name":
-						if (command.length >= 4) {
-							room.setName(command[3]);
-						} else {
-							channel.sendMessage("When the parameter is `name`, you must enter a value.").queue();
-							return;
-						}
-						break;
-					case "max-items":
-						if (command.length >= 4) {
-							double maxItems;
-							try {
-								maxItems = Double.parseDouble(command[3]);
-							} catch (NumberFormatException e) {
-								channel.sendMessage("Maximum room capacity must be a number.").queue();
-								return;
-							}
-							room.getInv().setCapacity(maxItems);
-						} else {
-							channel.sendMessage("When the parameter is `max-items`, you must enter a value.").queue();
-							return;
-						}
-						break;
-					case "desc":
-						String desc = "";
-						if (command.length >= 4) {
-							desc = command[3];
-							for (int i = 4; i < command.length; i++) {
-								desc += " " + command[i];
-							}
-						}
-						room.setDescription(desc);
-						break;
-					default:
-						channel.sendMessage("Invalid parameter. Valid parameters are: `name` `max-items` `desc`.").queue();
-						return;
-					}
-					channel.sendMessage("The room was edited successfully.").queue();
-				} catch (InvalidInputException e) {
-					channel.sendMessage(e.getMessage()).queue();
-				}
-			} else {
-				channel.sendMessage("Invalid command format: The correct format is `!editroom <room> <parameter> <value>`").queue();
-			}
-		} else {
-			channel.sendMessage("You must have the Host role to use this command.").queue();
-		}
-	}
-	
-	private static void commandListRooms(TextChannel channel, boolean isHost) {
-		if (isHost) {
-			channel.sendMessage("List of rooms:\n" + DiscordOutputGenerator.convertRoomList(roleplay.getRooms(), 1900)).queue();
-		} else {
-			channel.sendMessage("You must have the Host role to use this command.").queue();
-		}
-	}
-	
-	private static void commandSeeRoom(String[] command, TextChannel channel, boolean isHost) {
-		if (isHost) {
-			try {
-				if (command.length >= 2) {
-					Room room = roleplay.findRoom(command[1]);
-					channel.sendMessage(DiscordOutputGenerator.convertRoomAdmin(room)).queue();
-				} else {
-					channel.sendMessage("Invalid command format: The correct format is `!seeroom <room>`.").queue();
-				}
-			} catch (InvalidInputException e) {
-				channel.sendMessage(e.getMessage()).queue();
 			}
 		} else {
 			channel.sendMessage("You must have the Host role to use this command.").queue();

@@ -74,40 +74,35 @@ public class Roleplay implements Serializable {
 		this.players = players;
 	}
 	
-	public Room findRoom(String inputString) throws InvalidInputException {
-		String[] inputSplit = inputString.toLowerCase().split("#");
-		if (inputSplit.length >= 1 && inputSplit.length <= 2) {
-			List<Room> matchingRooms = new ArrayList<Room>();
-			if (InputChecker.validName(inputSplit[0])) {
-				for (int i = 0; i < rooms.size(); i++) {
-					Room room = rooms.get(i);
-					if (room.getName().toLowerCase().equals(inputSplit[0])) {
-						matchingRooms.add(room);
-					}
-				}
-			} else {
-				throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
-			}
-			int num = 1;
-			if (inputSplit.length == 2) {
-				try {
-					if (Integer.parseInt(inputSplit[1]) >= 1) {
-						num = Integer.parseInt(inputSplit[1]);
-					} else {
-						throw new InvalidInputException("Room number must be at least 1.");
-					}
-				} catch (NumberFormatException e) {
-					throw new InvalidInputException("Room number must be an integer.");
-				}
-			}
-			if (num <= matchingRooms.size()) {
-				return matchingRooms.get(num-1);
-			} else {
-				throw new InvalidInputException("Room not found. There are " + matchingRooms.size() + " matching rooms.");
-			}
-		} else {
-			throw new InvalidInputException("Room must be formatted as name[#num].");
+	public Room findRoom(String name, int num) throws InvalidInputException {
+
+		if (!InputChecker.validName(name)) {
+			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
+
+		if (num < 1) {
+			throw new InvalidInputException("Room number must be at least 1.");
+		}
+
+		List<Room> matchingRooms = new ArrayList<>();
+
+		for (int i = 0; i < rooms.size(); i++) {
+			Room room = rooms.get(i);
+			if (room.getName().toLowerCase().equals(name)) {
+				matchingRooms.add(room);
+			}
+		}
+
+		if (num > matchingRooms.size()) {
+			throw new InvalidInputException("Room not found. There are " + matchingRooms.size() + " matching rooms.");
+		}
+
+		return matchingRooms.get(num-1);
+
+	}
+
+	public Room findRoom(String name) throws InvalidInputException {
+		return findRoom(name, 1);
 	}
 	
 	public Player findPlayer(String inputString) throws InvalidInputException {

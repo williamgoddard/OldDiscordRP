@@ -1,4 +1,4 @@
-package uniqueimpact.discordRP.discord;
+package uniqueimpact.discordRP.discord.utils;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;

@@ -1,12 +1,21 @@
 package uniqueimpact.discordRP.discord.commands;
 
-import me.wgoddard.utilities.RoomUtils;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import uniqueimpact.discordRP.discord.utils.AdminChecker;
+import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
+import uniqueimpact.discordRP.things.Door;
+import uniqueimpact.discordRP.things.Inventory;
+import uniqueimpact.discordRP.things.Room;
+import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class RoomCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
+
+        if (!AdminChecker.isAdmin(command.getMember())) {
+            return "You do not have permission to use this command.";
+        }
 
         String path = command.getFullCommandName();
 
@@ -28,37 +37,104 @@ public class RoomCommand implements Command {
     }
 
     private String create(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        String room = command.getOption("room").getAsString();
-        return RoomUtils.create(guildId, room, "name").toString();
+
+        String name = command.getOption("room").getAsString();
+        String desc = command.getOption("description").getAsString();
+        Double maxItems = command.getOption("capacity").getAsDouble();
+
+        Inventory inv;
+        try {
+            inv = new Inventory(maxItems);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        Room room;
+        try {
+            room = new Room(name, desc, inv);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        roleplay.getRooms().add(room);
+        return "The room was added successfully.";
+
     }
 
     private String list(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        return RoomUtils.getAll(guildId, "name").toString();
+
+        return "List of rooms:\n" + DiscordOutputGenerator.convertRoomList(roleplay.getRooms(), 1900);
+
     }
 
     private String look(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        String room = command.getOption("room").getAsString();
+
+        String name = command.getOption("room").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
-        return RoomUtils.get(guildId, room, num, "name").toString();
+
+        Room room;
+        try {
+            room = roleplay.findRoom(name, num);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        return DiscordOutputGenerator.convertRoomAdmin(room);
+
     }
 
     private String edit(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        String room = command.getOption("room").getAsString();
+
+        String name = command.getOption("room").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
-        String newName = (command.getOption("name") != null)
-                ? command.getOption("name").getAsString() : null;
-        return RoomUtils.edit(guildId, room, num, newName, "name").toString();
+
+        String newName = (command.getOption("name") != null) ? command.getOption("name").getAsString() : null;
+        String description = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
+        Double capacity = (command.getOption("capacity") != null) ? command.getOption("name").getAsDouble() : null;
+
+        Room room;
+        try {
+            room = roleplay.findRoom(name, num);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        try {
+            room.edit(newName, description, capacity);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        return "The room was edited successfully.";
+
     }
 
     private String delete(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        String room = command.getOption("room").getAsString();
+
+        String name = command.getOption("room").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
-        return RoomUtils.delete(guildId, room, num).toString();
+
+        Room room;
+        try {
+            room = roleplay.findRoom(name, num);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        if (room.getPlayers().size() > 0) {
+            return "The room could not be deleted because it contains characters.";
+        }
+
+        roleplay.getRooms().remove(room);
+
+        for (int i = 0; i < room.getDoors().size(); i++) {
+            Door door = room.getDoors().get(i);
+            Room otherRoom = door.getOtherRoom(room);
+            otherRoom.getDoors().remove(door);
+        }
+
+        return "The room was deleted successfully.";
+
     }
 
 }

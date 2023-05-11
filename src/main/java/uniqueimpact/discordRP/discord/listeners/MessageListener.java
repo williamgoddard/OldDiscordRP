@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
-import uniqueimpact.discordRP.discord.WebhookManager;
+import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Player;
 import uniqueimpact.discordRP.things.Roleplay;
 import uniqueimpact.discordRP.utils.InvalidInputException;

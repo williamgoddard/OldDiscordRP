@@ -1,4 +1,4 @@
-package uniqueimpact.discordRP.discord;
+package uniqueimpact.discordRP.discord.utils;
 
 import java.util.HashMap;
 import java.util.List;
