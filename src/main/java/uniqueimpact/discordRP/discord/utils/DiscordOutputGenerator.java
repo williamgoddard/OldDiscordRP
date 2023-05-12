@@ -54,18 +54,12 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertPlayer(Player player) {
-		return "Name: `" + player.getDisplayName() + "`, " +
-				"Gender: `" + player.getGender() + "`, " +
-				"Height: `" + player.getHeight() + "cm`, " +
-				"Weight: `" + player.getWeight() + "kg`\n" +
+		return "Name: `" + player.getDisplayName() + "`\n" +
 				player.getDescription();
 	}
 	
 	public static String convertPlayerAdmin(Player player) {
 		return "Name: `" + player.getDisplayName() + "`, " +
-				"Gender: `" + player.getGender() + "`, " +
-				"Height: `" + player.getHeight() + "cm`, " +
-				"Weight: `" + player.getWeight() + "kg`, " +
 				"Hidden: `" + player.isHidden() + "`, " +
 				"Max Items: `" + player.getInv().getCapacity() + "`, " +
 				"Max Clothes: `" + player.getClothes().getCapacity() + "`, " +

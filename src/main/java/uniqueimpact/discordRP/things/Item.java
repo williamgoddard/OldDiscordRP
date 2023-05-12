@@ -38,7 +38,7 @@ public class Item implements Serializable {
 
 	public void edit(String newName, String description, Double weight, Boolean takeable, Boolean wearable, Boolean infinite, String key) throws InvalidInputException {
 
-		if (newName == null && description == null && weight == null && takeable == null && wearable == null && infinite == null && keyword == null) {
+		if (newName == null && description == null && weight == null && takeable == null && wearable == null && infinite == null && key == null) {
 			throw new InvalidInputException("At least one field must be selected for editing.");
 		}
 

@@ -176,13 +176,16 @@ public class CommandSetup {
                         new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn (Default false)", false),
                         new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely (Default false)", false),
                         new OptionData(OptionType.STRING, "keyword", "The keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword.", false)
-                                .setRequiredLength(1, 32)),
-                new SubcommandData("list", "List all of the items in the currently selected inventory"),
+                                .setRequiredLength(1, 32)
+                ),
+                new SubcommandData("list", "List all of the items in the currently selected inventory"
+                ),
                 new SubcommandData("look", "Look at an item").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)),
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
                 new SubcommandData("edit", "Edit an item in the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
@@ -197,18 +200,22 @@ public class CommandSetup {
                         new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
                         new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
                         new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
-                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword. (Set to 'none' to clear)", false)),
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword. (Set to 'none' to clear)", false)
+                ),
                 new SubcommandData("delete", "Delete an item from the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)),
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
                 new SubcommandData("copy", "Copy an item to the clipboard from the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)),
-                new SubcommandData("paste", "Paste the item from the clipboard into the currently selected inventory")));
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
+                new SubcommandData("paste", "Paste the item from the clipboard into the currently selected inventory")
+        ));
 
         // Inventory Command
         commands.add(Commands.slash("inventory", "Command to select an inventory to work with").addSubcommands(
@@ -216,13 +223,75 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple room with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)),
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
                 new SubcommandData("items", "Select a character's inventory").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
-                                .setRequiredLength(1, 32)),
+                                .setRequiredLength(1, 32)
+                ),
                 new SubcommandData("clothes", "Select a character's clothes").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
-                                .setRequiredLength(1, 32))));
+                                .setRequiredLength(1, 32)
+                )
+        ));
+
+        // Door Command
+        commands.add(Commands.slash("door", "Command to perform admin actions on doors").addSubcommands(
+                new SubcommandData("create", "Create a door").addOptions(
+                        new OptionData(OptionType.STRING, "room1", "The name of the first room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the door is hidden (Default false)", false),
+                        new OptionData(OptionType.BOOLEAN, "locked", "Whether the door is locked (Default false)", false),
+                        new OptionData(OptionType.STRING, "keyword", "The keyword associated with this door. If set, items with the same keyword will be able to lock and unlock this door.", false)
+                                .setRequiredLength(1, 32)
+                ),
+                new SubcommandData("list", "List all of the doors in a room").addOptions(
+                        new OptionData(OptionType.STRING, "room", "The room to list the doors in", false)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "roomNum", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
+                new SubcommandData("look", "Look at a door").addOptions(
+                        new OptionData(OptionType.STRING, "room1", "The name of the first room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
+                new SubcommandData("edit", "Edit a door").addOptions(
+                        new OptionData(OptionType.STRING, "room1", "The name of the first room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the door is hidden (Default false)", false),
+                        new OptionData(OptionType.BOOLEAN, "locked", "Whether the door is locked (Default false)", false),
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this door. If set, items with the same keyword will be able to lock and unlock this door. (Set to 'none' to clear)", false)
+                                .setRequiredLength(1, 32)
+                ),
+                new SubcommandData("delete", "Delete a door").addOptions(
+                        new OptionData(OptionType.STRING, "room1", "The name of the first room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                )
+        ));
 
         // Update Commands
         bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();

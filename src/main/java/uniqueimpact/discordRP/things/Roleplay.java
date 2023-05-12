@@ -104,7 +104,7 @@ public class Roleplay implements Serializable {
 	public Room findRoom(String name, int num) throws InvalidInputException {
 
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Room name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		if (num < 1) {
@@ -134,7 +134,7 @@ public class Roleplay implements Serializable {
 	public Player findPlayer(String name) throws InvalidInputException {
 
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Room name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		for (Player player : players) {

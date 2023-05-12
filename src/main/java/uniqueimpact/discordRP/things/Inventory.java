@@ -82,7 +82,7 @@ public class Inventory implements Serializable {
 
 	}
 
-	public Item findItem(String name) {
+	public Item findItem(String name) throws InvalidInputException {
 		return findItem(name, 1);
 	}
 

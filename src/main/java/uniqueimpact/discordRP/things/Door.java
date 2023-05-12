@@ -26,6 +26,30 @@ public class Door implements Serializable {
 		this.lock = lock;
 	}
 
+	public void edit(Boolean hidden, Boolean locked, String lock) throws InvalidInputException {
+
+		if (hidden == null && locked == null && lock == null) {
+			throw new InvalidInputException("At least one field must be selected for editing.");
+		}
+
+		if (!(lock == null || InputChecker.validName(lock))) {
+			throw new InvalidInputException("Keyword must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		if (hidden != null) {
+			this.hidden = hidden;
+		}
+
+		if (locked != null) {
+			this.locked = locked;
+		}
+
+		if (lock != null) {
+			this.lock = lock;
+		}
+
+	}
+
 	public Room getRoom1() {
 		return room1;
 	}

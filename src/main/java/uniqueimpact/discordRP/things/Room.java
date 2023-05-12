@@ -169,4 +169,15 @@ public class Room implements Serializable {
 		this.doors = doors;
 	}
 
+	public Door findDoor(Room room) throws InvalidInputException {
+
+		for (Door door : this.doors) {
+			if (door.getRoom1().equals(room) || door.getRoom2().equals(room)) {
+				return door;
+			}
+		}
+
+		throw new InvalidInputException("Door not found.");
+
+	}
 }
