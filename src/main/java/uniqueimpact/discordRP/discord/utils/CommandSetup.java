@@ -23,42 +23,48 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)));
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
 
         // Take Command
         commands.add(Commands.slash("take", "Take an item from the room into your inventory").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)));
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
 
         // Undress Command
         commands.add(Commands.slash("undress", "Undress an item of clothing and hold it in your inventory").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)));
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
 
         // Wear Command
         commands.add(Commands.slash("wear", "Wear an item of clothing from your inventory").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)));
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
 
         // Undress Drop Command
         commands.add(Commands.slash("undressdrop", "Undress an item of clothing and drop it into the room").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)));
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
 
         // Take Wear Command
         commands.add(Commands.slash("takewear", "Take an item from the room and wear it").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)));
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
 
         // Room Command
         commands.add(Commands.slash("room", "Command to perform admin actions on rooms").addSubcommands(
@@ -291,6 +297,32 @@ public class CommandSetup {
                         new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
                                 .setRequiredRange(1, Integer.MAX_VALUE)
                 )
+        ));
+
+        // Roll Command
+        commands.add(Commands.slash("roll", "Roll the dice!").addOptions(
+                new OptionData(OptionType.INTEGER, "sides", "The number of sides on the dice", false)
+                        .setRequiredRange(1, 1000),
+                new OptionData(OptionType.INTEGER, "count", "The number of dice", false)
+                        .setRequiredRange(1, 100)
+        ));
+
+        // 8Ball Command
+        commands.add(Commands.slash("8ball", "Ask a yes or no question to the all-knowing 8-ball to learn from its infinite wisdom!").addOptions(
+                new OptionData(OptionType.STRING, "question", "The question you would like to ask the 8-ball", true)
+                        .setRequiredLength(1, 1000)
+        ));
+
+        // Excuse Command
+        commands.add(Commands.slash("excuse", "Get a quick, randomly generated excuse for why you can't do something!").addOptions(
+                new OptionData(OptionType.STRING, "event", "The event which you need an excuse for.", false)
+                        .setRequiredLength(1, 1000)
+        ));
+
+        // Secret Command
+        commands.add(Commands.slash("secret", "I wonder what this command does...?").addOptions(
+                new OptionData(OptionType.STRING, "command", "The secret command you want to run...", true)
+                        .setRequiredLength(1, 1000)
         ));
 
         // Update Commands

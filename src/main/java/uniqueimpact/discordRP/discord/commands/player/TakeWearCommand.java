@@ -1,8 +1,9 @@
-package uniqueimpact.discordRP.discord.commands;
+package uniqueimpact.discordRP.discord.commands.player;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import uniqueimpact.discordRP.discord.commands.Command;
 
-public class UndressCommand implements Command {
+public class TakeWearCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
@@ -13,7 +14,7 @@ public class UndressCommand implements Command {
         } catch (NullPointerException e) {
             itemNum = 1;
         }
-        command.reply("This command will undress item: " + itemName + " " + itemNum).queue();
+        command.reply("This command will take and wear item: " + itemName + " " + itemNum).queue();
         return null;
     }
 

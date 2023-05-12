@@ -200,47 +200,6 @@ public class CommandRunner {
 		case "dragall":
 			commandDragAll(commandSplit, channel, isHost);
 			break;
-		
-		// Secret Commands
-		case "secret":
-			channel.sendMessage("yep you did it well done you found a secret command").queue();
-			break;
-		case "unique":
-			channel.sendMessage("Please subscribe! https://www.youtube.com/user/TheUniqueImpact").queue();
-			break;
-		case "traitor":
-			channel.sendMessage("The real traitor is the friends we make along the way...").queue();
-			break;
-		case "mastermind":
-			channel.sendMessage("Psst... if you run this command over and over it'll eventually tell you who the mastermind is!").queue();
-			break;
-		case "nibbles":
-			channel.sendMessage("https://media.discordapp.net/attachments/226490521520963584/800151579386183720/Nibbles.png").queue();
-			break;
-		case "spoilers":
-			channel.sendMessage("https://m.media-amazon.com/images/I/51xdQEDj1tL._AC_SL1001_.jpg").queue();
-			break;
-		case "refrigerator":
-			channel.sendMessage("how the heck did you find this one?").queue();
-			break;
-		case "joke":
-			channel.sendMessage("knock knock").queue();
-			break;
-		case "whosthere": case "whoisthere":
-			channel.sendMessage("doctor").queue();
-			break;
-		case "doctorwho":
-			channel.sendMessage("The fact that Russell T Davies is returning to Doctor Who to kick out (the frankly useless) Chris Chibnall fills me with great joy and satisfaction. RTD is a very reliable writer, and of course, was the one responsible for the fantastic revival of the show in the first place, so who better to replace Chibbs and hopefully return the show to its former glory?").queue();
-			break;
-		case "monkey":
-			channel.sendMessage("Mmmmm... Monke.").queue();
-			break;
-		case "arcade":
-			channel.sendMessage("\"Maybe we can't all change the world. Maybe it's enough just to do good for the short time that we're here.\" - Arcade Gannon, 2281 CE");
-			break;
-		case "69":
-			channel.sendMessage("Nice").queue();
-			break;
 			
 		// Fun Commands
 		case "8ball":
@@ -271,99 +230,6 @@ public class CommandRunner {
 	private static void commandHelp(String[] command, TextChannel channel) {
 		if (command.length >= 2) {
 			switch (command[1]) {
-			
-				// Information Commands
-				case "help":
-					channel.sendMessage("`!help [command]` Lists all of the player commands, or gives details about a specific command.\n"
-							+ "`[command]` - The command you want details about. If left blank, all available commands are listed instead.").queue();
-					break;
-				case "time":
-					channel.sendMessage("`!time` Gives the current in-game time.").queue();
-					break;
-					
-				// Character Customisation Commands
-				case "setdesc":
-					channel.sendMessage("`!setdesc [desc]` Sets your character's description, which other players can see with `!lookplayer`.\n"
-							+ "`[desc]` - The new description for your character. If left blank, it will clear your character's description.").queue();
-					break;
-				case "setpicture":
-					channel.sendMessage("`!setpicture [url]` Sets your character's profile picture.\n"
-							+ "`[url]` - The URL of your character's new picture. If left blank, it will clear your character's picture.").queue();
-					break;
-					
-				// Inspection Commands
-				case "lookroom": case "room": case "desc":
-					channel.sendMessage("`!lookroom|room|desc` Gives the description of the room you are currently in.").queue();
-					break;			
-				case "lookclothes": case "clothes": case "c":
-					channel.sendMessage("`!lookclothes|clothes|c [item] [num]` Lists all of the clothes you are wearing, or gives details about a specific clothing item.\n"
-							+ "`[item]` - The name of the item you want details about. If left blank, all of your character's clothes are listed.\n"
-							+ "`[num]` - The number of the item you want details about, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "lookinv": case "inv": case "i":
-					channel.sendMessage("`!lookinv|inv|i [item] [num]` Lists all of the items you are holding, or gives details about a specific item.\n"
-							+ "`[item]` - The name of the item you want details about. If left blank, all of your character's items are listed.\n"
-							+ "`[num]` - The number of the item you want details about, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "lookitem": case "items": case "item": case "look": case "l":
-					channel.sendMessage("`!lookitem|items|item|look|l [item] [num]` Lists all of the items in the room you are in, or gives details about a specific item.\n"
-							+ "`[item]` - The name of the item you want details about. If left blank, all of the room's items are listed.\n"
-							+ "`[num]` - The number of the item you want details about, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "lookplayer": case "players": case "player": case "p":
-					channel.sendMessage("`!looklookplayer|players|player|p [player] [num]` Lists all of the players in the room you are in, or gives details about a specific player.\n"
-							+ "`[player]` - The name of the player you want details about. If left blank, all of the players in the room are listed.\n"
-							+ "`[num]` - The number of the player you want details about, in case there are multiple players with the same name. If left blank, the first player is selected automatically.").queue();
-					break;
-				
-				// Item Movement Commands
-				case "drop": case "d":
-					channel.sendMessage("`!drop|d <item> [num]` Drop an item from your inventory into the room.\n"
-							+ "`<item>` - The name of the item you want to drop.\n"
-							+ "`[num]` - The number of the item you want to drop, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "take": case "t":
-					channel.sendMessage("`!take|t <item> [num]` Take an item from the room.\n"
-							+ "`<item>` - The name of the item you want to take.\n"
-							+ "`[num]` - The number of the item you want to take, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "undress": case "u":
-					channel.sendMessage("`!undress|u <item> [num]` Remove an item of clothing, and put it into your inventory.\n"
-							+ "`<item>` - The name of the item you want to undress.\n"
-							+ "`[num]` - The number of the item you want to undress, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "wear": case "w":
-					channel.sendMessage("`!wear|w <item> [num]` Wear an item of clothing from your inventory.\n"
-							+ "`<item>` - The name of the item you want to wear.\n"
-							+ "`[num]` - The number of the item you want to wear, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "undressdrop": case "ud":
-					channel.sendMessage("`!undressdrop|ud <item> [num]` Remove an item of clothing, and drop it into the room.\n"
-							+ "`<item>` - The name of the item you want to undress and drop.\n"
-							+ "`[num]` - The number of the item you want to undress and drop, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-				case "takewear": case "tw":
-					channel.sendMessage("`!takewear|tw <item> [num]` Take an item from the room and wear it.\n"
-							+ "`<item>` - The name of the item you want to take and wear.\n"
-							+ "`[num]` - The number of the item you want to take and wear, in case there are multiple items with the same name. If left blank, the first item is selected automatically.").queue();
-					break;
-					
-				// Movement Commands
-				case "goto": case "move": case "go": case "doors":
-					channel.sendMessage("`!goto|move|doors|go [room] [num]` Move to another room, or list all of the rooms you can currently go to.\n"
-							+ "`[room]` - The name of the room you want to go to. If left blank, all of the room's doors are listed.\n"
-							+ "`[num]` - The number of the room you want to go to, in case there are multiple rooms with the same name. If left blank, the first room is selected automatically.").queue();
-					break;
-				case "lockdoor": case "lock":
-					channel.sendMessage("`!lockdoor|lock <door> [num]` Lock a door in the room you are currently in. You must have an appropriate key item to do this.\n"
-							+ "`<door>` - The name of the door you want to lock. This will be the name of the room on the other side of the door. Use `!doors` for help.\n"
-							+ "`[num]` - The number of the door you want to lock, in case there are multiple doors with the same name. If left blank, the first door is selected automatically.").queue();
-					break;
-				case "unlockdoor": case "unlock":
-					channel.sendMessage("`!unlockdoor|unlock <door> [num]` Unlock a door in the room you are currently in. You must have an appropriate key item to do this.\n"
-							+ "`<door>` - The name of the door you want to unlock. This will be the name of the room on the other side of the door. Use `!doors` for help.\n"
-							+ "`[num]` - The number of the door you want to unlock, in case there are multiple doors with the same name. If left blank, the first door is selected automatically.").queue();
-					break;
 					
 				// Fun Commands
 				case "8ball":
@@ -387,7 +253,7 @@ public class CommandRunner {
 				default:
 					channel.sendMessage("The command you wish for help with was not found. Type '!help' for a list of commands.").queue();	
 			}
-					
+
 		} else {
 			channel.sendMessage("```!help [command]\r\n"
 					+ "!time\r\n"
@@ -947,25 +813,6 @@ public class CommandRunner {
 		}
 	}
 	
-	private static void commandDelPlayer(String[] command, TextChannel channel, boolean isHost) {
-		if (isHost) {
-			if (command.length >= 2) {
-				try {
-					Player player = roleplay.findPlayer(command[1]);
-					player.getRoom().getPlayers().remove(player);
-					roleplay.getPlayers().remove(player);
-					channel.sendMessage("The player was deleted successfully.").queue();
-				} catch (InvalidInputException e) {
-					channel.sendMessage(e.getMessage()).queue();
-				}
-			} else { 
-				channel.sendMessage("Invalid command format: The correct format is `!delplayer <player>`").queue();
-			}
-		} else {
-			channel.sendMessage("You must have the Host role to use this command.").queue();
-		}
-	}
-	
 	private static void commandDragAll(String[] command, TextChannel channel, boolean isHost) {
 		if (isHost) {
 			if (command.length >= 2) {
@@ -988,137 +835,6 @@ public class CommandRunner {
 		} else {
 			channel.sendMessage("You must have the Host role to use this command.").queue();
 		}
-	}
-	
-	private static void command8Ball(TextChannel channel) {
-		int number = random.nextInt(30) + 1;
-		switch (number) {
-		case 1: channel.sendMessage(":8ball: It is certain. :8ball:").queue(); break;
-		case 2: channel.sendMessage(":8ball: It is decidedly so. :8ball:").queue(); break;
-		case 3: channel.sendMessage(":8ball: Without a doubt. :8ball:").queue(); break;
-		case 4: channel.sendMessage(":8ball: Yes, definitely. :8ball:").queue(); break;
-		case 5: channel.sendMessage(":8ball: You may rely on it. :8ball:").queue(); break;
-		case 6: channel.sendMessage(":8ball: As I see it, yes. :8ball:").queue(); break;
-		case 7: channel.sendMessage(":8ball: Most likely. :8ball:").queue(); break;
-		case 8: channel.sendMessage(":8ball: Outlook good. :8ball:").queue(); break;
-		case 9: channel.sendMessage(":8ball: Yeah sure. :8ball:").queue(); break;
-		case 10: channel.sendMessage(":8ball: Signs point to yes. :8ball:").queue(); break;
-		case 11: channel.sendMessage(":8ball: Reply hazy, try again. :8ball:").queue(); break;
-		case 12: channel.sendMessage(":8ball: I'm tired. Ask again later. :8ball:").queue(); break;
-		case 13: channel.sendMessage(":8ball: I cannot tell you now. :8ball:").queue(); break;
-		case 14: channel.sendMessage(":8ball: You will know when the time is ripe. :8ball:").queue(); break;
-		case 15: channel.sendMessage(":8ball: Concentrate and try again. :8ball:").queue(); break;
-		case 16: channel.sendMessage(":8ball: It is unclear. :8ball:").queue(); break;
-		case 17: channel.sendMessage(":8ball: Only time can tell. :8ball:").queue(); break;
-		case 18: channel.sendMessage(":8ball: How the heck would I know? :8ball:").queue(); break;
-		case 19: channel.sendMessage(":8ball: It seems probable. :8ball:").queue(); break;
-		case 20: channel.sendMessage(":8ball: It seems unlikely. :8ball:").queue(); break;
-		case 21: channel.sendMessage(":8ball: Don't count on it. :8ball:").queue(); break;
-		case 22: channel.sendMessage(":8ball: My reply is no. :8ball:").queue(); break;
-		case 23: channel.sendMessage(":8ball: My sources say no. :8ball:").queue(); break;
-		case 24: channel.sendMessage(":8ball: Outlook not so good. :8ball:").queue(); break;
-		case 25: channel.sendMessage(":8ball: Very doubtful. :8ball:").queue(); break;
-		case 26: channel.sendMessage(":8ball: No. :8ball:").queue(); break;
-		case 27: channel.sendMessage(":8ball: Yes. Just kidding, no. :8ball:").queue(); break;
-		case 28: channel.sendMessage(":8ball: I don't want to tell you. :8ball:").queue(); break;
-		case 29: channel.sendMessage(":8ball: You should feel shame for asking me that. :8ball:").queue(); break;
-		case 30: channel.sendMessage(":8ball: Absolutely fricking not. :8ball:").queue(); break;
-		}
-	}
-	
-	private static void commandChoose(String[] command, TextChannel channel) {
-		if (command.length >= 2) {
-			if (command.length >=3) {
-				int choice = random.nextInt(command.length - 1) + 1;
-				channel.sendMessage(command[choice]);
-			} else {
-				channel.sendMessage("You need to put at least 2 options to choose between, separated by spaces!");
-			}
-		} else {
-			channel.sendMessage("Invalid command format: The correct format is `!choose <options>`").queue();
-		}
-	}
-	
-	private static void commandExcuse(String[] command, TextChannel channel) {
-		String excuse;
-		if (command.length >= 2) {
-			excuse = command[1];
-			for (int i = 2; i < command.length; i++) {
-				excuse += " " + command[i];
-			}
-			excuse += " because ";
-		} else {
-			excuse = "I can't right now because ";
-		}
-		String[] attackers = {"Monokuma", "the mastermind", "my evil twin", "Sans Undertale", "UniqueImpact", "my aunt", "Mr. Blobby", "the Numbertaker",
-				"Bill Cipher", "Perry the Platypus", "Dr. Doofenshmirtz", "the Queen", "my imaginary friend", "the Kellogg Company", "Spongebob Squarepants",
-				"Jeff Bezos", "Mr. Bean", "Shrek", "God", "my little sister", "a ninja", "the Doctor", "Sherlock Holmes", "Boris Johnson", "my butler",
-				"a creeper", "your father", "Darth Vader", "Gruntilda", "my landlord", "my psychologist", "my teacher", "your mother", "a very scary man",
-				"Father Christmas", "the tooth fairy", "my arch nemesis", "my third cousin's cat", "my pet giraffe", "an enormous gerbil", "everyone in France",
-				"Will Smith", "the Pope", "the United Nations", "Elon Musk", "Thomas the Tank Engine", "Tinky Winky", "Vladamir Putin", "Sonic", "Mario",
-				"my tennis instructor", "the Discord moderator", "an FBI agent", "Harry Potter", "Voldemort", "a man in a banana costume", "a magician",
-				"a lawn gnome", "a creepy doll", "Bob the Builder", "Robbie Rotten", "Iron Man", "Thor", "Spiderman", "Batman", "a highly advanced AI",
-				"an e-girl", "an e-boy", "my \"best friend\"", "the tickle monster", "a newborn baby", "Captain Jack Sparrow", "Dory", "Thanos", "my boss",
-				"a hideous monster", "an eagle", "Joe Biden", "Nintendo", "Lightning McQueen", "a Karen", "the kraken", "someone", "Microsoft"};
-		String[] actions = {"hiding under", "attacking", "spying on", "stealing", "plotting to murder", "getting away with", "trying to marry", "eating",
-				"destroying", "punching", "terrorising", "licking", "vandalising", "sitting on", "kidnapping", "verbally assaulting", "gently caressing",
-				"trying to buy", "growling at", "looking menacingly at", "about to become", "playing chess against", "systematically destroying", "wearing",
-				"setting fire to", "escaping with", "secretly replacing", "shouting at", "whispering at", "knocking over", "pretending to be", "repossessing",
-				"pointing a gun at", "trying to bribe", "preparing a nuclear assault against", "about to yeet away", "splashing water at", "dabbing on",
-				"beating up", "rapidly approaching", "assassinating", "sneaking up on", "plotting a dastardly scheme against", "tickling", "poking", "fighting",
-				"galloping away upon", "now", "claiming to be more important than", "suing", "hiding", "claiming ownership of", "chasing", "frightening",
-				"declaring war on", "catapulting", "incinerating", "ravaging", "overenthusiastically interested in", "jealous about", "watering", "pawning off"};
-		String[] victims = {"my fridge", "my mother", "my father", "me", "you", "my entire family", "my homework", "my hopes and dreams", "my house", "an egg",
-				"my beard", "my toes", "my bed", "my career", "the children", "the moon", "Antarctica", "the sea", "my favourite mug", "my shadow", "my money",
-				"my front door", "my car", "all of the birds", "the ozone layer", "my tomatoes", "my orange juice", "the Eiffel Tower", "my Xbox 360 Kinect",
-				"a zebra", "my cat", "the TV remote", "my phone", "my shampoo", "my local supermarket", "my enormous yacht", "my washing machine", "my curtains",
-				"one million dollars", "the entire neighbourhood", "the biscuit tin", "my lunch", "the White House", "my trousers", "my hat", "my best friend",
-				"everyone except me", "my childhood", "my kneecaps", "the crown jewels", "the Mona Lisa", "my bin", "everything", "my garden", "my bathroom",
-				"my allotment", "my computer", "my pencil case", "my toaster", "Ireland", "France", "my crops", "my lemons", "the internet", "the WiFi",
-				"my wife", "my husband"};
-		int attackerNum = random.nextInt(attackers.length);
-		int actionNum = random.nextInt(actions.length);
-		int victimNum = random.nextInt(victims.length);
-		excuse += attackers[attackerNum] + " is " + actions[actionNum] + " " + victims[victimNum] + ".";
-		channel.sendMessage(excuse).queue();
-	}
-	
-	private static void commandRoll(String[] command, TextChannel channel) {
-		int size = 20;
-		if (command.length >= 2) {
-			try {
-				size = Integer.parseInt(command[1]);
-				if ((size < 2) || (size > 1000)) {
-					channel.sendMessage("Dice size must be between 2 and 1000").queue();
-					return;
-				}
-			} catch (NumberFormatException e) {
-				channel.sendMessage("Dice size must be an integer").queue();
-				return;
-			}
-		}
-		int num = 1;
-		if (command.length >= 3) {
-			try {
-				num = Integer.parseInt(command[2]);
-				if ((num < 1) || (num > 100)) {
-					channel.sendMessage("Dice number must be between 1 and 100").queue();
-					return;
-				}
-			} catch (NumberFormatException e) {
-				channel.sendMessage("Dice size must be an integer").queue();
-				return;
-			}
-		}
-		String output = "Rolling `" + num + "` dice of size `" + size + "`:\n";
-		int total = 0;
-		for (int i = 0; i < num; i++) {
-			int roll = random.nextInt(size) + 1;
-			output += "`" + roll + "` ";
-			total += roll;
-		}
-		output += "\nTotal: `" + total + "`";
-		channel.sendMessage(output).queue();
 	}
 
 }
