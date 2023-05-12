@@ -173,23 +173,46 @@ public class CharacterCommand implements Command {
     }
 
     private String move(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        String chara = command.getOption("character").getAsString();
-        String room = command.getOption("room").getAsString();
-        int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
-        JsonObject roomJson = RoomUtils.get(guildId, room, num, "")
-                .getAsJsonObject("data").getAsJsonObject("room");
-        if (!roomJson.get("success").getAsBoolean()) {
-            return roomJson.get("errors").getAsJsonArray().get(0).getAsString();
+
+        String name = command.getOption("character").getAsString();
+        String roomName = command.getOption("room").getAsString();
+        Integer roomNum = command.getOption("roomNum") != null ? command.getOption("roomNum").getAsInt() : 1;
+
+        Player player;
+        try {
+            player = roleplay.findPlayer(name);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
-        int roomId = roomJson.getAsJsonObject("room").get("id").getAsInt();
-        return CharacterUtils.edit(guildId, chara, null, null, null, roomId, "name").toString();
+
+        Room room;
+        try {
+            room = roleplay.findRoom(roomName, roomNum);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        player.setRoom(room);
+
+        return "The character was moved successfully.";
+
     }
 
     private String delete(SlashCommandInteractionEvent command) {
-        String guildId = command.getGuild().getId();
-        String chara = command.getOption("character").getAsString();
-        return CharacterUtils.delete(guildId, chara).toString();
+
+        String name = command.getOption("character").getAsString();
+
+        Player player;
+        try {
+            player = roleplay.findPlayer(name);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        roleplay.getRooms().remove(player);
+
+        return  "The character was deleted successfully.";
+
     }
 
 }

@@ -154,7 +154,7 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                        new OptionData(OptionType.INTEGER, "roomNum", "The number of the specific room, if there are multiple rooms with the same name", false)
                                 .setRequiredRange(1, Integer.MAX_VALUE)
                 ),
                 new SubcommandData("delete", "Delete a character").addOptions(
