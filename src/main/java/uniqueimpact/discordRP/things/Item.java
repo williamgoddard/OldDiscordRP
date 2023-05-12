@@ -36,6 +36,57 @@ public class Item implements Serializable {
 		this.key = key;
 	}
 
+	public void edit(String newName, String description, Double weight, Boolean takeable, Boolean wearable, Boolean infinite, String key) throws InvalidInputException {
+
+		if (newName == null && description == null && weight == null && takeable == null && wearable == null && infinite == null && keyword == null) {
+			throw new InvalidInputException("At least one field must be selected for editing.");
+		}
+
+		if (!(newName == null || InputChecker.validName(newName))) {
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		if (!(description == null || InputChecker.validDescription(description))) {
+			throw new InvalidInputException("Description must be at most 1500 characters.");
+		}
+
+		if (!(weight == null || weight >= 0)) {
+			throw new InvalidInputException("Weight must be at least 0.");
+		}
+
+		if (!(key == null || InputChecker.validName(key))) {
+			throw new InvalidInputException("Keyword must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		if (newName != null) {
+			this.name = newName;
+		}
+
+		if (description != null) {
+			this.description = description;
+		}
+
+		if (weight != null) {
+			this.weight = weight;
+		}
+
+		if (takeable != null) {
+			this.takeable = takeable;
+		}
+		if (wearable != null) {
+			this.wearable = wearable;
+		}
+
+		if (infinite != null) {
+			this.infinite = infinite;
+		}
+
+		if (key != null) {
+			this.key = key;
+		}
+
+	}
+
 	public String getName() {
 		return name;
 	}

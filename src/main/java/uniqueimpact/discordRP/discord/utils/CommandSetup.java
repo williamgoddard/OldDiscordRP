@@ -147,7 +147,7 @@ public class CommandSetup {
                                 .setRequiredRange(0.0, Double.MAX_VALUE),
                         new OptionData(OptionType.NUMBER, "clothesCapacity", "The new capacity of the player's clothes (Set to '0' for no limit)", false)
                                 .setRequiredRange(0.0, Double.MAX_VALUE),
-                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden", false)
+                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden (Default false)", false)
                 ),
                 new SubcommandData("move", "Move a character").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
@@ -165,68 +165,50 @@ public class CommandSetup {
 
         // Item Command
         commands.add(Commands.slash("item", "Command to perform admin actions on items").addSubcommands(
-                new SubcommandData("create", "Create an item").addOptions(
-                        new OptionData(OptionType.STRING, "location-type", "The type of location the item is in", true)
-                                .addChoice("room", "room")
-                                .addChoice("character", "character")
-                                .addChoice("clothes", "clothes"),
-                        new OptionData(OptionType.STRING, "location", "The name of the location of the item", true)
-                                .setRequiredLength(1, 32),
+                new SubcommandData("create", "Create an item in the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "name", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "description", "The description of the item", false)
+                                .setRequiredLength(1, 1500),
+                        new OptionData(OptionType.NUMBER, "weight", "The weight of the item", false)
+                                .setRequiredRange(0.0, Double.MAX_VALUE),
+                        new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken (Default true)", false),
+                        new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn (Default false)", false),
+                        new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely (Default false)", false),
+                        new OptionData(OptionType.STRING, "keyword", "The keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword.", false)
                                 .setRequiredLength(1, 32)),
+                new SubcommandData("list", "List all of the items in the currently selected inventory"),
                 new SubcommandData("look", "Look at an item").addOptions(
-                        new OptionData(OptionType.STRING, "location-type", "The type of location the item is in", true)
-                                .addChoice("room", "room")
-                                .addChoice("character", "character")
-                                .addChoice("clothes", "clothes"),
-                        new OptionData(OptionType.STRING, "location", "The name of the location of the item", true)
-                                .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "name", "The name of the item", true)
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
                                 .setRequiredRange(1, Integer.MAX_VALUE)),
-                new SubcommandData("edit", "Edit an item").addOptions(
-                        new OptionData(OptionType.STRING, "location-type", "The type of location the item is in", true)
-                                .addChoice("room", "room")
-                                .addChoice("character", "character")
-                                .addChoice("clothes", "clothes"),
-                        new OptionData(OptionType.STRING, "location", "The name of the location of the item", true)
+                new SubcommandData("edit", "Edit an item in the currently selected inventory").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "name", "The name of the item", true)
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.STRING, "name", "The new name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "description", "The new description of the item (Set to 'none' to clear)", false)
+                                .setRequiredLength(1, 1500),
+                        new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
+                                .setRequiredRange(0.0, Double.MAX_VALUE),
+                        new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
+                        new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
+                        new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword. (Set to 'none' to clear)", false)),
+                new SubcommandData("delete", "Delete an item from the currently selected inventory").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
                                 .setRequiredRange(1, Integer.MAX_VALUE)),
-                new SubcommandData("delete", "Delete an item").addOptions(
-                        new OptionData(OptionType.STRING, "location-type", "The type of location the item is in", true)
-                                .addChoice("room", "room")
-                                .addChoice("character", "character")
-                                .addChoice("clothes", "clothes"),
-                        new OptionData(OptionType.STRING, "location", "The name of the location of the item", true)
-                                .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "name", "The name of the item", true)
+                new SubcommandData("copy", "Copy an item to the clipboard from the currently selected inventory").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
                                 .setRequiredRange(1, Integer.MAX_VALUE)),
-                new SubcommandData("copy", "Copy an item to the clipboard (Clipboard is per-server)").addOptions(
-                        new OptionData(OptionType.STRING, "location-type", "The type of location the item is in", true)
-                                .addChoice("room", "room")
-                                .addChoice("character", "character")
-                                .addChoice("clothes", "clothes"),
-                        new OptionData(OptionType.STRING, "location", "The name of the location of the item", true)
-                                .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "name", "The name of the item", true)
-                                .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)),
-                new SubcommandData("paste", "Paste an item from the clipboard (Clipboard is per-server)").addOptions(
-                        new OptionData(OptionType.STRING, "location-type", "The type of location the item is in", true)
-                                .addChoice("room", "room")
-                                .addChoice("character", "character")
-                                .addChoice("clothes", "clothes"),
-                        new OptionData(OptionType.STRING, "location", "The name of the location of the item", true)
-                                .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "name", "The name of the item", true)
-                                .setRequiredLength(1, 32))));
+                new SubcommandData("paste", "Paste the item from the clipboard into the currently selected inventory")));
 
         // Inventory Command
         commands.add(Commands.slash("inventory", "Command to select an inventory to work with").addSubcommands(

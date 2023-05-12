@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class Inventory implements Serializable {
@@ -53,6 +54,36 @@ public class Inventory implements Serializable {
 			remainingCapacity -= items.get(i).getWeight();
 		}
 		return remainingCapacity;
+	}
+
+	public Item findItem(String name, int num) throws InvalidInputException {
+
+		if (!InputChecker.validName(name)) {
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		if (num < 1) {
+			throw new InvalidInputException("Item number must be at least 1.");
+		}
+
+		List<Item> matchingItems = new ArrayList<>();
+
+		for (Item item : items) {
+			if (item.getName().equalsIgnoreCase(name)) {
+				matchingItems.add(item);
+			}
+		}
+
+		if (num > matchingItems.size()) {
+			throw new InvalidInputException("Item not found. There are " + matchingItems.size() + " matching items.");
+		}
+
+		return matchingItems.get(num-1);
+
+	}
+
+	public Item findItem(String name) {
+		return findItem(name, 1);
 	}
 
 }

@@ -183,16 +183,6 @@ public class Roleplay implements Serializable {
 
 	}
 	
-	public Item findItem(String inputString) throws InvalidInputException {
-		String[] inputSplit = inputString.toLowerCase().split("/");
-		if (inputSplit.length == 3) {
-			Inventory inventory = findInventory(inputSplit[0] + "/" + inputSplit[1]);
-			return findInvItem(inventory, inputSplit[2]);
-		} else {
-			throw new InvalidInputException("Inventory must be formatted as inventory/item. (Inventory is formatted as type/location).");
-		}
-	}
-	
 	public Item findInvItem(Inventory inventory, String inputString) throws InvalidInputException {
 		String[] itemSplit = inputString.toLowerCase().split("#");
 		if (itemSplit.length >= 1 && itemSplit.length <= 2) {
