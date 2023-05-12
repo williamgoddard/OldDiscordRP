@@ -38,9 +38,9 @@ public class RoomCommand implements Command {
 
     private String create(SlashCommandInteractionEvent command) {
 
-        String name = command.getOption("room").getAsString();
+        String name = command.getOption("name").getAsString();
         String desc = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
-        Double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : null;
+        double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : 0.0;
 
         Inventory inv;
         try {
@@ -90,7 +90,7 @@ public class RoomCommand implements Command {
 
         String newName = (command.getOption("name") != null) ? command.getOption("name").getAsString() : null;
         String description = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
-        Double capacity = (command.getOption("capacity") != null) ? command.getOption("name").getAsDouble() : null;
+        double capacity = (command.getOption("capacity") != null) ? command.getOption("name").getAsDouble() : 0.0;
 
         Room room;
         try {

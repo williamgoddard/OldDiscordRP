@@ -77,7 +77,7 @@ public class Roleplay implements Serializable {
 	public Room findRoom(String name, int num) throws InvalidInputException {
 
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		if (num < 1) {
@@ -86,9 +86,8 @@ public class Roleplay implements Serializable {
 
 		List<Room> matchingRooms = new ArrayList<>();
 
-		for (int i = 0; i < rooms.size(); i++) {
-			Room room = rooms.get(i);
-			if (room.getName().toLowerCase().equals(name)) {
+		for (Room room : rooms) {
+			if (room.getName().equalsIgnoreCase(name)) {
 				matchingRooms.add(room);
 			}
 		}
@@ -105,95 +104,56 @@ public class Roleplay implements Serializable {
 		return findRoom(name, 1);
 	}
 	
-	public Player findPlayer(String inputString) throws InvalidInputException {
-		String[] inputSplit = inputString.toLowerCase().split("#");
-		if (inputSplit.length >= 1 && inputSplit.length <= 2) {
-			List<Player> matchingPlayers = new ArrayList<Player>();
-			if (InputChecker.validName(inputSplit[0])) {
-				for (int i = 0; i < players.size(); i++) {
-					Player player = players.get(i);
-					if (player.getName().toLowerCase().equals(inputSplit[0])) {
-						matchingPlayers.add(player);
-					}
-				}
-			} else {
-				throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
-			}
-			int num = 1;
-			if (inputSplit.length == 2) {
-				try {
-					if (Integer.parseInt(inputSplit[1]) >= 1) {
-						num = Integer.parseInt(inputSplit[1]);
-					} else {
-						throw new InvalidInputException("Player number must be at least 1.");
-					}
-				} catch (NumberFormatException e) {
-					throw new InvalidInputException("Player number must be an integer.");
-				}
-			}
-			if (num <= matchingPlayers.size()) {
-				return matchingPlayers.get(num-1);
-			} else {
-				throw new InvalidInputException("Player not found. There are " + matchingPlayers.size() + " matching players.");
-			}
-		} else {
-			throw new InvalidInputException("Player must be formatted as name[#num].");
+	public Player findPlayer(String name) throws InvalidInputException {
+
+		if (!InputChecker.validName(name)) {
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
+
+		for (Player player : players) {
+			if (player.getName().equalsIgnoreCase(name)) {
+				return player;
+			}
+		}
+
+		throw new InvalidInputException("The character could not be found.");
+
 	}
 	
 	public Player findPlayerByChannel(String channel) throws InvalidInputException {
-		if (InputChecker.validDiscordID(channel)) {
-			for (int i = 0; i < players.size(); i++) {
-				Player player = players.get(i);
-				if (player.getChannel().equals(channel)) {
-					return player;
-				}
-			}
-			throw new InvalidInputException("This Discord channel is not linked to a player.");
-		} else {
+
+		if (!InputChecker.validDiscordID(channel)) {
 			throw new InvalidInputException("Discord channel ID must be an 18 digit number.");
 		}
-	}
-	
-	public Player findRoomPlayer(Room room, String inputString) throws InvalidInputException {
-		return findRoomPlayer(room, inputString, true);
-	}
-	
-	public Player findRoomPlayer(Room room, String inputString, Boolean includeHidden) throws InvalidInputException {
-		String[] inputSplit = inputString.toLowerCase().split("#");
-		List<Player> players = room.getPlayers(includeHidden);
-		if (inputSplit.length >= 1 && inputSplit.length <= 2) {
-			List<Player> matchingPlayers = new ArrayList<Player>();
-			if (InputChecker.validName(inputSplit[0])) {
-				for (int i = 0; i < players.size(); i++) {
-					Player player = players.get(i);
-					if (player.getName().toLowerCase().equals(inputSplit[0])) {
-						matchingPlayers.add(player);
-					}
-				}
-			} else {
-				throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+
+		for (Player player : players) {
+			if (player.getChannel().equals(channel)) {
+				return player;
 			}
-			int num = 1;
-			if (inputSplit.length == 2) {
-				try {
-					if (Integer.parseInt(inputSplit[1]) >= 1) {
-						num = Integer.parseInt(inputSplit[1]);
-					} else {
-						throw new InvalidInputException("Player number must be at least 1.");
-					}
-				} catch (NumberFormatException e) {
-					throw new InvalidInputException("Player number must be an integer.");
-				}
-			}
-			if (num <= matchingPlayers.size()) {
-				return matchingPlayers.get(num-1);
-			} else {
-				throw new InvalidInputException("Player not found. There are " + matchingPlayers.size() + " matching players.");
-			}
-		} else {
-			throw new InvalidInputException("Player must be formatted as name[#num].");
 		}
+
+		throw new InvalidInputException("This Discord channel is not linked to a character.");
+
+	}
+	
+	public Player findRoomPlayer(Room room, String name) throws InvalidInputException {
+		return findRoomPlayer(room, name, true);
+	}
+	
+	public Player findRoomPlayer(Room room, String name, Boolean includeHidden) throws InvalidInputException {
+
+		if (!InputChecker.validName(name)) {
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		for (Player player : room.getPlayers()) {
+			if (player.getName().equalsIgnoreCase(name)) {
+				return player;
+			}
+		}
+
+		throw new InvalidInputException("The character could not be found.");
+
 	}
 	
 	public Item findItem(String inputString) throws InvalidInputException {
@@ -218,7 +178,7 @@ public class Roleplay implements Serializable {
 					}
 				}
 			} else {
-				throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+				throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 			}
 			int num = 1;
 			if (itemSplit.length == 2) {
