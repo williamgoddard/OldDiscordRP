@@ -27,6 +27,7 @@ public class CommandListener implements EventListener{
 
         commands.put("room", new RoomCommand());
         commands.put("character", new CharacterCommand());
+        commands.put("inventory", new InventoryCommand());
 
     }
 

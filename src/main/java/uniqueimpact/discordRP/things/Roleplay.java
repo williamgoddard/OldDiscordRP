@@ -16,18 +16,21 @@ public class Roleplay implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static Roleplay instance;
-	
+
+	private List<User> users;
 	private List<Room> rooms;
 	private List<Player> players;
 	
 	private Roleplay() {
 		try {
 			load();
+			users = instance.users;
 			rooms = instance.rooms;
 			players = instance.players;
 		} catch (Exception e) {
-			rooms = new ArrayList<Room>();
-			players = new ArrayList<Player>();
+			users = new ArrayList<>();
+			rooms = new ArrayList<>();
+			players = new ArrayList<>();
 		}
 	}
 	
@@ -58,6 +61,14 @@ public class Roleplay implements Serializable {
 		objectIn.close();
 	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public List<Room> getRooms() {
 		return rooms;
 	}
@@ -72,6 +83,22 @@ public class Roleplay implements Serializable {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+
+	public User findUser(String discordId) throws InvalidInputException {
+
+		if (!InputChecker.validDiscordID(discordId)) {
+			throw new InvalidInputException("Discord user id must be an 18 digit number.");
+		}
+
+		for (User user : users) {
+			if (user.getDiscordId().equals(discordId)) {
+				return user;
+			}
+		}
+
+		throw new InvalidInputException("The user could not be found.");
+
 	}
 	
 	public Room findRoom(String name, int num) throws InvalidInputException {
