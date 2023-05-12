@@ -1,6 +1,5 @@
 package uniqueimpact.discordRP.discord.commands;
 
-import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
