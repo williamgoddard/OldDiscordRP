@@ -2,20 +2,49 @@ package uniqueimpact.discordRP.discord.commands.player;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
+import uniqueimpact.discordRP.discord.utils.WebhookManager;
+import uniqueimpact.discordRP.things.Item;
+import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Room;
+import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class DropCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
+
         String itemName = command.getOption("item").getAsString();
-        int itemNum;
+        Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
+
+        String channelId = command.getChannel().getId();
+        Player character;
         try {
-            itemNum = command.getOption("num").getAsInt();
-        } catch (NullPointerException e) {
-            itemNum = 1;
+            character = roleplay.findPlayerByChannel(channelId);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
-        command.reply("This command will drop item: " + itemName + " " + itemNum).queue();
+
+        Item item;
+        try {
+            item = character.getInv().findItem(itemName, itemNum);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        Room room = character.getRoom();
+
+        if (item.getWeight() > room.getInv().getRemainingCapacity()) {
+            WebhookManager.sendSelf("*I can't drop the " + item.getName() + " because the room is too full.*", character);
+            return null;
+        }
+
+        room.getInv().getItems().add(item);
+        character.getInv().getItems().remove(item);
+
+        WebhookManager.sendSelf("*I dropped the " + item.getName() + ".*", character);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " dropped their " + item.getName() + ".*", character);
         return null;
+
     }
 
 }

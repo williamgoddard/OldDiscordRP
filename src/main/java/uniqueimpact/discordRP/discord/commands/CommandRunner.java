@@ -210,85 +210,6 @@ public class CommandRunner {
 		}
 	}
 	
-	private static void commandDrop(String[] command, TextChannel channel) {
-		try {
-			if (command.length >= 2) {
-				String channelId = channel.getId();
-				Player player = roleplay.findPlayerByChannel(channelId);
-				Room room = player.getRoom();
-				Inventory fromInv = player.getInv();
-				Inventory toInv = room.getInv();
-				String itemString = command[1];
-				if (command.length >= 3) {
-					itemString += "#" + command[2];
-				}
-				Item item = roleplay.findInvItem(fromInv, itemString);
-				if (toInv.getRemainingCapacity() >= item.getWeight()) {
-					fromInv.getItems().remove(item);
-					toInv.getItems().add(item);
-					WebhookManager.sendSelf("*I drop the " + item.getName() + ".*", player);
-					WebhookManager.sendOthers("*" + player.getDisplayName() + " drops their " + item.getName() + ".*" , player);
-				} else { 
-					WebhookManager.sendSelf("*I can't drop the " + item.getName() + " because the room is too full.*", player);
-				}
-			} else {
-				channel.sendMessage("Invalid command format: The correct format is `!drop <item> [num]`").queue();
-			}
-		} catch (InvalidInputException e) {
-			channel.sendMessage(e.getMessage()).queue();
-		}
-	}
-	
-	private static void commandTake(String[] command, TextChannel channel) {
-		try {
-			if (command.length >= 2) {
-				String channelId = channel.getId();
-				Player player = roleplay.findPlayerByChannel(channelId);
-				Room room = player.getRoom();
-				Inventory fromInv = room.getInv();
-				Inventory toInv = player.getInv();
-				String itemString = command[1];
-				if (command.length >= 3) {
-					itemString += "#" + command[2];
-				}
-				Item item = roleplay.findInvItem(fromInv, itemString);
-				if (item.isTakeable()) {
-					if (toInv.getRemainingCapacity() >= item.getWeight()) {
-						if (item.isInfinite()) {
-							Item newItem = item.getCopy();
-							newItem.setInfinite(false);
-							toInv.getItems().add(newItem);
-							if (item.getName().toUpperCase().startsWith("A") ||
-									item.getName().toUpperCase().startsWith("E") ||
-									item.getName().toUpperCase().startsWith("I") ||
-									item.getName().toUpperCase().startsWith("O") ||
-									item.getName().toUpperCase().startsWith("U")) {
-								WebhookManager.sendSelf("*I take an " + item.getName() + ".*", player);
-								WebhookManager.sendOthers("*" + player.getDisplayName() + " takes an " + item.getName() + ".*" , player);
-							} else {
-								WebhookManager.sendSelf("*I take a " + item.getName() + ".*", player);
-								WebhookManager.sendOthers("*" + player.getDisplayName() + " takes a " + item.getName() + ".*" , player);
-							}
-						} else {
-							fromInv.getItems().remove(item);
-							toInv.getItems().add(item);
-							WebhookManager.sendSelf("*I take the " + item.getName() + ".*", player);
-							WebhookManager.sendOthers("*" + player.getDisplayName() + " takes the " + item.getName() + ".*" , player);
-						}
-					} else { 
-						WebhookManager.sendSelf("*I can't take the " + item.getName() + " because I would be holding too much.*", player);
-					}
-				} else {
-					WebhookManager.sendSelf("*I can't take the " + item.getName() + ".*", player);
-				}
-			} else {
-				channel.sendMessage("Invalid command format: The correct format is `!take <item> [num]`").queue();
-			}
-		} catch (InvalidInputException e) {
-			channel.sendMessage(e.getMessage()).queue();
-		}
-	}
-	
 	private static void commandTakeWear(String[] command, TextChannel channel) {
 		try {
 			if (command.length >= 2) {
@@ -335,34 +256,6 @@ public class CommandRunner {
 				}
 			} else {
 				channel.sendMessage("Invalid command format: The correct format is `!takewear <item> [num]`").queue();
-			}
-		} catch (InvalidInputException e) {
-			channel.sendMessage(e.getMessage()).queue();
-		}
-	}
-	
-	private static void commandUndress(String[] command, TextChannel channel) {
-		try {
-			if (command.length >= 2) {
-				String channelId = channel.getId();
-				Player player = roleplay.findPlayerByChannel(channelId);
-				Inventory fromInv = player.getClothes();
-				Inventory toInv = player.getInv();
-				String itemString = command[1];
-				if (command.length >= 3) {
-					itemString += "#" + command[2];
-				}
-				Item item = roleplay.findInvItem(fromInv, itemString);
-				if (toInv.getRemainingCapacity() >= item.getWeight()) {
-					fromInv.getItems().remove(item);
-					toInv.getItems().add(item);
-					WebhookManager.sendSelf("*I take off my " + item.getName() + ".*", player);
-					WebhookManager.sendOthers("*" + player.getDisplayName() + " takes off their " + item.getName() + ".*" , player);
-				} else { 
-					WebhookManager.sendSelf("*I can't take off my " + item.getName() + " because I would be holding too much.*", player);
-				}
-			} else {
-				channel.sendMessage("Invalid command format: The correct format is `!undress <item> [num]`").queue();
 			}
 		} catch (InvalidInputException e) {
 			channel.sendMessage(e.getMessage()).queue();

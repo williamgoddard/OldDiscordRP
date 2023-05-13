@@ -2,20 +2,51 @@ package uniqueimpact.discordRP.discord.commands.player;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
+import uniqueimpact.discordRP.discord.utils.WebhookManager;
+import uniqueimpact.discordRP.things.Item;
+import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class WearCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
+
         String itemName = command.getOption("item").getAsString();
-        int itemNum;
+        Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
+
+        String channelId = command.getChannel().getId();
+        Player character;
         try {
-            itemNum = command.getOption("num").getAsInt();
-        } catch (NullPointerException e) {
-            itemNum = 1;
+            character = roleplay.findPlayerByChannel(channelId);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
-        command.reply("This command will wear item: " + itemName + " " + itemNum).queue();
+
+        Item item;
+        try {
+            item = character.getInv().findItem(itemName, itemNum);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        if (!item.isWearable()) {
+            WebhookManager.sendSelf("*I can't wear the " + item.getName() + ".*", character);
+            return null;
+        }
+
+        if (item.getWeight() > character.getClothes().getRemainingCapacity()) {
+            WebhookManager.sendSelf("*I can't wear my " + item.getName() + " because I would be wearing too much.*", character);
+            return null;
+        }
+
+        character.getClothes().getItems().add(item);
+        character.getInv().getItems().remove(item);
+
+        WebhookManager.sendSelf("*I put on my " + item.getName() + ".*", character);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " put on their " + item.getName() + ".*", character);
         return null;
+
     }
 
 }
