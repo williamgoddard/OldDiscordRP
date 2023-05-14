@@ -15,6 +15,9 @@ import uniqueimpact.discordRP.discord.commands.player_inv.*;
 import uniqueimpact.discordRP.discord.commands.player_look.ClothesCommand;
 import uniqueimpact.discordRP.discord.commands.player_look.InvCommand;
 import uniqueimpact.discordRP.discord.commands.player_look.LookCommand;
+import uniqueimpact.discordRP.discord.commands.player_move.GotoCommand;
+import uniqueimpact.discordRP.discord.commands.player_move.LockCommand;
+import uniqueimpact.discordRP.discord.commands.player_move.UnlockCommand;
 import uniqueimpact.discordRP.things.Roleplay;
 
 import java.util.HashMap;
@@ -49,6 +52,11 @@ public class CommandListener implements EventListener{
         commands.put("look", new LookCommand());
         commands.put("inv", new InvCommand());
         commands.put("clothes", new ClothesCommand());
+
+        // Player Movement Commands
+        commands.put("goto", new GotoCommand());
+        commands.put("lock", new LockCommand());
+        commands.put("unlcok", new UnlockCommand());
 
         // Fun Commands
         commands.put("roll", new RollCommand());

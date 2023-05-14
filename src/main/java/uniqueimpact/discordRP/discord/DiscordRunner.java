@@ -46,9 +46,7 @@ public class DiscordRunner {
 
 		// Create the builder
 		JDABuilder builder = JDABuilder.createDefault(botToken)
-				.enableIntents(GatewayIntent.MESSAGE_CONTENT)
-				.setMemberCachePolicy(MemberCachePolicy.ALL)
-				.setChunkingFilter(ChunkingFilter.ALL);
+				.enableIntents(GatewayIntent.MESSAGE_CONTENT);
 
 		// Add event listeners to the builder
 		builder.addEventListeners(

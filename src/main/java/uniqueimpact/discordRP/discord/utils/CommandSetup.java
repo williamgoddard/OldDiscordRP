@@ -23,7 +23,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Take Command
@@ -31,7 +31,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Undress Command
@@ -39,7 +39,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Wear Command
@@ -47,7 +47,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Undress Drop Command
@@ -55,7 +55,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Take Wear Command
@@ -63,7 +63,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Look Command
@@ -73,7 +73,7 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "item", "The name of the item", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("character", "Look at a character in the room.").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", false)
@@ -86,7 +86,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", false)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Clothes command
@@ -94,7 +94,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "item", "The name of the item", false)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Goto command
@@ -102,7 +102,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "room", "The name of the room to move to", false)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Lock command
@@ -110,7 +110,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "room", "The name of the room to lock the door to", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
         // Unlock command
@@ -118,7 +118,7 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "room", "The name of the room to unlock the door to", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                        .setRequiredRange(1, Integer.MAX_VALUE)
+                        .setRequiredRange(1, 1000000)
         ));
 
 
@@ -130,32 +130,32 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "description", "The description of the room", false)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "capacity", "The capacity of the room (Set to '0' for no limit)", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE)
+                                .setRequiredRange(0.0, 1000000.0)
                 ),
                 new SubcommandData("list", "List all of the rooms"),
                 new SubcommandData("look", "Look at a room").addOptions(
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("edit", "Edit a room").addOptions(
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
+                                .setRequiredRange(1, 1000000),
                         new OptionData(OptionType.STRING, "name", "The new name of the room", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "description", "The new description of the room (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "capacity", "The new capacity of the room (Set to '0' for no limit)", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE)
+                                .setRequiredRange(0.0, 1000000.0)
                 ),
                 new SubcommandData("delete", "Delete a room").addOptions(
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 )
         ));
 
@@ -168,25 +168,25 @@ public class CommandSetup {
                                 .setChannelTypes(ChannelType.TEXT),
                         new OptionData(OptionType.STRING, "room", "The room the character is in", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "roomNum", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
-                        new OptionData(OptionType.STRING, "displayName", "The display name of the character", false)
+                        new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.STRING, "display_name", "The display name of the character", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "picture", "The image URL of the character", false)
                                 .setRequiredLength(1, 200),
                         new OptionData(OptionType.STRING, "description", "The description of the character", false)
                                 .setRequiredLength(1, 1500),
-                        new OptionData(OptionType.NUMBER, "itemsCapacity", "The capacity of the player's inventory (Set to '0' for no limit)", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE),
-                        new OptionData(OptionType.NUMBER, "clothesCapacity", "The capacity of the player's clothes (Set to '0' for no limit)", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE),
+                        new OptionData(OptionType.NUMBER, "items_capacity", "The capacity of the player's inventory (Set to '0' for no limit)", false)
+                                .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.NUMBER, "clothes_capacity", "The capacity of the player's clothes (Set to '0' for no limit)", false)
+                                .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden", false)
                 ),
                 new SubcommandData("list", "List all of the characters").addOptions(
                         new OptionData(OptionType.STRING, "room", "The room to list the characters in", false)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "roomNum", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                        new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("look", "Look at a character").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
@@ -199,16 +199,16 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.CHANNEL, "channel", "The new channel linked to this character", false)
                                 .setChannelTypes(ChannelType.TEXT),
-                        new OptionData(OptionType.STRING, "displayName", "The display name of the character (Set to 'none' to clear)", false)
+                        new OptionData(OptionType.STRING, "display_name", "The display name of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "picture", "The image URL of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 200),
                         new OptionData(OptionType.STRING, "description", "The description of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 1500),
-                        new OptionData(OptionType.NUMBER, "itemsCapacity", "The new capacity of the player's inventory (Set to '0' for no limit)", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE),
-                        new OptionData(OptionType.NUMBER, "clothesCapacity", "The new capacity of the player's clothes (Set to '0' for no limit)", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE),
+                        new OptionData(OptionType.NUMBER, "items_capacity", "The new capacity of the player's inventory (Set to '0' for no limit)", false)
+                                .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.NUMBER, "clothes_capacity", "The new capacity of the player's clothes (Set to '0' for no limit)", false)
+                                .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden (Default false)", false)
                 ),
                 new SubcommandData("move", "Move a character").addOptions(
@@ -216,8 +216,8 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "roomNum", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                        new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("delete", "Delete a character").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
@@ -233,11 +233,11 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "description", "The description of the item", false)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "weight", "The weight of the item", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE),
+                                .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken (Default true)", false),
                         new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn (Default false)", false),
                         new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely (Default false)", false),
-                        new OptionData(OptionType.STRING, "keyword", "The keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword.", false)
+                        new OptionData(OptionType.STRING, "keyword", "The keyword associated with this item. Items can lock and unlock doors with the same keyword.", false)
                                 .setRequiredLength(1, 32)
                 ),
                 new SubcommandData("list", "List all of the items in the currently selected inventory"
@@ -246,35 +246,35 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("edit", "Edit an item in the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
-                        new OptionData(OptionType.STRING, "name", "The new name of the item", true)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.STRING, "name", "The new name of the item", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "description", "The new description of the item (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
-                                .setRequiredRange(0.0, Double.MAX_VALUE),
+                                .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
                         new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
                         new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
-                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item. If set, this item will be able to lock and unlock doors with the same keyword. (Set to 'none' to clear)", false)
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item (Set to 'none' to clear)", false)
                 ),
                 new SubcommandData("delete", "Delete an item from the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("copy", "Copy an item to the clipboard from the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("paste", "Paste the item from the clipboard into the currently selected inventory")
         ));
@@ -285,7 +285,7 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple room with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("items", "Select a character's inventory").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
@@ -304,43 +304,43 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
-                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.INTEGER, "room1_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.INTEGER, "room2_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the door is hidden (Default false)", false),
                         new OptionData(OptionType.BOOLEAN, "locked", "Whether the door is locked (Default false)", false),
-                        new OptionData(OptionType.STRING, "keyword", "The keyword associated with this door. If set, items with the same keyword will be able to lock and unlock this door.", false)
+                        new OptionData(OptionType.STRING, "keyword", "The keyword associated with this door. Items can lock and unlock doors with the same keyword.", false)
                                 .setRequiredLength(1, 32)
                 ),
                 new SubcommandData("list", "List all of the doors in a room").addOptions(
                         new OptionData(OptionType.STRING, "room", "The room to list the doors in", false)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "roomNum", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                        new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("look", "Look at a door").addOptions(
                         new OptionData(OptionType.STRING, "room1", "The name of the first room the door is attached to", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
-                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                        new OptionData(OptionType.INTEGER, "room1_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.INTEGER, "room2_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("edit", "Edit a door").addOptions(
                         new OptionData(OptionType.STRING, "room1", "The name of the first room the door is attached to", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
-                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
+                        new OptionData(OptionType.INTEGER, "room1_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.INTEGER, "room2_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the door is hidden (Default false)", false),
                         new OptionData(OptionType.BOOLEAN, "locked", "Whether the door is locked (Default false)", false),
-                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this door. If set, items with the same keyword will be able to lock and unlock this door. (Set to 'none' to clear)", false)
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this door (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 32)
                 ),
                 new SubcommandData("delete", "Delete a door").addOptions(
@@ -348,10 +348,10 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "room2", "The name of the second room the door is attached to", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.INTEGER, "room1Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE),
-                        new OptionData(OptionType.INTEGER, "room2Num", "The number of the specific room, if there are multiple rooms with the same name", false)
-                                .setRequiredRange(1, Integer.MAX_VALUE)
+                        new OptionData(OptionType.INTEGER, "room1_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.INTEGER, "room2_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000)
                 )
         ));
 
@@ -383,7 +383,6 @@ public class CommandSetup {
 
         // Update Commands
         bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
-        bot.updateCommands().addCommands(commands).queue();
 
     }
 

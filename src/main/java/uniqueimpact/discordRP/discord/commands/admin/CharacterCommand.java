@@ -46,12 +46,12 @@ public class CharacterCommand implements Command {
         String name = command.getOption("name").getAsString();
         TextChannel channel = command.getOption("channel").getAsChannel().asTextChannel();
         String roomName = command.getOption("room").getAsString();
-        Integer roomNum = command.getOption("roomNum") != null ? command.getOption("roomNum").getAsInt() : 1;
-        String displayName = command.getOption("displayName") != null ? command.getOption("displayName").getAsString() : null;
+        Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
+        String displayName = command.getOption("display_name") != null ? command.getOption("display_name").getAsString() : null;
         String picture = command.getOption("picture") != null ? command.getOption("picture").getAsString() : null;
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
-        Double itemsCapacity = (command.getOption("itemsCapacity") != null) ? command.getOption("itemsCapacity").getAsDouble() : 0.0;
-        Double clothesCapacity = (command.getOption("clothesCapacity") != null) ? command.getOption("clothesCapacity").getAsDouble() : 0.0;
+        Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : 0.0;
+        Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : 0.0;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
 
         try {
@@ -100,7 +100,7 @@ public class CharacterCommand implements Command {
     private String list(SlashCommandInteractionEvent command) {
 
         String roomName = command.getOption("room") != null ? command.getOption("room").getAsString() : null;
-        Integer roomNum = command.getOption("roomNum") != null ? command.getOption("roomNum").getAsInt() : 1;
+        Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
         if (roomName == null) {
             return "Characters:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getPlayers(), 1800);
@@ -137,11 +137,11 @@ public class CharacterCommand implements Command {
         String name = command.getOption("character").getAsString();
         String newName = command.getOption("name") != null ? command.getOption("name").getAsString() : null;
         TextChannel channel = command.getOption("channel") != null ? command.getOption("channel").getAsChannel().asTextChannel() : null;
-        String displayName = command.getOption("displayName") != null ? command.getOption("displayName").getAsString() : null;
+        String displayName = command.getOption("display_name") != null ? command.getOption("display_name").getAsString() : null;
         String picture = command.getOption("picture") != null ? command.getOption("picture").getAsString() : null;
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
-        Double itemsCapacity = (command.getOption("itemsCapacity") != null) ? command.getOption("itemsCapacity").getAsDouble() : null;
-        Double clothesCapacity = (command.getOption("clothesCapacity") != null) ? command.getOption("clothesCapacity").getAsDouble() : null;
+        Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : null;
+        Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : null;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
 
         Player player;
@@ -176,7 +176,7 @@ public class CharacterCommand implements Command {
 
         String name = command.getOption("character").getAsString();
         String roomName = command.getOption("room").getAsString();
-        Integer roomNum = command.getOption("roomNum") != null ? command.getOption("roomNum").getAsInt() : 1;
+        Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
         Player player;
         try {

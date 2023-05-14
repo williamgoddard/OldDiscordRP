@@ -39,8 +39,8 @@ public class DoorCommand implements Command {
 
         String room1Name = command.getOption("room1").getAsString();
         String room2Name = command.getOption("room2").getAsString();
-        Integer room1Num = command.getOption("room1Num") != null ? command.getOption("room1Num").getAsInt() : 1;
-        Integer room2Num = command.getOption("room2Num") != null ? command.getOption("room2Num").getAsInt() : 1;
+        Integer room1Num = command.getOption("room1_num") != null ? command.getOption("room1_num").getAsInt() : 1;
+        Integer room2Num = command.getOption("room2_num") != null ? command.getOption("room2_num").getAsInt() : 1;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
         Boolean locked = (command.getOption("locked") != null) ? command.getOption("locked").getAsBoolean() : false;
         String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
@@ -76,7 +76,7 @@ public class DoorCommand implements Command {
     private String list(SlashCommandInteractionEvent command) {
 
         String roomName = command.getOption("room").getAsString();
-        Integer roomNum = command.getOption("roomNum") != null ? command.getOption("roomNum").getAsInt() : 1;
+        Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
         Room room;
         try {
@@ -93,8 +93,8 @@ public class DoorCommand implements Command {
 
         String room1Name = command.getOption("room1").getAsString();
         String room2Name = command.getOption("room2").getAsString();
-        Integer room1Num = command.getOption("room1Num") != null ? command.getOption("room1Num").getAsInt() : 1;
-        Integer room2Num = command.getOption("room2Num") != null ? command.getOption("room2Num").getAsInt() : 1;
+        Integer room1Num = command.getOption("room1_num") != null ? command.getOption("room1_num").getAsInt() : 1;
+        Integer room2Num = command.getOption("room2_num") != null ? command.getOption("room2_num").getAsInt() : 1;
 
         Room room1;
         try {
@@ -125,8 +125,8 @@ public class DoorCommand implements Command {
 
         String room1Name = command.getOption("room1").getAsString();
         String room2Name = command.getOption("room2").getAsString();
-        Integer room1Num = command.getOption("room1Num") != null ? command.getOption("room1Num").getAsInt() : null;
-        Integer room2Num = command.getOption("room2Num") != null ? command.getOption("room2Num").getAsInt() : null;
+        Integer room1Num = command.getOption("room1_num") != null ? command.getOption("room1_num").getAsInt() : null;
+        Integer room2Num = command.getOption("room2_num") != null ? command.getOption("room2_num").getAsInt() : null;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
         Boolean locked = (command.getOption("locked") != null) ? command.getOption("locked").getAsBoolean() : null;
         String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
@@ -166,8 +166,8 @@ public class DoorCommand implements Command {
 
         String room1Name = command.getOption("room1").getAsString();
         String room2Name = command.getOption("room2").getAsString();
-        Integer room1Num = command.getOption("room1Num") != null ? command.getOption("room1Num").getAsInt() : 1;
-        Integer room2Num = command.getOption("room2Num") != null ? command.getOption("room2Num").getAsInt() : 1;
+        Integer room1Num = command.getOption("room1_num") != null ? command.getOption("room1_num").getAsInt() : 1;
+        Integer room2Num = command.getOption("room2_num") != null ? command.getOption("room2_num").getAsInt() : 1;
 
         Room room1;
         try {
