@@ -97,7 +97,7 @@ public class DiscordOutputGenerator {
 				"Lock: `" + ((door.getLock().equals("")) ? "none" : door.getLock()) + "`";
 	}
 	
-	public static String convertDoorList(List<Door> doors, Room currentRoom, int charLimit) throws InvalidInputException {
+	public static String convertDoorList(List<Door> doors, Room currentRoom, int charLimit) {
 		String output = "";
 		for (Door door : doors) {
 			String addToOutput = "`";

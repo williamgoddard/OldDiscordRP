@@ -246,36 +246,12 @@ public class Roleplay implements Serializable {
 		}
 	}
 	
-	public Door findDoor(String inputString) throws InvalidInputException {
-		String[] inputSplit = inputString.toLowerCase().split("/");
-		if (inputSplit.length == 2) {
-			Room room = findRoom(inputSplit[0]);
-			return findRoomDoor(room, inputSplit[1]);
-		} else {
-			throw new InvalidInputException("Door must be formatted as room1/room2.");
-		}
-	}
-	
-	public Door findRoomDoor(Room room, String inputString) throws InvalidInputException {
-		String doorSplit[] = inputString.toLowerCase().split("#");
-		String otherRoomName = doorSplit[0];
+	public Door findRoomDoor(Room room, String otherRoomName, int num) throws InvalidInputException {
 		List<Door> matchingDoors = new ArrayList<Door>();
 		for (int i = 0; i < room.getDoors().size(); i++) {
 			Door door = room.getDoors().get(i);
 			if (door.getRoom1().getName().toLowerCase().equals(otherRoomName) || door.getRoom2().getName().toLowerCase().equals(otherRoomName)) {
 				matchingDoors.add(door);
-			}
-		}
-		int num = 1;
-		if (doorSplit.length == 2) {
-			try {
-				if (Integer.parseInt(doorSplit[2]) >= 1) {
-					num = Integer.parseInt(doorSplit[2]);
-				} else {
-					throw new InvalidInputException("Door number must be at least 1.");
-				}
-			} catch (NumberFormatException e) {
-				throw new InvalidInputException("Door number must be an integer.");
 			}
 		}
 		if (num <= matchingDoors.size()) {
@@ -285,36 +261,12 @@ public class Roleplay implements Serializable {
 		}
 	}
 	
-	public Door findSpecificDoor(String inputString, boolean locked, boolean includeHidden) throws InvalidInputException {
-		String[] inputSplit = inputString.toLowerCase().split("/");
-		if (inputSplit.length == 2) {
-			Room room = findRoom(inputSplit[0]);
-			return findSpecificRoomDoor(room, inputSplit[1], locked, includeHidden);
-		} else {
-			throw new InvalidInputException("Door must be formatted as room1/room2.");
-		}
-	}
-	
-	public Door findSpecificRoomDoor(Room room, String inputString, boolean locked, boolean includeHidden) throws InvalidInputException {
-		String doorSplit[] = inputString.toLowerCase().split("#");
-		String otherRoomName = doorSplit[0];
-		List<Door> matchingDoors = new ArrayList<Door>();
+	public Door findSpecificRoomDoor(Room room, String otherRoomName, int num, boolean locked, boolean includeHidden) throws InvalidInputException {
+		List<Door> matchingDoors = new ArrayList<>();
 		for (int i = 0; i < room.getSpecificDoors(locked, includeHidden).size(); i++) {
 			Door door = room.getSpecificDoors(locked, includeHidden).get(i);
 			if (door.getRoom1().getName().toLowerCase().equals(otherRoomName) || door.getRoom2().getName().toLowerCase().equals(otherRoomName)) {
 				matchingDoors.add(door);
-			}
-		}
-		int num = 1;
-		if (doorSplit.length == 2) {
-			try {
-				if (Integer.parseInt(doorSplit[2]) >= 1) {
-					num = Integer.parseInt(doorSplit[2]);
-				} else {
-					throw new InvalidInputException("Door number must be at least 1.");
-				}
-			} catch (NumberFormatException e) {
-				throw new InvalidInputException("Door number must be an integer.");
 			}
 		}
 		if (num <= matchingDoors.size()) {

@@ -89,13 +89,38 @@ public class CommandSetup {
                         .setRequiredRange(1, Integer.MAX_VALUE)
         ));
 
-        // CLothes command
+        // Clothes command
         commands.add(Commands.slash("clothes", "Look at what you are currently wearing.").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", false)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
                         .setRequiredRange(1, Integer.MAX_VALUE)
         ));
+
+        // Goto command
+        commands.add(Commands.slash("goto", "Move to another room.").addOptions(
+                new OptionData(OptionType.STRING, "room", "The name of the room to move to", false)
+                        .setRequiredLength(1, 32),
+                new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
+
+        // Lock command
+        commands.add(Commands.slash("lock", "Lock the door to another room.").addOptions(
+                new OptionData(OptionType.STRING, "room", "The name of the room to lock the door to", true)
+                        .setRequiredLength(1, 32),
+                new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
+
+        // Unlock command
+        commands.add(Commands.slash("unlock", "Unlock the door to another room.").addOptions(
+                new OptionData(OptionType.STRING, "room", "The name of the room to unlock the door to", true)
+                        .setRequiredLength(1, 32),
+                new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
+
 
         // Room Command
         commands.add(Commands.slash("room", "Command to perform admin actions on rooms").addSubcommands(
