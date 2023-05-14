@@ -22,6 +22,11 @@ public class SecretCommand implements Command {
             case "monkey": return "Mmmmm... Monke.";
             case "arcade": return "\"Maybe we can't all change the world. Maybe it's enough just to do good for the short time that we're here.\" - Arcade Gannon, 2281 CE";
             case "69": return "Nice";
+            case "bad": return "unique is bad";
+            case "badder": return "but jacob is badder";
+            case "jacob": return "slavery is fun!";
+            case "door": return "You open the secret door and that leads you to another secret door!";
+            case "doctor": return "Doctor Who?";
             default: return "Nope, that's not a secret command.";
         }
 

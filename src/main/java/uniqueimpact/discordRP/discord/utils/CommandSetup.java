@@ -314,7 +314,7 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32)
                 ),
                 new SubcommandData("list", "List all of the doors in a room").addOptions(
-                        new OptionData(OptionType.STRING, "room", "The room to list the doors in", false)
+                        new OptionData(OptionType.STRING, "room", "The room to list the doors in", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
                                 .setRequiredRange(1, 1000000)
@@ -382,7 +382,8 @@ public class CommandSetup {
         ));
 
         // Update Commands
-        bot.getGuildById("933432644857909339").updateCommands().queue();
+        bot.updateCommands().addCommands().queue();
+        bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
 
     }
 

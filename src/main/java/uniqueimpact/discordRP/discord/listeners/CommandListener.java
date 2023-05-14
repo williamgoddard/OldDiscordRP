@@ -56,7 +56,7 @@ public class CommandListener implements EventListener{
         // Player Movement Commands
         commands.put("goto", new GotoCommand());
         commands.put("lock", new LockCommand());
-        commands.put("unlcok", new UnlockCommand());
+        commands.put("unlock", new UnlockCommand());
 
         // Fun Commands
         commands.put("roll", new RollCommand());

@@ -39,9 +39,9 @@ public class UnlockCommand implements Command {
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             if (!item.getKey().equals("") && item.getKey().equals(door.getLock())) {
-                door.setLocked(true);
-                door.setLocked(true);WebhookManager.sendOthers("*" + character.getDisplayName() + " unlocks the door to the " + roomName + " with their " + item.getName() + ".*", character);
-                return "You unlock the door to the `" + roomName + "` with the `" + item.getName() + "`.*";
+                door.setLocked(false);
+                WebhookManager.sendOthers("*" + character.getDisplayName() + " unlocks the door to the " + roomName + " with their " + item.getName() + ".", character);
+                return "You unlock the door to the `" + roomName + "` with the `" + item.getName() + "`.";
             }
         }
 

@@ -47,7 +47,7 @@ public class CharacterCommand implements Command {
         TextChannel channel = command.getOption("channel").getAsChannel().asTextChannel();
         String roomName = command.getOption("room").getAsString();
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
-        String displayName = command.getOption("display_name") != null ? command.getOption("display_name").getAsString() : null;
+        String displayName = command.getOption("display_name") != null ? command.getOption("display_name").getAsString() : name;
         String picture = command.getOption("picture") != null ? command.getOption("picture").getAsString() : null;
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
         Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : 0.0;
@@ -57,6 +57,11 @@ public class CharacterCommand implements Command {
         try {
             roleplay.findPlayer(name);
             return "A character with that name already exists.";
+        } catch (InvalidInputException ignored) {}
+
+        try {
+            roleplay.findPlayerByChannel(channel.getId());
+            return "A character is already linked to that channel.";
         } catch (InvalidInputException ignored) {}
 
         String channelId = channel.getId();
@@ -151,7 +156,20 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
+        if (newName != null) {
+            try {
+                roleplay.findPlayer(newName);
+                return "A character with that name already exists.";
+            } catch (InvalidInputException ignored) {}
+        }
+
         if (channel != null) {
+
+            try {
+                roleplay.findPlayerByChannel(channel.getId());
+                return "A character is already linked to that channel.";
+            } catch (InvalidInputException ignored) {}
+
             String channelId = channel.getId();
             String webhook = WebhookManager.createOrGetWebhook(channel);
 
@@ -192,7 +210,9 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
+        player.getRoom().getPlayers().remove(player);
         player.setRoom(room);
+        room.getPlayers().add(player);
 
         return "The character was moved successfully.";
 
@@ -209,7 +229,8 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        roleplay.getRooms().remove(player);
+        roleplay.getPlayers().remove(player);
+        player.getRoom().getPlayers().remove(player);
 
         return  "The character was deleted successfully.";
 

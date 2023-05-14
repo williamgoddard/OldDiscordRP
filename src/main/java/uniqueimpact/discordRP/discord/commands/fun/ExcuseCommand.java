@@ -12,7 +12,7 @@ public class ExcuseCommand implements Command {
     @Override
     public String run(SlashCommandInteractionEvent command) {
 
-        String excuse = command.getOption("event") == null ? command.getOption("event").getAsString() : "I can't right now";
+        String excuse = command.getOption("event") != null ? "\"" + command.getOption("event").getAsString() : "\"I can't right now";
         excuse += " because ";
         String[] attackers = {"Monokuma", "the mastermind", "my evil twin", "Sans Undertale", "UniqueImpact", "my aunt", "Mr. Blobby", "the Numbertaker",
                 "Bill Cipher", "Perry the Platypus", "Dr. Doofenshmirtz", "the Queen", "my imaginary friend", "the Kellogg Company", "Spongebob Squarepants",
@@ -43,7 +43,7 @@ public class ExcuseCommand implements Command {
         int attackerNum = random.nextInt(attackers.length);
         int actionNum = random.nextInt(actions.length);
         int victimNum = random.nextInt(victims.length);
-        excuse += attackers[attackerNum] + " is " + actions[actionNum] + " " + victims[victimNum] + ".";
+        excuse += attackers[attackerNum] + " is " + actions[actionNum] + " " + victims[victimNum] + ".\"";
         return excuse;
 
     }

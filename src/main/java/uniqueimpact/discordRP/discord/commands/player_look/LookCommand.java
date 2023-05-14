@@ -120,7 +120,7 @@ public class LookCommand implements Command {
             return e.getMessage();
         }
 
-        String outputMessage = "You look at `" + otherPlayer.getDisplayName() + "`:\n" + DiscordOutputGenerator.convertPlayer(otherPlayer);
+        String outputMessage = DiscordOutputGenerator.convertPlayer(otherPlayer) + "\n";
 
         Inventory targetClothesInv = otherPlayer.getClothes();
         List<Item> targetClothes = targetClothesInv.getItems();

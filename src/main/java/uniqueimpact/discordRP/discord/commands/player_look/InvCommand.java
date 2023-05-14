@@ -36,7 +36,7 @@ public class InvCommand implements Command {
                 return "You are currently not holding anything.";
             }
 
-            return "You are currently holding these items:*\n" + DiscordOutputGenerator.convertItemList(items, 1900);
+            return "You are currently holding these items:\n" + DiscordOutputGenerator.convertItemList(items, 1900);
 
         }
 

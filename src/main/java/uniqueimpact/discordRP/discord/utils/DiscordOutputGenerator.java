@@ -32,6 +32,9 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertItemList(List<Item> items, int charLimit) {
+		if (items.size() == 0) {
+			return "None";
+		}
 		Map<String, Integer> itemCounts = new HashMap<>();
 		for (Item item : items) {
 			itemCounts.put(item.getName(), itemCounts.getOrDefault(item.getName(), 0) + 1);
@@ -68,6 +71,9 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertPlayerList(List<Player> players, int charLimit) {
+		if (players.size() == 0) {
+			return "None";
+		}
 		Map<String, Integer> playerCounts = new HashMap<>();
 		for (Player player : players) {
 			playerCounts.put(player.getName(), playerCounts.getOrDefault(player.getName(), 0) + 1);
@@ -98,6 +104,9 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertDoorList(List<Door> doors, Room currentRoom, int charLimit) {
+		if (doors.size() == 0) {
+			return "None";
+		}
 		String output = "";
 		for (Door door : doors) {
 			String addToOutput = "`";
@@ -118,6 +127,9 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertRoomList(List<Room> rooms, int charLimit) {
+		if (rooms.size() == 0) {
+			return "None";
+		}
 		Map<String, Integer> roomCounts = new HashMap<>();
 		for (Room room : rooms) {
 			roomCounts.put(room.getName(), roomCounts.getOrDefault(room.getName(), 0) + 1);

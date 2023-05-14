@@ -52,7 +52,7 @@ public class GotoCommand implements Command {
         try {
             door = roleplay.findSpecificRoomDoor(room, roomName, roomNum, false, false);
         } catch (InvalidInputException e) {
-            throw new RuntimeException(e);
+            return e.getMessage();
         }
 
         Room targetRoom = door.getOtherRoom(room);
