@@ -85,11 +85,7 @@ public class DoorCommand implements Command {
             return e.getMessage();
         }
 
-        try {
-            return "List of doors in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertDoorList(room.getDoors(), room, 1900);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
+        return "List of doors in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertDoorList(room.getDoors(), room, 1900);
 
     }
 
