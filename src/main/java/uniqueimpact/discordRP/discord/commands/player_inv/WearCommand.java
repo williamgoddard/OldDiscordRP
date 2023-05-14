@@ -1,14 +1,13 @@
-package uniqueimpact.discordRP.discord.commands.player;
+package uniqueimpact.discordRP.discord.commands.player_inv;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Item;
 import uniqueimpact.discordRP.things.Player;
-import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class UndressDropCommand implements Command {
+public class WearCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
@@ -26,23 +25,26 @@ public class UndressDropCommand implements Command {
 
         Item item;
         try {
-            item = character.getClothes().findItem(itemName, itemNum);
+            item = character.getInv().findItem(itemName, itemNum);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        Room room = character.getRoom();
-
-        if (item.getWeight() > room.getInv().getRemainingCapacity()) {
-            WebhookManager.sendSelf("*I can't take off and drop my " + item.getName() + " because the room is too full.*", character);
+        if (!item.isWearable()) {
+            WebhookManager.sendSelf("*I can't wear the " + item.getName() + ".*", character);
             return null;
         }
 
-        room.getInv().getItems().add(item);
-        character.getClothes().getItems().remove(item);
+        if (item.getWeight() > character.getClothes().getRemainingCapacity()) {
+            WebhookManager.sendSelf("*I can't wear my " + item.getName() + " because I would be wearing too much.*", character);
+            return null;
+        }
 
-        WebhookManager.sendSelf("*I took off and dropped my " + item.getName() + ".*", character);
-        WebhookManager.sendOthers("*" + character.getDisplayName() + " took off and dropped their " + item.getName() + ".*", character);
+        character.getClothes().getItems().add(item);
+        character.getInv().getItems().remove(item);
+
+        WebhookManager.sendSelf("*I put on my " + item.getName() + ".*", character);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " put on their " + item.getName() + ".*", character);
         return null;
 
     }

@@ -180,4 +180,5 @@ public class Room implements Serializable {
 		throw new InvalidInputException("Door not found.");
 
 	}
+
 }

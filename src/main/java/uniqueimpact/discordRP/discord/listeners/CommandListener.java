@@ -11,10 +11,9 @@ import uniqueimpact.discordRP.discord.commands.fun.EightBallCommand;
 import uniqueimpact.discordRP.discord.commands.fun.ExcuseCommand;
 import uniqueimpact.discordRP.discord.commands.fun.RollCommand;
 import uniqueimpact.discordRP.discord.commands.fun.SecretCommand;
-import uniqueimpact.discordRP.discord.commands.player.*;
+import uniqueimpact.discordRP.discord.commands.player_inv.*;
 import uniqueimpact.discordRP.things.Roleplay;
 
-import javax.management.relation.Role;
 import java.util.HashMap;
 import java.util.Map;
 

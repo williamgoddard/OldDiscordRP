@@ -1,4 +1,4 @@
-package uniqueimpact.discordRP.discord.commands.player;
+package uniqueimpact.discordRP.discord.commands.player_inv;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
@@ -8,7 +8,7 @@ import uniqueimpact.discordRP.things.Player;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class UndressCommand implements Command {
+public class UndressDropCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
@@ -31,16 +31,18 @@ public class UndressCommand implements Command {
             return e.getMessage();
         }
 
-        if (item.getWeight() > character.getInv().getRemainingCapacity()) {
-            WebhookManager.sendSelf("*I can't take off my " + item.getName() + " because I would be holding too much.*", character);
+        Room room = character.getRoom();
+
+        if (item.getWeight() > room.getInv().getRemainingCapacity()) {
+            WebhookManager.sendSelf("*I can't take off and drop my " + item.getName() + " because the room is too full.*", character);
             return null;
         }
 
-        character.getInv().getItems().add(item);
+        room.getInv().getItems().add(item);
         character.getClothes().getItems().remove(item);
 
-        WebhookManager.sendSelf("*I took off my " + item.getName() + ".*", character);
-        WebhookManager.sendOthers("*" + character.getDisplayName() + " took off their " + item.getName() + ".*", character);
+        WebhookManager.sendSelf("*I took off and dropped my " + item.getName() + ".*", character);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " took off and dropped their " + item.getName() + ".*", character);
         return null;
 
     }

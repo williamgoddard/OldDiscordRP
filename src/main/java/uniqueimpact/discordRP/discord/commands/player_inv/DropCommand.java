@@ -1,4 +1,4 @@
-package uniqueimpact.discordRP.discord.commands.player;
+package uniqueimpact.discordRP.discord.commands.player_inv;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;

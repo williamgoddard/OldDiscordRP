@@ -66,6 +66,37 @@ public class CommandSetup {
                         .setRequiredRange(1, Integer.MAX_VALUE)
         ));
 
+        // Look Command
+        commands.add(Commands.slash("look", "Look around at your surroundings.").addSubcommands(
+                new SubcommandData("room", "Look around at the room."),
+                new SubcommandData("item", "Look at an item in the room.").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", false)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, Integer.MAX_VALUE)
+                ),
+                new SubcommandData("character", "Look at a character in the room.").addOptions(
+                        new OptionData(OptionType.STRING, "character", "The name of the character", false)
+                                .setRequiredLength(1, 32)
+                )
+        ));
+
+        // Inv Command
+        commands.add(Commands.slash("inv", "Look at what you are currently holding.").addOptions(
+                new OptionData(OptionType.STRING, "item", "The name of the item", false)
+                        .setRequiredLength(1, 32),
+                new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
+
+        // CLothes command
+        commands.add(Commands.slash("clothes", "Look at what you are currently wearing.").addOptions(
+                new OptionData(OptionType.STRING, "item", "The name of the item", false)
+                        .setRequiredLength(1, 32),
+                new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                        .setRequiredRange(1, Integer.MAX_VALUE)
+        ));
+
         // Room Command
         commands.add(Commands.slash("room", "Command to perform admin actions on rooms").addSubcommands(
                 new SubcommandData("create", "Create a room").addOptions(
