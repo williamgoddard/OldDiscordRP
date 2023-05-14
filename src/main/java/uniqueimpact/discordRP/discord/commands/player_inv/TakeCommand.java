@@ -36,13 +36,11 @@ public class TakeCommand implements Command {
         }
 
         if (!item.isTakeable()) {
-            WebhookManager.sendSelf("*I can't take the " + item.getName() + ".*", character);
-            return null;
+            return "You can't take the 1" + item.getName() + "1.";
         }
 
         if (item.getWeight() > character.getInv().getRemainingCapacity()) {
-            WebhookManager.sendSelf("*I can't take the " + item.getName() + " because I would be holding too much.*", character);
-            return null;
+            return "You can't take the `" + item.getName() + "` because you would be holding too much.";
         }
 
         if (item.isInfinite()) {
@@ -58,23 +56,20 @@ public class TakeCommand implements Command {
             character.getInv().getItems().add(newItem);
 
             if (Arrays.asList('A', 'E', 'I', 'O', 'U', '8').contains(item.getName().toUpperCase().charAt(0))) {
-                WebhookManager.sendSelf("*I took an " + item.getName() + ".*", character);
                 WebhookManager.sendOthers("*" + character.getDisplayName() + " took an " + item.getName() + ".*" , character);
+                return "You took an `" + item.getName() + "`.";
             } else {
-                WebhookManager.sendSelf("*I took a " + item.getName() + ".*", character);
                 WebhookManager.sendOthers("*" + character.getDisplayName() + " took a " + item.getName() + ".*" , character);
+                return "You took a `" + item.getName() + "`.";
             }
-
-            return null;
 
         } else {
 
             character.getInv().getItems().add(item);
             room.getInv().getItems().remove(item);
 
-            WebhookManager.sendSelf("*I took the " + item.getName() + ".*", character);
             WebhookManager.sendOthers("*" + character.getDisplayName() + " took the " + item.getName() + ".*", character);
-            return null;
+            return "You took the `" + item.getName() + "`.";
 
         }
 

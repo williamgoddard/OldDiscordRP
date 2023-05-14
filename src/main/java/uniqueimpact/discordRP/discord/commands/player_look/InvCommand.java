@@ -33,12 +33,10 @@ public class InvCommand implements Command {
         if (itemName == null ) {
 
             if (items.size() == 0) {
-                WebhookManager.sendSelf("*I am currently not holding anything.*", player);
-                return null;
+                return "You are currently not holding anything.";
             }
 
-            WebhookManager.sendSelf("*I am currently holding these items:*\n" + DiscordOutputGenerator.convertItemList(items, 1900), player);
-            return null;
+            return "You are currently holding these items:*\n" + DiscordOutputGenerator.convertItemList(items, 1900);
 
         }
 
@@ -49,8 +47,7 @@ public class InvCommand implements Command {
             return e.getMessage();
         }
 
-        WebhookManager.sendSelf("*I examine the " + item.getName() + "*.\n" + DiscordOutputGenerator.convertItem(item), player);
-        return null;
+        return "You examine the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
 
     }
 

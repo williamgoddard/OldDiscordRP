@@ -34,18 +34,17 @@ public class GotoCommand implements Command {
             List<Door> uDoors = room.getSpecificDoors(false, false);
             List<Door> lDoors = room.getSpecificDoors(true, false);
 
-            String outputString = "*I look for places I can go.*\n";
+            String outputString = "You look for places you can go.\n";
             if (uDoors.size() > 0) {
-                outputString += "*I can go to these places from here:*\n" + DiscordOutputGenerator.convertDoorList(uDoors, room, 1000) + "\n";
+                outputString += "I can go to these places from here:\n" + DiscordOutputGenerator.convertDoorList(uDoors, room, 1000) + "\n";
             } else {
-                outputString += "*I can't go anywhere from here.*\n";
+                outputString += "I can't go anywhere from here.\n";
             }
             if (lDoors.size() > 0) {
-                outputString += "*The doors to these places are locked:*\n" + DiscordOutputGenerator.convertDoorList(lDoors, room, 800);
+                outputString += "The doors to these places are locked:\n" + DiscordOutputGenerator.convertDoorList(lDoors, room, 800);
             }
 
-            WebhookManager.sendSelf(outputString, character);
-            return null;
+            return outputString;
 
         }
 
@@ -68,12 +67,10 @@ public class GotoCommand implements Command {
 
         List<Player> players = targetRoom.getPlayers(false);
         if (players.size() > 1) {
-            WebhookManager.sendSelf("*I go to the " + targetRoom.getName() + ". I see these people here:*\n" + DiscordOutputGenerator.convertPlayerList(players, 1900), character);
+            return "You go to the " + targetRoom.getName() + ". You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
         } else {
-            WebhookManager.sendSelf("*I go to the " + targetRoom.getName() + ". I don't see anyone else here.*", character);
+            return "You go to the " + targetRoom.getName() + ". You don't see anyone else here.";
         }
-
-        return null;
 
     }
 

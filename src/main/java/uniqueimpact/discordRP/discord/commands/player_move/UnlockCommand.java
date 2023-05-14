@@ -40,14 +40,12 @@ public class UnlockCommand implements Command {
             Item item = items.get(i);
             if (!item.getKey().equals("") && item.getKey().equals(door.getLock())) {
                 door.setLocked(true);
-                WebhookManager.sendSelf("*I unlock the door to the " + roomName + " with the " + item.getName() + ".*", character);
-                WebhookManager.sendOthers("*" + character.getDisplayName() + " unlocks the door to the " + roomName + " with their " + item.getName() + ".*", character);
-                return null;
+                door.setLocked(true);WebhookManager.sendOthers("*" + character.getDisplayName() + " unlocks the door to the " + roomName + " with their " + item.getName() + ".*", character);
+                return "You unlock the door to the `" + roomName + "` with the `" + item.getName() + "`.*";
             }
         }
 
-        WebhookManager.sendSelf("*I don't have anything that can unlock the door to the " + roomName + ".*", character);
-        return null;
+        return "You don't have anything that can unlock the door to the `" + roomName + "`.";
 
     }
 

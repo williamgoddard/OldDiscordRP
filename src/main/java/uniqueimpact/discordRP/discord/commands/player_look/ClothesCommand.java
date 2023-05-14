@@ -33,12 +33,10 @@ public class ClothesCommand implements Command {
         if (itemName == null ) {
 
             if (items.size() == 0) {
-                WebhookManager.sendSelf("*I am currently not wearing much...*", player);
-                return null;
+                return "You are currently not wearing much...";
             }
 
-            WebhookManager.sendSelf("*I am currently wearing these clothes:*\n" + DiscordOutputGenerator.convertItemList(items, 1900), player);
-            return null;
+            return "You are currently wearing these clothes:*\n" + DiscordOutputGenerator.convertItemList(items, 1900);
 
         }
 
@@ -49,8 +47,7 @@ public class ClothesCommand implements Command {
             return e.getMessage();
         }
 
-        WebhookManager.sendSelf("*I examine my " + item.getName() + "*.\n" + DiscordOutputGenerator.convertItem(item), player);
-        return null;
+        return "You examine your `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
 
     }
 

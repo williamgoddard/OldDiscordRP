@@ -34,16 +34,14 @@ public class DropCommand implements Command {
         Room room = character.getRoom();
 
         if (item.getWeight() > room.getInv().getRemainingCapacity()) {
-            WebhookManager.sendSelf("*I can't drop the " + item.getName() + " because the room is too full.*", character);
-            return null;
+            return "You can't drop the `" + item.getName() + "` because the room is too full.";
         }
 
         room.getInv().getItems().add(item);
         character.getInv().getItems().remove(item);
 
-        WebhookManager.sendSelf("*I dropped the " + item.getName() + ".*", character);
-        WebhookManager.sendOthers("*" + character.getDisplayName() + " dropped their " + item.getName() + ".*", character);
-        return null;
+        WebhookManager.sendOthers(character.getDisplayName() + " dropped their " + item.getName() + ".", character);
+        return "You dropped the `" + item.getName() + "`.";
 
     }
 

@@ -31,21 +31,18 @@ public class WearCommand implements Command {
         }
 
         if (!item.isWearable()) {
-            WebhookManager.sendSelf("*I can't wear the " + item.getName() + ".*", character);
-            return null;
+            return "You can't wear the `" + item.getName() + "`.";
         }
 
         if (item.getWeight() > character.getClothes().getRemainingCapacity()) {
-            WebhookManager.sendSelf("*I can't wear my " + item.getName() + " because I would be wearing too much.*", character);
-            return null;
+            return "You can't wear the `" + item.getName() + "` because you would be wearing too much.";
         }
 
         character.getClothes().getItems().add(item);
         character.getInv().getItems().remove(item);
 
-        WebhookManager.sendSelf("*I put on my " + item.getName() + ".*", character);
         WebhookManager.sendOthers("*" + character.getDisplayName() + " put on their " + item.getName() + ".*", character);
-        return null;
+        return "You put on your `" + item.getName() + "`.";
 
     }
 

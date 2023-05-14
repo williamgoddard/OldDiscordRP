@@ -44,41 +44,7 @@ public class LookCommand implements Command {
 
         Room room = player.getRoom();
 
-        WebhookManager.sendSelf("*I am currently in the " + room.getName() + ".*\n" + room.getDescription(), player);
-
-        Inventory inv = player.getRoom().getInv();
-        List<Item> items = inv.getItems();
-
-        List<Item> tItems = new ArrayList<>();
-        List<Item> iItems = new ArrayList<>();
-        List<Item> uItems = new ArrayList<>();
-        for (Item item : items) {
-            if (!item.isTakeable()) {
-                uItems.add(item);
-            } else if (item.isInfinite()) {
-                iItems.add(item);
-            } else {
-                tItems.add(item);
-            }
-        }
-
-        String outputString = "*I take a look around...*\n";
-        if (tItems.size() > 0) {
-            outputString += "*I see these items:*\n" + DiscordOutputGenerator.convertItemList(tItems, 1000) + "\n";
-        } else if (iItems.size() == 0) {
-            outputString += "*I don't see any items here.*\n";
-        }
-        if (iItems.size() > 0) {
-            outputString += "*I see lots of these items:*\n" + DiscordOutputGenerator.convertItemList(iItems, 400) + "\n";
-        }
-        if (uItems.size() > 0) {
-            outputString += "*I see these objects:*\n" + DiscordOutputGenerator.convertItemList(uItems, 400);
-        } else {
-            outputString += "*I don't see any objects here.*";
-        }
-        WebhookManager.sendSelf(outputString, player);
-
-        return null;
+        return "You are currently in the `" + room.getName() + "`.\n" + room.getDescription();
 
     }
 
@@ -104,22 +70,21 @@ public class LookCommand implements Command {
         }
 
         if (itemName == null ) {
-            String outputString = "*I take a look around...*\n";
+            String outputString = "You take a look around...\n";
             if (tItems.size() > 0) {
-                outputString += "*I see these items:*\n" + DiscordOutputGenerator.convertItemList(tItems, 1000) + "\n";
+                outputString += "You see these items:\n" + DiscordOutputGenerator.convertItemList(tItems, 1000) + "\n";
             } else if (iItems.size() == 0) {
-                outputString += "*I don't see any items here.*\n";
+                outputString += "You don't see any items here.\n";
             }
             if (iItems.size() > 0) {
-                outputString += "*I see lots of these items:*\n" + DiscordOutputGenerator.convertItemList(iItems, 400) + "\n";
+                outputString += "You see lots of these items:\n" + DiscordOutputGenerator.convertItemList(iItems, 400) + "\n";
             }
             if (uItems.size() > 0) {
-                outputString += "*I see these objects:*\n" + DiscordOutputGenerator.convertItemList(uItems, 400);
+                outputString += "You see these objects:\n" + DiscordOutputGenerator.convertItemList(uItems, 400);
             } else {
-                outputString += "*I don't see any objects here.*";
+                outputString += "You don't see any objects here.";
             }
-            WebhookManager.sendSelf(outputString, player);
-            return null;
+            return outputString;
         }
 
         Item item;
@@ -129,8 +94,7 @@ public class LookCommand implements Command {
             return e.getMessage();
         }
 
-        WebhookManager.sendSelf("*I examine the " + item.getName() + "*.\n" + DiscordOutputGenerator.convertItem(item), player);
-        return null;
+        return "You examine the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
 
     }
 
@@ -143,11 +107,10 @@ public class LookCommand implements Command {
         if (characterName == null) {
             List<Player> players = room.getPlayers(false);
             if (players.size() > 1) {
-                WebhookManager.sendSelf("*I see these people here:*\n" + DiscordOutputGenerator.convertPlayerList(players, 1900), player);
+                return "You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
             } else {
-                WebhookManager.sendSelf("*I don't see anyone else here.*", player);
+                return "You don't see anyone else here.";
             }
-            return null;
         }
 
         Player otherPlayer;
@@ -157,17 +120,17 @@ public class LookCommand implements Command {
             return e.getMessage();
         }
 
-        WebhookManager.sendSelf("*I look at " + otherPlayer.getDisplayName() + ".*\n" + DiscordOutputGenerator.convertPlayer(otherPlayer), player);
+        String outputMessage = "You look at `" + otherPlayer.getDisplayName() + "`:\n" + DiscordOutputGenerator.convertPlayer(otherPlayer);
 
         Inventory targetClothesInv = otherPlayer.getClothes();
         List<Item> targetClothes = targetClothesInv.getItems();
         if (targetClothes.size() > 0) {
-            WebhookManager.sendSelf("*" + otherPlayer.getDisplayName() + " is currently wearing these clothes:*\n" + DiscordOutputGenerator.convertItemList(targetClothes, 1900), player);
+            outputMessage += "`" + otherPlayer.getDisplayName() + "` is currently wearing these clothes:\n" + DiscordOutputGenerator.convertItemList(targetClothes, 300);
         } else {
-            WebhookManager.sendSelf("*" + otherPlayer.getDisplayName() + " is currently not wearing much...*", player);
+            outputMessage += "`" + otherPlayer.getDisplayName() + "` is currently not wearing much...";
         }
 
-        return null;
+        return outputMessage;
 
     }
 

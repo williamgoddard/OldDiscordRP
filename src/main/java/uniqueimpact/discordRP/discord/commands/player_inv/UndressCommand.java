@@ -31,16 +31,14 @@ public class UndressCommand implements Command {
         }
 
         if (item.getWeight() > character.getInv().getRemainingCapacity()) {
-            WebhookManager.sendSelf("*I can't take off my " + item.getName() + " because I would be holding too much.*", character);
-            return null;
+            return "You can't take off your `" + item.getName() + "` because you would be holding too much.";
         }
 
         character.getInv().getItems().add(item);
         character.getClothes().getItems().remove(item);
 
-        WebhookManager.sendSelf("*I took off my " + item.getName() + ".*", character);
         WebhookManager.sendOthers("*" + character.getDisplayName() + " took off their " + item.getName() + ".*", character);
-        return null;
+        return "You took off your `" + item.getName() + "`.";
 
     }
 

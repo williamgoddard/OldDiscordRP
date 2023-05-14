@@ -127,7 +127,7 @@ public class CommandSetup {
                 new SubcommandData("create", "Create a room").addOptions(
                         new OptionData(OptionType.STRING, "name", "The name of the room", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "description", "The description of the room", false)
+                        new OptionData(OptionType.STRING, "description", "The description of the room", true)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "capacity", "The capacity of the room (Set to '0' for no limit)", false)
                                 .setRequiredRange(0.0, 1000000.0)
@@ -146,7 +146,7 @@ public class CommandSetup {
                                 .setRequiredRange(1, 1000000),
                         new OptionData(OptionType.STRING, "name", "The new name of the room", false)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "description", "The new description of the room (Set to 'none' to clear)", false)
+                        new OptionData(OptionType.STRING, "description", "The new description of the room", false)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "capacity", "The new capacity of the room (Set to '0' for no limit)", false)
                                 .setRequiredRange(0.0, 1000000.0)
@@ -166,6 +166,8 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.CHANNEL, "channel", "The channel linked to this character", true)
                                 .setChannelTypes(ChannelType.TEXT),
+                        new OptionData(OptionType.STRING, "description", "The description of the character", true)
+                                .setRequiredLength(1, 1500),
                         new OptionData(OptionType.STRING, "room", "The room the character is in", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
@@ -174,8 +176,6 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "picture", "The image URL of the character", false)
                                 .setRequiredLength(1, 200),
-                        new OptionData(OptionType.STRING, "description", "The description of the character", false)
-                                .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "items_capacity", "The capacity of the player's inventory (Set to '0' for no limit)", false)
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.NUMBER, "clothes_capacity", "The capacity of the player's clothes (Set to '0' for no limit)", false)
@@ -199,12 +199,12 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.CHANNEL, "channel", "The new channel linked to this character", false)
                                 .setChannelTypes(ChannelType.TEXT),
+                        new OptionData(OptionType.STRING, "description", "The description of the character", false)
+                                .setRequiredLength(1, 1500),
                         new OptionData(OptionType.STRING, "display_name", "The display name of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "picture", "The image URL of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 200),
-                        new OptionData(OptionType.STRING, "description", "The description of the character (Set to 'none' to clear)", false)
-                                .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "items_capacity", "The new capacity of the player's inventory (Set to '0' for no limit)", false)
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.NUMBER, "clothes_capacity", "The new capacity of the player's clothes (Set to '0' for no limit)", false)
@@ -230,7 +230,7 @@ public class CommandSetup {
                 new SubcommandData("create", "Create an item in the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "name", "The name of the item", true)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "description", "The description of the item", false)
+                        new OptionData(OptionType.STRING, "description", "The description of the item", true)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "weight", "The weight of the item", false)
                                 .setRequiredRange(0.0, 1000000.0),
@@ -255,7 +255,7 @@ public class CommandSetup {
                                 .setRequiredRange(1, 1000000),
                         new OptionData(OptionType.STRING, "name", "The new name of the item", false)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "description", "The new description of the item (Set to 'none' to clear)", false)
+                        new OptionData(OptionType.STRING, "description", "The new description of the item", false)
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
                                 .setRequiredRange(0.0, 1000000.0),
@@ -382,7 +382,7 @@ public class CommandSetup {
         ));
 
         // Update Commands
-        bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
+        bot.getGuildById("933432644857909339").updateCommands().queue();
 
     }
 

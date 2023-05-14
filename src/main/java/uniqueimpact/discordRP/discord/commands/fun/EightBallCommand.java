@@ -12,7 +12,7 @@ public class EightBallCommand implements Command {
     @Override
     public String run(SlashCommandInteractionEvent command) {
 
-        String question = command.getOption("sides").getAsString();
+        String question = command.getOption("question").getAsString();
 
         String output = "**You asked the 8-ball:** " + question + "\n**The 8-ball responded: **";
 

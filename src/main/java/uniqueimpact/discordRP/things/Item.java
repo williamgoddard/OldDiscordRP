@@ -24,7 +24,7 @@ public class Item implements Serializable {
 		if (!InputChecker.validDescription(description)) {
 			throw new InvalidInputException("Description must be 1500 characters at most, and may not use backslashes or quotation marks.");
 		}
-		if (!InputChecker.validKey(key)) {
+		if (key != null && !InputChecker.validKey(key)) {
 			throw new InvalidInputException("Key must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 		this.name = name;
