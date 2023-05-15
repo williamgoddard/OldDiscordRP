@@ -33,7 +33,7 @@ public class Door implements Serializable {
 		}
 
 		if (!(lock == null || InputChecker.validName(lock))) {
-			throw new InvalidInputException("Keyword must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Keyword must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		if (hidden != null) {

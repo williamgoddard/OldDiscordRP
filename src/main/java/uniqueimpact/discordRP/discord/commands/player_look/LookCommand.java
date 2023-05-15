@@ -115,7 +115,7 @@ public class LookCommand implements Command {
 
         Player otherPlayer;
         try {
-            otherPlayer = roleplay.findRoomPlayer(room, characterName, false);
+            otherPlayer = room.findPlayer(characterName, false);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

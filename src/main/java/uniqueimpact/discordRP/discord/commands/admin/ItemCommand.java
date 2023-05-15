@@ -4,9 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
-import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Item;
-import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.things.User;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -65,8 +63,8 @@ public class ItemCommand implements Command {
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
         Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : 0.0;
         Boolean takeable = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : true;
-        Boolean wearable = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
-        Boolean infinite = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
+        Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : false;
+        Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : false;
         String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
 
         Item item;

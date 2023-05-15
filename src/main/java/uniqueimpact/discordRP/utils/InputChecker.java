@@ -5,25 +5,15 @@ import java.util.regex.Pattern;
 public class InputChecker {
 	
 	public static boolean validName(String input) {
-		if (input.length() >= 1 && input.length() <= 40) {
-			Pattern pattern = Pattern.compile("^[a-zA-Z0-9_-]*$");
-			Matcher matcher = pattern.matcher(input);
-			return matcher.find();
-		}
-		return false;
+		return (input.length() >= 1 && input.length() <= 32);
 	}
 	
 	public static boolean validDisplayName(String input) {
-		if (input.length() >= 1 && input.length() <= 32) {
-			Pattern pattern = Pattern.compile("^[ a-zA-Z0-9_-]*$");
-			Matcher matcher = pattern.matcher(input);
-			return matcher.find();
-		}
-		return false;
+		return (input.length() >= 1 && input.length() <= 32);
 	}
 	
 	public static boolean validDiscordID(String input) {
-		if (input.length() >= 18 && input.length() <= 19) {
+		if (input.length() >= 18 && input.length() <= 20) {
 			Pattern pattern = Pattern.compile("^[0-9]*$");
 			Matcher matcher = pattern.matcher(input);
 			return matcher.find();
@@ -36,12 +26,7 @@ public class InputChecker {
 	}
 	
 	public static boolean validKey(String input) {
-		if (input.length() <= 40) {
-			Pattern pattern = Pattern.compile("^[a-zA-Z1-9_-]*$");
-			Matcher matcher = pattern.matcher(input);
-			return matcher.find();
-		}
-		return false;
+		return (input.length() <= 32);
 	}
 
 }

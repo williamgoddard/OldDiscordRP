@@ -20,7 +20,7 @@ public class Room implements Serializable {
 	public Room(String name, String description, Inventory inv) throws InvalidInputException {
 
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		if (!InputChecker.validDescription(description)) {
@@ -42,7 +42,7 @@ public class Room implements Serializable {
 		}
 
 		if (!(name == null || InputChecker.validName(name))) {
-			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		if (!(description == null || InputChecker.validDescription(description))) {
@@ -74,7 +74,7 @@ public class Room implements Serializable {
 	public void setName(String name) throws InvalidInputException {
 
 		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 40 characters at most, and may use only letters, numbers, hyphens and underscores.");
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
 		this.name = name;
@@ -116,10 +116,6 @@ public class Room implements Serializable {
 
 		return resultPlayers;
 
-	}
-
-	public void setPlayers(List<Player> players) {
-		this.players = players;
 	}
 
 	public List<Door> getDoors() {
@@ -165,10 +161,6 @@ public class Room implements Serializable {
 
 	}
 
-	public void setDoors(List<Door> doors) {
-		this.doors = doors;
-	}
-
 	public Door findDoor(Room room) throws InvalidInputException {
 
 		for (Door door : this.doors) {
@@ -178,6 +170,22 @@ public class Room implements Serializable {
 		}
 
 		throw new InvalidInputException("Door not found.");
+
+	}
+
+	public Player findPlayer(String characterName, boolean includeHidden) throws InvalidInputException {
+
+		if (!InputChecker.validName(characterName)) {
+			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		}
+
+		for (Player player : getPlayers()) {
+			if (player.getName().equalsIgnoreCase(characterName) && (includeHidden || !player.isHidden())) {
+				return player;
+			}
+		}
+
+		throw new InvalidInputException("The character could not be found.");
 
 	}
 
