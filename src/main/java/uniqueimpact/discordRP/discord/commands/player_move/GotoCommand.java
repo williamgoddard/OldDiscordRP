@@ -5,7 +5,7 @@ import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Door;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -20,7 +20,7 @@ public class GotoCommand implements Command {
         Integer roomNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
 
         String channelId = command.getChannel().getId();
-        Player character;
+        Chara character;
         try {
             character = roleplay.findPlayerByChannel(channelId);
         } catch (InvalidInputException e) {
@@ -65,7 +65,7 @@ public class GotoCommand implements Command {
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " enters from the " + room.getName() + ".*", character);
 
-        List<Player> players = targetRoom.getPlayers(false);
+        List<Chara> players = targetRoom.getPlayers(false);
         if (players.size() > 1) {
             return "You go to the " + targetRoom.getName() + ". You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
         } else {

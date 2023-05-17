@@ -5,7 +5,7 @@ import java.io.Serializable;
 import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class Player implements Serializable {
+public class Chara implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -20,7 +20,7 @@ public class Player implements Serializable {
 	private Inventory clothes;
 	private Room room;
 	
-	public Player(String channel, String webhook, String name, String displayName, String picture, String description, Boolean hidden, Inventory inv, Inventory clothes, Room room) throws InvalidInputException {
+	public Chara(String channel, String webhook, String name, String displayName, String picture, String description, Boolean hidden, Inventory inv, Inventory clothes, Room room) throws InvalidInputException {
 		if (!InputChecker.validDiscordID(channel)) {
 			throw new InvalidInputException("Discord channel ID must be an 18 digit number.");
 		}

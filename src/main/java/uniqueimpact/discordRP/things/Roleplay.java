@@ -19,18 +19,18 @@ public class Roleplay implements Serializable {
 
 	private List<User> users;
 	private List<Room> rooms;
-	private List<Player> players;
+	private List<Chara> charas;
 	
 	private Roleplay() {
 		try {
 			load();
 			users = instance.users;
 			rooms = instance.rooms;
-			players = instance.players;
+			charas = instance.charas;
 		} catch (Exception e) {
 			users = new ArrayList<>();
 			rooms = new ArrayList<>();
-			players = new ArrayList<>();
+			charas = new ArrayList<>();
 		}
 	}
 	
@@ -69,8 +69,8 @@ public class Roleplay implements Serializable {
 		return rooms;
 	}
 
-	public List<Player> getPlayers() {
-		return players;
+	public List<Chara> getCharas() {
+		return charas;
 	}
 
 	public User findUser(String discordId) throws InvalidInputException {
@@ -115,13 +115,13 @@ public class Roleplay implements Serializable {
 
 	}
 	
-	public Player findPlayer(String name) throws InvalidInputException {
+	public Chara findPlayer(String name) throws InvalidInputException {
 
 		if (!InputChecker.validName(name)) {
 			throw new InvalidInputException("Room name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
-		for (Player player : players) {
+		for (Chara player : charas) {
 			if (player.getName().equalsIgnoreCase(name)) {
 				return player;
 			}
@@ -131,13 +131,13 @@ public class Roleplay implements Serializable {
 
 	}
 	
-	public Player findPlayerByChannel(String channel) throws InvalidInputException {
+	public Chara findPlayerByChannel(String channel) throws InvalidInputException {
 
 		if (!InputChecker.validDiscordID(channel)) {
 			throw new InvalidInputException("Discord channel ID must be an 18 digit number.");
 		}
 
-		for (Player player : players) {
+		for (Chara player : charas) {
 			if (player.getChannel().equals(channel)) {
 				return player;
 			}

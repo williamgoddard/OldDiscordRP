@@ -4,7 +4,7 @@ import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import net.dv8tion.jda.api.entities.Webhook;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class WebhookManager {
 		}
 	}
 	
-	public static void sendSelf(String message, Player player) {
+	public static void sendSelf(String message, Chara player) {
 		
 		String webhook = player.getWebhook();
 		String name = player.getDisplayName();
@@ -51,7 +51,7 @@ public class WebhookManager {
 		
 	}
 	
-	public static void sendAll(String message, Player player) {
+	public static void sendAll(String message, Chara player) {
 		
 		Room room = player.getRoom();
 		String name = player.getDisplayName();
@@ -62,7 +62,7 @@ public class WebhookManager {
 		builder.setAvatarUrl(picture);
 		builder.setContent(message);
 		
-		for (Player toPlayer : room.getPlayers()) {
+		for (Chara toPlayer : room.getPlayers()) {
 			
 			String webhook = toPlayer.getWebhook();
 			
@@ -74,7 +74,7 @@ public class WebhookManager {
 		}
 	}
 	
-	public static void sendOthers(String message, Player player) {
+	public static void sendOthers(String message, Chara player) {
 		
 		Room room = player.getRoom();
 		String name = player.getDisplayName();
@@ -85,7 +85,7 @@ public class WebhookManager {
 		builder.setAvatarUrl(picture);
 		builder.setContent(message);
 		
-		for (Player toPlayer : room.getPlayers()) {
+		for (Chara toPlayer : room.getPlayers()) {
 			
 			if (player != toPlayer) {
 			

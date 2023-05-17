@@ -3,10 +3,9 @@ package uniqueimpact.discordRP.discord.commands.player_look;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
-import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Item;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class InvCommand implements Command {
         Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
 
         String channelId = command.getChannel().getId();
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayerByChannel(channelId);
         } catch (InvalidInputException e) {

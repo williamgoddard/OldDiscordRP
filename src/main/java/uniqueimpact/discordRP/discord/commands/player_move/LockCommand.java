@@ -17,7 +17,7 @@ public class LockCommand implements Command {
         Integer roomNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
 
         String channelId = command.getChannel().getId();
-        Player character;
+        Chara character;
         try {
             character = roleplay.findPlayerByChannel(channelId);
         } catch (InvalidInputException e) {

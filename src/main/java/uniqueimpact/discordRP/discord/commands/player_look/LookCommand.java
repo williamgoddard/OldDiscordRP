@@ -3,10 +3,9 @@ package uniqueimpact.discordRP.discord.commands.player_look;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
-import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Item;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -21,7 +20,7 @@ public class LookCommand implements Command {
         String path = command.getFullCommandName();
 
         String channelId = command.getChannel().getId();
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayerByChannel(channelId);
         } catch (InvalidInputException e) {
@@ -40,7 +39,7 @@ public class LookCommand implements Command {
         }
     }
 
-    private String room(SlashCommandInteractionEvent command, Player player) {
+    private String room(SlashCommandInteractionEvent command, Chara player) {
 
         Room room = player.getRoom();
 
@@ -48,7 +47,7 @@ public class LookCommand implements Command {
 
     }
 
-    private String item(SlashCommandInteractionEvent command, Player player) {
+    private String item(SlashCommandInteractionEvent command, Chara player) {
 
         String itemName = command.getOption("item") != null ? command.getOption("item").getAsString() : null;
         Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
@@ -98,14 +97,14 @@ public class LookCommand implements Command {
 
     }
 
-    private String character(SlashCommandInteractionEvent command, Player player) {
+    private String character(SlashCommandInteractionEvent command, Chara player) {
 
         String characterName = command.getOption("character") != null ? command.getOption("character").getAsString() : null;
 
         Room room = player.getRoom();
 
         if (characterName == null) {
-            List<Player> players = room.getPlayers(false);
+            List<Chara> players = room.getPlayers(false);
             if (players.size() > 1) {
                 return "You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
             } else {
@@ -113,7 +112,7 @@ public class LookCommand implements Command {
             }
         }
 
-        Player otherPlayer;
+        Chara otherPlayer;
         try {
             otherPlayer = room.findPlayer(characterName, false);
         } catch (InvalidInputException e) {

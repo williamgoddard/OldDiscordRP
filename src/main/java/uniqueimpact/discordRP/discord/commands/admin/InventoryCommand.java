@@ -3,13 +3,10 @@ package uniqueimpact.discordRP.discord.commands.admin;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
-import uniqueimpact.discordRP.things.Inventory;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.things.User;
 import uniqueimpact.discordRP.utils.InvalidInputException;
-
-import java.util.List;
 
 public class InventoryCommand implements Command {
 
@@ -71,7 +68,7 @@ public class InventoryCommand implements Command {
 
         String playerName = command.getOption("character").getAsString();
 
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayer(playerName);
         } catch (InvalidInputException e) {
@@ -102,7 +99,7 @@ public class InventoryCommand implements Command {
 
         String playerName = command.getOption("character").getAsString();
 
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayer(playerName);
         } catch (InvalidInputException e) {

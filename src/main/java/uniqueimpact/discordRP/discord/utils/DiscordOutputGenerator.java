@@ -6,7 +6,7 @@ import java.util.Map;
 
 import uniqueimpact.discordRP.things.Door;
 import uniqueimpact.discordRP.things.Item;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 
 public class DiscordOutputGenerator {
@@ -55,12 +55,12 @@ public class DiscordOutputGenerator {
 		return output;
 	}
 	
-	public static String convertPlayer(Player player) {
+	public static String convertPlayer(Chara player) {
 		return "Name: `" + player.getDisplayName() + "`\n" +
 				player.getDescription();
 	}
 	
-	public static String convertPlayerAdmin(Player player) {
+	public static String convertPlayerAdmin(Chara player) {
 		return "Name: `" + player.getDisplayName() + "`, " +
 				"Hidden: `" + player.isHidden() + "`, " +
 				"Max Items: `" + player.getInv().getCapacity() + "`, " +
@@ -69,12 +69,12 @@ public class DiscordOutputGenerator {
 				player.getDescription();
 	}
 	
-	public static String convertPlayerList(List<Player> players, int charLimit) {
+	public static String convertPlayerList(List<Chara> players, int charLimit) {
 		if (players.size() == 0) {
 			return "None";
 		}
 		Map<String, Integer> playerCounts = new HashMap<>();
-		for (Player player : players) {
+		for (Chara player : players) {
 			playerCounts.put(player.getName(), playerCounts.getOrDefault(player.getName(), 0) + 1);
 		}
 		String output = "";

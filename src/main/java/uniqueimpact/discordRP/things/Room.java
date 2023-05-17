@@ -14,7 +14,7 @@ public class Room implements Serializable {
 	private String name;
 	private String description;
 	private Inventory inv;
-	private List<Player> players;
+	private List<Chara> players;
 	private List<Door> doors;
 	
 	public Room(String name, String description, Inventory inv) throws InvalidInputException {
@@ -101,14 +101,14 @@ public class Room implements Serializable {
 		this.inv = inv;
 	}
 
-	public List<Player> getPlayers() {
+	public List<Chara> getPlayers() {
 		return players;
 	}
 	
-	public List<Player> getPlayers(Boolean includeHidden) {
+	public List<Chara> getPlayers(Boolean includeHidden) {
 
-		List<Player> resultPlayers = new ArrayList<>();
-		for (Player player : players) {
+		List<Chara> resultPlayers = new ArrayList<>();
+		for (Chara player : players) {
 			if (includeHidden || !player.isHidden()) {
 				resultPlayers.add(player);
 			}
@@ -173,13 +173,13 @@ public class Room implements Serializable {
 
 	}
 
-	public Player findPlayer(String characterName, boolean includeHidden) throws InvalidInputException {
+	public Chara findPlayer(String characterName, boolean includeHidden) throws InvalidInputException {
 
 		if (!InputChecker.validName(characterName)) {
 			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 
-		for (Player player : getPlayers()) {
+		for (Chara player : getPlayers()) {
 			if (player.getName().equalsIgnoreCase(characterName) && (includeHidden || !player.isHidden())) {
 				return player;
 			}

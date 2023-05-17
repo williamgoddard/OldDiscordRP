@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Roleplay;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -30,7 +30,7 @@ public class MessageListener implements EventListener {
 			return;
 		}
 
-		Player player;
+		Chara player;
 		try {
 			player = roleplay.findPlayerByChannel(messageEvent.getChannel().getId());
 		} catch (InvalidInputException e) {

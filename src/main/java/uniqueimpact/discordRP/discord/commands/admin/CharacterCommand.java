@@ -7,7 +7,7 @@ import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Inventory;
-import uniqueimpact.discordRP.things.Player;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -91,15 +91,15 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        Player player;
+        Chara player;
         try {
-            player = new Player(channelId, webhook, name, displayName, picture, description, hidden, inv, clothes, room);
+            player = new Chara(channelId, webhook, name, displayName, picture, description, hidden, inv, clothes, room);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
         room.getPlayers().add(player);
-        roleplay.getPlayers().add(player);
+        roleplay.getCharas().add(player);
 
         return "The character was added successfully.";
 
@@ -111,7 +111,7 @@ public class CharacterCommand implements Command {
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
         if (roomName == null) {
-            return "Characters:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getPlayers(), 1800);
+            return "Characters:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getCharas(), 1800);
         }
 
         Room room;
@@ -129,7 +129,7 @@ public class CharacterCommand implements Command {
 
         String name = command.getOption("character").getAsString();
 
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayer(name);
         } catch (InvalidInputException e) {
@@ -152,7 +152,7 @@ public class CharacterCommand implements Command {
         Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : null;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
 
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayer(name);
         } catch (InvalidInputException e) {
@@ -199,7 +199,7 @@ public class CharacterCommand implements Command {
         String roomName = command.getOption("room").getAsString();
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayer(name);
         } catch (InvalidInputException e) {
@@ -225,14 +225,14 @@ public class CharacterCommand implements Command {
 
         String name = command.getOption("character").getAsString();
 
-        Player player;
+        Chara player;
         try {
             player = roleplay.findPlayer(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        roleplay.getPlayers().remove(player);
+        roleplay.getCharas().remove(player);
         player.getRoom().getPlayers().remove(player);
 
         return  "The character was deleted successfully.";
