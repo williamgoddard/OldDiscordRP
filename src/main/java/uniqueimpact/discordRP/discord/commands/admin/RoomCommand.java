@@ -91,7 +91,7 @@ public class RoomCommand implements Command {
 
         String newName = (command.getOption("name") != null) ? command.getOption("name").getAsString() : null;
         String description = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
-        double capacity = (command.getOption("capacity") != null) ? command.getOption("name").getAsDouble() : 0.0;
+        double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : 0.0;
 
         Room room;
         try {

@@ -8,7 +8,6 @@ import uniqueimpact.discordRP.things.Door;
 import uniqueimpact.discordRP.things.Item;
 import uniqueimpact.discordRP.things.Player;
 import uniqueimpact.discordRP.things.Room;
-import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class DiscordOutputGenerator {
 	
@@ -100,7 +99,7 @@ public class DiscordOutputGenerator {
 				"Room 2: `" + door.getRoom2() + "`, " +
 				"Hidden: `" + door.isHidden() + "`, " +
 				"Locked: `" + door.isLocked() + "`, " +
-				"Lock: `" + ((door.getLock().equals("")) ? "none" : door.getLock()) + "`";
+				"Lock: `" + ((door.getKeyword().equals("")) ? "none" : door.getKeyword()) + "`";
 	}
 	
 	public static String convertDoorList(List<Door> doors, Room currentRoom, int charLimit) {

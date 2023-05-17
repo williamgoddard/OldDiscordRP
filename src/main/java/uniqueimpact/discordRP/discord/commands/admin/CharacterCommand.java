@@ -43,9 +43,12 @@ public class CharacterCommand implements Command {
 
     private String create(SlashCommandInteractionEvent command) {
 
+        // Required Fields
         String name = command.getOption("name").getAsString();
         TextChannel channel = command.getOption("channel").getAsChannel().asTextChannel();
         String roomName = command.getOption("room").getAsString();
+
+        // Optional Fields
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
         String displayName = command.getOption("display_name") != null ? command.getOption("display_name").getAsString() : name;
         String picture = command.getOption("picture") != null ? command.getOption("picture").getAsString() : null;

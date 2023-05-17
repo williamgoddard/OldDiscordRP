@@ -13,17 +13,17 @@ public class Door implements Serializable {
 	private Room room2;
 	private boolean hidden;
 	private boolean locked;
-	private String lock;
+	private String keyword;
 	
-	public Door(Room room1, Room room2, boolean hidden, boolean locked, String lock) throws InvalidInputException {
-		if (!InputChecker.validKey(lock)) {
+	public Door(Room room1, Room room2, boolean hidden, boolean locked, String keyword) throws InvalidInputException {
+		if (!InputChecker.validKey(keyword)) {
 			throw new InvalidInputException("Lock must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
 		this.room1 = room1;
 		this.room2 = room2;
 		this.hidden = hidden;
 		this.locked = locked;
-		this.lock = lock;
+		this.keyword = keyword;
 	}
 
 	public void edit(Boolean hidden, Boolean locked, String lock) throws InvalidInputException {
@@ -45,7 +45,7 @@ public class Door implements Serializable {
 		}
 
 		if (lock != null) {
-			this.lock = lock;
+			this.keyword = lock;
 		}
 
 	}
@@ -82,15 +82,15 @@ public class Door implements Serializable {
 		this.locked = locked;
 	}
 
-	public String getLock() {
-		return lock;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setLock(String lock) throws InvalidInputException {
-		if (!InputChecker.validKey(lock)) {
-			throw new InvalidInputException("Lock must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+	public void setKeyword(String keyword) throws InvalidInputException {
+		if (!InputChecker.validKey(keyword)) {
+			throw new InvalidInputException("Keyword must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
 		}
-		this.lock = lock;
+		this.keyword = keyword;
 	}
 	
 	public Room getOtherRoom(Room room) {

@@ -27,6 +27,7 @@ public class SecretCommand implements Command {
             case "jacob": return "slavery is fun!";
             case "door": return "You open the secret door and that leads you to another secret door!";
             case "doctor": return "Doctor Who?";
+            case "your mother": return "is gay";
             default: return "Nope, that's not a secret command.";
         }
 
