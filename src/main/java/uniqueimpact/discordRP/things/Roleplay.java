@@ -199,21 +199,37 @@ public class Roleplay implements Serializable {
 	}
 
 	// Delete a room from the roleplay
-	// TODO Remove doors to connecting rooms
-	// TODO Remove inventory from user clipboards
-	public void delRoom(Room room) {
+	public void delRoom(Room room) throws InvalidInputException {
+
 		this.rooms.remove(room);
+
+		for (Door door : room.getDoors()) {
+			door.getOtherRoom(room).delDoor(door);
+		}
+
+		for (User user : users) {
+			if (user.getInventory() == room.getInv()) {
+				user.setInventory(null);
+			}
+		}
+
 	}
 
 	// Delete a character from the roleplay
-	// TODO Remove inventories from user clipboards
 	public void delCharacter(Chara character) {
+
+		for (User user : users) {
+			if (user.getInventory() == character.getInv() || user.getInventory() == character.getClothes()) {
+				user.setInventory(null);
+			}
+		}
+
 		this.charas.remove(character);
+
 	}
 
 	@Deprecated
 	// Find a door from a room
-	// TODO Add method to room instead of here
 	public Door findSpecificRoomDoor(Room room, String otherRoomName, int num, boolean locked, boolean includeHidden) throws InvalidInputException {
 		List<Door> matchingDoors = new ArrayList<>();
 		for (int i = 0; i < room.getSpecificDoors(locked, includeHidden).size(); i++) {
