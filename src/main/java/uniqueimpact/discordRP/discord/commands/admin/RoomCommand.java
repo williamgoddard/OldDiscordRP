@@ -130,7 +130,12 @@ public class RoomCommand implements Command {
 
         for (int i = 0; i < room.getDoors().size(); i++) {
             Door door = room.getDoors().get(i);
-            Room otherRoom = door.getOtherRoom(room);
+            Room otherRoom = null;
+            try {
+                otherRoom = door.getOtherRoom(room);
+            } catch (InvalidInputException e) {
+                return e.getMessage();
+            }
             otherRoom.getDoors().remove(door);
         }
 

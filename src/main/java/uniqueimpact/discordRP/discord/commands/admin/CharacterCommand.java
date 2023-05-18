@@ -11,6 +11,8 @@ import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
+import java.util.List;
+
 public class CharacterCommand implements Command {
 
     @Override
@@ -47,12 +49,12 @@ public class CharacterCommand implements Command {
         String name = command.getOption("name").getAsString();
         TextChannel channel = command.getOption("channel").getAsChannel().asTextChannel();
         String roomName = command.getOption("room").getAsString();
+        String description = command.getOption("description").getAsString();
 
         // Optional Fields
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
         String displayName = command.getOption("display_name") != null ? command.getOption("display_name").getAsString() : name;
         String picture = command.getOption("picture") != null ? command.getOption("picture").getAsString() : null;
-        String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
         Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : 0.0;
         Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : 0.0;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
@@ -67,9 +69,6 @@ public class CharacterCommand implements Command {
             return "A character is already linked to that channel.";
         } catch (InvalidInputException ignored) {}
 
-        String channelId = channel.getId();
-        String webhook = WebhookManager.createOrGetWebhook(channel);
-
         Room room;
         try {
             room = roleplay.findRoom(roomName, roomNum);
@@ -77,31 +76,17 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        Inventory inv;
+        Chara character;
         try {
-            inv = new Inventory(itemsCapacity);
+            character = new Chara(channel, name, displayName, picture, description, hidden, itemsCapacity, clothesCapacity, room);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        Inventory clothes;
-        try {
-            clothes = new Inventory(clothesCapacity);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
+        room.addCharacter(character);
+        roleplay.addCharacter(character);
 
-        Chara player;
-        try {
-            player = new Chara(channelId, webhook, name, displayName, picture, description, hidden, inv, clothes, room);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
-
-        room.getCharacters().add(player);
-        roleplay.getCharas().add(player);
-
-        return "The character was added successfully.";
+        return "The character was created successfully.";
 
     }
 
@@ -111,7 +96,13 @@ public class CharacterCommand implements Command {
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
         if (roomName == null) {
-            return "Characters:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getCharas(), 1800);
+            List<Chara> characters = roleplay.getCharas();
+
+            if (characters.size() == 0) {
+                return "No characters are currently registered.";
+            }
+
+            return "List of characters registered to the roleplay:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getCharas(), 1900);
         }
 
         Room room;
@@ -121,7 +112,13 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertPlayerList(room.getCharacters(), 1800);
+        List<Chara> characters = room.getCharacters();
+
+        if (characters.size() == 0) {
+            return "There are no characters in room `" + roomName + "`.";
+        }
+
+        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertPlayerList(room.getCharacters(), 1900);
 
     }
 
@@ -129,14 +126,14 @@ public class CharacterCommand implements Command {
 
         String name = command.getOption("character").getAsString();
 
-        Chara player;
+        Chara character;
         try {
-            player = roleplay.findCharacter(name);
+            character = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        return DiscordOutputGenerator.convertPlayerAdmin(player);
+        return DiscordOutputGenerator.convertPlayerAdmin(character);
 
     }
 
@@ -150,11 +147,11 @@ public class CharacterCommand implements Command {
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
         Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : null;
         Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : null;
-        Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
+        Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
 
-        Chara player;
+        Chara character;
         try {
-            player = roleplay.findCharacter(name);
+            character = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -167,29 +164,74 @@ public class CharacterCommand implements Command {
         }
 
         if (channel != null) {
-
             try {
                 roleplay.findCharacterByChannel(channel.getId());
                 return "A character is already linked to that channel.";
             } catch (InvalidInputException ignored) {}
+        }
 
-            String channelId = channel.getId();
-            String webhook = WebhookManager.createOrGetWebhook(channel);
+        String response = "";
 
+        if (newName != null) {
             try {
-                player.edit(channelId, webhook, newName, displayName, picture, description, hidden, itemsCapacity, clothesCapacity);
+                character.setName(newName);
+                response += "The character's name was edited successfully.\n";
             } catch (InvalidInputException e) {
-                return e.getMessage();
+                response += "The character's name was not edited: " + e.getMessage() + "\n";
             }
         }
 
-        try {
-            player.edit(null, null, newName, displayName, picture, description, hidden, itemsCapacity, clothesCapacity);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
+        if (channel != null) {
+            character.setChannel(channel);
+            response += "The character's channel was edited successfully.\n";
         }
 
-        return "The character was edited successfully.";
+        if (description != null) {
+            try {
+                character.setDescription(description);
+            } catch (InvalidInputException e) {
+                response += "The character's description was not edited: " + e.getMessage() + "\n";
+            }
+            response += "The character's channel was edited successfully.\n";
+        }
+
+        if (displayName != null) {
+            try {
+                character.setDisplayName(displayName);
+            } catch (InvalidInputException e) {
+                response += "The character's display name was not edited: " + e.getMessage() + "\n";
+            }
+            response += "The character's channel was edited successfully.\n";
+        }
+
+        if (picture != null) {
+            character.setPicture(picture);
+            response += "The character's channel was edited successfully.\n";
+        }
+
+        if (itemsCapacity != null) {
+            try {
+                character.getInv().setCapacity(itemsCapacity);
+                response += "The character's inventory capacity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The character's inventory capacity was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (clothesCapacity != null) {
+            try {
+                character.getClothes().setCapacity(clothesCapacity);
+                response += "The character's clothes capacity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The character's clothes capacity was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (response.equals("")) {
+            return "The character was not edited: At least one field must be selected for editing.";
+        }
+
+        return response;
 
     }
 
@@ -199,9 +241,9 @@ public class CharacterCommand implements Command {
         String roomName = command.getOption("room").getAsString();
         Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
 
-        Chara player;
+        Chara character;
         try {
-            player = roleplay.findCharacter(name);
+            character = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -213,9 +255,9 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        player.getRoom().getCharacters().remove(player);
-        player.setRoom(room);
-        room.getCharacters().add(player);
+        character.getRoom().delCharacter(character);
+        character.setRoom(room);
+        room.addCharacter(character);
 
         return "The character was moved successfully.";
 
@@ -225,15 +267,14 @@ public class CharacterCommand implements Command {
 
         String name = command.getOption("character").getAsString();
 
-        Chara player;
+        Chara character;
         try {
-            player = roleplay.findCharacter(name);
+            character = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        roleplay.getCharas().remove(player);
-        player.getRoom().getCharacters().remove(player);
+        roleplay.delCharacter(character);
 
         return  "The character was deleted successfully.";
 

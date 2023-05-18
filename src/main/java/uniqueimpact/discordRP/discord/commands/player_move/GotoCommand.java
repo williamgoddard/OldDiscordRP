@@ -55,7 +55,12 @@ public class GotoCommand implements Command {
             return e.getMessage();
         }
 
-        Room targetRoom = door.getOtherRoom(room);
+        Room targetRoom;
+        try {
+            targetRoom = door.getOtherRoom(room);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " leaves to the " + targetRoom.getName() + ".*", character);
 

@@ -224,6 +224,8 @@ public class Roleplay implements Serializable {
 			}
 		}
 
+		character.getRoom().delCharacter(character);
+
 		this.charas.remove(character);
 
 	}

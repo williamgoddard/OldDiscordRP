@@ -141,6 +141,29 @@ public class Room implements Serializable {
 		return this.findDoor(otherRoom, null, null);
 	}
 
+	// Find a specific door by the name and number of the other room, matching hidden and locked
+	public Door findDoor(String otherRoomName, int num, Boolean locked, Boolean hidden) throws InvalidInputException {
+
+		int doorsFound = 0;
+
+		for (Door door : getSpecificDoors(locked, hidden)) {
+			if (door.getOtherRoom(this).getName().toLowerCase().equals(otherRoomName)) {
+				doorsFound++;
+				if (doorsFound == num) {
+					return door;
+				}
+			}
+		}
+
+		throw new InvalidInputException("Door not found. There are " + doorsFound + " matching doors.");
+
+	}
+
+	// Find a specific door by the name and number of the other room
+	public Door findDoor(String otherRoomName, int num) throws InvalidInputException {
+		return findDoor(otherRoomName, num, null, null);
+	}
+
 	// Find a specific character in the room by name, matching hidden
 	public Chara findCharacter(String name, Boolean hidden) throws InvalidInputException {
 
