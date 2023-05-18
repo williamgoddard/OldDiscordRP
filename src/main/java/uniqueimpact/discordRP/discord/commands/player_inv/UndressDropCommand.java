@@ -19,7 +19,7 @@ public class UndressDropCommand implements Command {
         String channelId = command.getChannel().getId();
         Chara character;
         try {
-            character = roleplay.findPlayerByChannel(channelId);
+            character = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

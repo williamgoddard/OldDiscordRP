@@ -122,7 +122,7 @@ public class RoomCommand implements Command {
             return e.getMessage();
         }
 
-        if (room.getPlayers().size() > 0) {
+        if (room.getCharacters().size() > 0) {
             return "The room could not be deleted because it contains characters.";
         }
 

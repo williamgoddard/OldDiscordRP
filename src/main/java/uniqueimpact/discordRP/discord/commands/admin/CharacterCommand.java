@@ -58,12 +58,12 @@ public class CharacterCommand implements Command {
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
 
         try {
-            roleplay.findPlayer(name);
+            roleplay.findCharacter(name);
             return "A character with that name already exists.";
         } catch (InvalidInputException ignored) {}
 
         try {
-            roleplay.findPlayerByChannel(channel.getId());
+            roleplay.findCharacterByChannel(channel.getId());
             return "A character is already linked to that channel.";
         } catch (InvalidInputException ignored) {}
 
@@ -98,7 +98,7 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        room.getPlayers().add(player);
+        room.getCharacters().add(player);
         roleplay.getCharas().add(player);
 
         return "The character was added successfully.";
@@ -121,7 +121,7 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertPlayerList(room.getPlayers(), 1800);
+        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertPlayerList(room.getCharacters(), 1800);
 
     }
 
@@ -131,7 +131,7 @@ public class CharacterCommand implements Command {
 
         Chara player;
         try {
-            player = roleplay.findPlayer(name);
+            player = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -154,14 +154,14 @@ public class CharacterCommand implements Command {
 
         Chara player;
         try {
-            player = roleplay.findPlayer(name);
+            player = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
         if (newName != null) {
             try {
-                roleplay.findPlayer(newName);
+                roleplay.findCharacter(newName);
                 return "A character with that name already exists.";
             } catch (InvalidInputException ignored) {}
         }
@@ -169,7 +169,7 @@ public class CharacterCommand implements Command {
         if (channel != null) {
 
             try {
-                roleplay.findPlayerByChannel(channel.getId());
+                roleplay.findCharacterByChannel(channel.getId());
                 return "A character is already linked to that channel.";
             } catch (InvalidInputException ignored) {}
 
@@ -201,7 +201,7 @@ public class CharacterCommand implements Command {
 
         Chara player;
         try {
-            player = roleplay.findPlayer(name);
+            player = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -213,9 +213,9 @@ public class CharacterCommand implements Command {
             return e.getMessage();
         }
 
-        player.getRoom().getPlayers().remove(player);
+        player.getRoom().getCharacters().remove(player);
         player.setRoom(room);
-        room.getPlayers().add(player);
+        room.getCharacters().add(player);
 
         return "The character was moved successfully.";
 
@@ -227,13 +227,13 @@ public class CharacterCommand implements Command {
 
         Chara player;
         try {
-            player = roleplay.findPlayer(name);
+            player = roleplay.findCharacter(name);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
         roleplay.getCharas().remove(player);
-        player.getRoom().getPlayers().remove(player);
+        player.getRoom().getCharacters().remove(player);
 
         return  "The character was deleted successfully.";
 

@@ -21,7 +21,7 @@ public class InvCommand implements Command {
         String channelId = command.getChannel().getId();
         Chara player;
         try {
-            player = roleplay.findPlayerByChannel(channelId);
+            player = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

@@ -14,29 +14,41 @@ public class Inventory implements Serializable {
 	private double capacity;
 	private List<Item> items;
 	
-	public Inventory(Double capacity) throws InvalidInputException {
-
-		if (capacity == null) {
-			capacity = 0.0;
-		}
+	public Inventory(double capacity) throws InvalidInputException {
 
 		if (capacity < 0) {
 			throw new InvalidInputException("Inventory capacity must be at least 0.");
+		}
+
+		if (capacity > 1000000) {
+			throw new InvalidInputException("Inventory capacity must be at most 1000000.");
 		}
 
 		this.capacity = capacity;
 		this.items = new ArrayList<Item>();
 
 	}
-	
+
+	// Get the inventory's capacity
 	public double getCapacity() {
 		return capacity;
 	}
-	
-	public void setCapacity(double capacity) throws InvalidInputException {
+
+	// Set the inventory's capacity
+	public void setCapacity(Double capacity) throws InvalidInputException {
+
+		if (capacity == null) {
+			return;
+		}
+
 		if (capacity < 0) {
 			throw new InvalidInputException("Inventory capacity must be at least 0.");
 		}
+
+		if (capacity > 1000000) {
+			throw new InvalidInputException("Inventory capacity must be at most 1000000.");
+		}
+
 		this.capacity = capacity;
 	}
 
@@ -44,22 +56,15 @@ public class Inventory implements Serializable {
 		return items;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
-	
-	public double getRemainingCapacity() {
-		double remainingCapacity = capacity;
-		for (int i = 0; i < items.size(); i++) {
-			remainingCapacity -= items.get(i).getWeight();
+	// Find an item from its name and number, filtering by takeable, wearable, and infinite
+	public Item findItem(String name, int num, Boolean takeble, Boolean wearable, Boolean infinite) throws InvalidInputException {
+
+		if (name == null) {
+			throw new InvalidInputException("Item name must be assigned.");
 		}
-		return remainingCapacity;
-	}
 
-	public Item findItem(String name, int num) throws InvalidInputException {
-
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Item name must be between 1 and 32 characters.");
 		}
 
 		if (num < 1) {
@@ -70,7 +75,9 @@ public class Inventory implements Serializable {
 
 		for (Item item : items) {
 			if (item.getName().equalsIgnoreCase(name)) {
-				matchingItems.add(item);
+				if ((takeble == null || item.isTakeable() == takeble) && (wearable == null || item.isWearable() == wearable) && (infinite == null || item.isInfinite() == infinite)) {
+					matchingItems.add(item);
+				}
 			}
 		}
 
@@ -82,8 +89,38 @@ public class Inventory implements Serializable {
 
 	}
 
+	// Find an item in the inventory from its name and number
+	public Item findItem(String name, int num) throws InvalidInputException {
+
+		return findItem(name, num, null, null, null);
+
+	}
+
+	// Find the first matching item in an inventory from its name, filtering by takeable, wearable and infinite
+	public Item findItem(String name, Boolean takeble, Boolean wearable, Boolean infinite) throws InvalidInputException {
+		return findItem(name, 1, takeble, wearable, infinite);
+	}
+
+	// Find the first matching item in an inventory from its name
 	public Item findItem(String name) throws InvalidInputException {
-		return findItem(name, 1);
+		return findItem(name, 1, null, null, null);
+	}
+
+	// Get the remaining capacity of the inventory
+	public double getRemainingCapacity() {
+
+		double remaining_capacity = capacity;
+		for (Item item : items) {
+			remaining_capacity -= item.getWeight();
+		}
+
+		return remaining_capacity;
+
+	}
+
+	// Get whether this inventory has enough capacity for an item
+	public boolean canFitItem(Item item) {
+		return (item.getWeight()) <= this.getRemainingCapacity();
 	}
 
 }

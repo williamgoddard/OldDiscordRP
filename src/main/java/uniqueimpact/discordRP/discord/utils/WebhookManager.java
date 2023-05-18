@@ -62,7 +62,7 @@ public class WebhookManager {
 		builder.setAvatarUrl(picture);
 		builder.setContent(message);
 		
-		for (Chara toPlayer : room.getPlayers()) {
+		for (Chara toPlayer : room.getCharacters()) {
 			
 			String webhook = toPlayer.getWebhook();
 			
@@ -85,7 +85,7 @@ public class WebhookManager {
 		builder.setAvatarUrl(picture);
 		builder.setContent(message);
 		
-		for (Chara toPlayer : room.getPlayers()) {
+		for (Chara toPlayer : room.getCharacters()) {
 			
 			if (player != toPlayer) {
 			

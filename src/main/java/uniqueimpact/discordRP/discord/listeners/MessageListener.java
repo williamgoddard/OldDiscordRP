@@ -32,7 +32,7 @@ public class MessageListener implements EventListener {
 
 		Chara player;
 		try {
-			player = roleplay.findPlayerByChannel(messageEvent.getChannel().getId());
+			player = roleplay.findCharacterByChannel(messageEvent.getChannel().getId());
 		} catch (InvalidInputException e) {
 			return;
 		}

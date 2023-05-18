@@ -15,27 +15,169 @@ public class Item implements Serializable {
 	private boolean takeable;
 	private boolean wearable;
 	private boolean infinite;
-	private String key;
+	private String keyword;
 	
-	public Item(String name, String description, double weight, boolean takeable, boolean wearable, boolean infinite, String key) throws InvalidInputException {
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+	public Item(String name, String description, double weight, boolean takeable, boolean wearable, boolean infinite, String keyword) throws InvalidInputException {
+
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Item name must be between 1 and 32 characters.");
 		}
-		if (!InputChecker.validDescription(description)) {
-			throw new InvalidInputException("Description must be 1500 characters at most, and may not use backslashes or quotation marks.");
+
+		if (description.length() < 1 || description.length() > 1500) {
+			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
 		}
-		if (key != null && !InputChecker.validKey(key)) {
-			throw new InvalidInputException("Key must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+
+		if (keyword.length() < 1 || keyword.length() > 32) {
+			throw new InvalidInputException("Keyword must be between 1 and 32 characters.");
 		}
+
+		if (weight < 0 || weight > 1000000) {
+			throw new InvalidInputException("Item weight must be between 0 and 1000000.");
+		}
+
 		this.name = name;
 		this.description = description;
 		this.weight = weight;
 		this.takeable = takeable;
 		this.wearable = wearable;
 		this.infinite = infinite;
-		this.key = key;
+		this.keyword = keyword.equalsIgnoreCase("none") ? null : keyword;
+
 	}
 
+	// Get the item's name
+	public String getName() {
+		return name;
+	}
+
+	// Set the item's name
+	public void setName(String name) throws InvalidInputException {
+
+		if (name == null) {
+			return;
+		}
+
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Item name must be between 1 and 32 characters.");
+		}
+
+		this.name = name;
+
+	}
+
+	// Get the item's description
+	public String getDescription() {
+		return description;
+	}
+
+	// Set the item's description
+	public void setDescription(String description) throws InvalidInputException {
+
+		if (description == null) {
+			return;
+		}
+
+		if (description.length() < 1 || description.length() > 1500) {
+			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
+		}
+
+		this.description = description;
+
+	}
+
+	// Get the item's weight
+	public double getWeight() {
+		return weight;
+	}
+
+	// Set the item's weight
+	public void setWeight(Double weight) throws InvalidInputException {
+
+		if (weight == null) {
+			return;
+		}
+
+		if (weight < 0 || weight > 1000000) {
+			throw new InvalidInputException("Item weight must be between 0 and 1000000.");
+		}
+
+		this.weight = weight;
+
+	}
+
+ 	// Get whether the item is takeable
+	public boolean isTakeable() {
+		return takeable;
+	}
+
+	// Set whether the item is takeable
+	public void setTakeable(Boolean takeable) {
+		if (takeable == null) {
+			return;
+		}
+
+		this.takeable = takeable;
+	}
+
+	// Get whether the item is wearable
+	public boolean isWearable() {
+		return wearable;
+	}
+
+	// Set whether the item is wearable
+	public void setWearable(Boolean wearable) {
+		if (wearable == null) {
+			return;
+		}
+
+		this.wearable = wearable;
+	}
+
+	// Get whether the item is infinite
+	public boolean isInfinite() {
+		return infinite;
+	}
+
+	// Set whether the item is infinite
+	public void setInfinite(Boolean infinite) {
+		if (infinite == null) {
+			return;
+		}
+
+		this.infinite = infinite;
+	}
+
+	// Get the item's keyword, or null if none is assigned
+	public String getKeyword() {
+		return keyword;
+	}
+
+	// Set the item's keyword. Setting to "none" will clear it
+	public void setKeyword(String keyword) throws InvalidInputException {
+
+		if (keyword == null) {
+			return;
+		}
+
+		if (keyword.length() < 1 || keyword.length() > 32) {
+			throw new InvalidInputException("Keyword must be between 1 and 32 characters.");
+		}
+
+		this.keyword = keyword.equalsIgnoreCase("none") ? null : keyword;
+
+	}
+
+	// Get a copy of the item
+	public Item getCopy() throws InvalidInputException {
+		return new Item(name, description, weight, takeable, wearable, infinite, keyword);
+	}
+
+	// Get a finite copy of the item
+	public Item getFiniteCopy() throws InvalidInputException {
+		return new Item(name, description, weight, takeable, wearable, false, keyword);
+	}
+
+	@Deprecated
 	public void edit(String newName, String description, Double weight, Boolean takeable, Boolean wearable, Boolean infinite, String key) throws InvalidInputException {
 
 		if (newName == null && description == null && weight == null && takeable == null && wearable == null && infinite == null && key == null) {
@@ -82,78 +224,9 @@ public class Item implements Serializable {
 		}
 
 		if (key != null) {
-			this.key = key;
+			this.keyword = key;
 		}
 
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) throws InvalidInputException {
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
-		}
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) throws InvalidInputException {
-		if (!InputChecker.validDescription(description)) {
-			throw new InvalidInputException("Description must be at most 1500 characters.");
-		}
-		this.description = description;
-	}
-
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
-	}
-
-	public boolean isTakeable() {
-		return takeable;
-	}
-
-	public void setTakeable(boolean takeable) {
-		this.takeable = takeable;
-	}
-
-	public boolean isWearable() {
-		return wearable;
-	}
-
-	public void setWearable(boolean wearable) {
-		this.wearable = wearable;
-	}
-
-	public boolean isInfinite() {
-		return infinite;
-	}
-
-	public void setInfinite(boolean infinite) {
-		this.infinite = infinite;
-	}
-
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) throws InvalidInputException {
-		if (!InputChecker.validKey(key)) {
-			throw new InvalidInputException("Key must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
-		}
-		this.key = key;
-	}
-	
-	public Item getCopy() throws InvalidInputException {
-		return new Item(name, description, weight, takeable, wearable, infinite, key);
 	}
 
 }

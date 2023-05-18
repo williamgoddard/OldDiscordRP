@@ -70,7 +70,7 @@ public class InventoryCommand implements Command {
 
         Chara player;
         try {
-            player = roleplay.findPlayer(playerName);
+            player = roleplay.findCharacter(playerName);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -101,7 +101,7 @@ public class InventoryCommand implements Command {
 
         Chara player;
         try {
-            player = roleplay.findPlayer(playerName);
+            player = roleplay.findCharacter(playerName);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

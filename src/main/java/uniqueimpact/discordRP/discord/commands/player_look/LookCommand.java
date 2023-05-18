@@ -22,7 +22,7 @@ public class LookCommand implements Command {
         String channelId = command.getChannel().getId();
         Chara player;
         try {
-            player = roleplay.findPlayerByChannel(channelId);
+            player = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -104,7 +104,7 @@ public class LookCommand implements Command {
         Room room = player.getRoom();
 
         if (characterName == null) {
-            List<Chara> players = room.getPlayers(false);
+            List<Chara> players = room.getCharacters(false);
             if (players.size() > 1) {
                 return "You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
             } else {
@@ -114,7 +114,7 @@ public class LookCommand implements Command {
 
         Chara otherPlayer;
         try {
-            otherPlayer = room.findPlayer(characterName, false);
+            otherPlayer = room.findCharacter(characterName, false);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

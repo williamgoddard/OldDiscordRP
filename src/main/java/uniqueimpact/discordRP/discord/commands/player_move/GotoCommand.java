@@ -22,7 +22,7 @@ public class GotoCommand implements Command {
         String channelId = command.getChannel().getId();
         Chara character;
         try {
-            character = roleplay.findPlayerByChannel(channelId);
+            character = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -59,13 +59,13 @@ public class GotoCommand implements Command {
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " leaves to the " + targetRoom.getName() + ".*", character);
 
-        targetRoom.getPlayers().add(character);
+        targetRoom.getCharacters().add(character);
         character.setRoom(targetRoom);
-        room.getPlayers().remove(character);
+        room.getCharacters().remove(character);
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " enters from the " + room.getName() + ".*", character);
 
-        List<Chara> players = targetRoom.getPlayers(false);
+        List<Chara> players = targetRoom.getCharacters(false);
         if (players.size() > 1) {
             return "You go to the " + targetRoom.getName() + ". You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
         } else {

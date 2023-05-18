@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class Roleplay implements Serializable {
@@ -20,7 +19,8 @@ public class Roleplay implements Serializable {
 	private List<User> users;
 	private List<Room> rooms;
 	private List<Chara> charas;
-	
+
+
 	private Roleplay() {
 		try {
 			load();
@@ -33,14 +33,15 @@ public class Roleplay implements Serializable {
 			charas = new ArrayList<>();
 		}
 	}
-	
+
+	// Get the roleplay instance
 	public static Roleplay getInstance() {
 		if (instance == null) {
 			instance = new Roleplay();
 		}
 		return instance;
 	}
-	
+
 	// Saves all data to files
 	public void save() {
 		try {
@@ -52,7 +53,7 @@ public class Roleplay implements Serializable {
             e.printStackTrace();
         } 
 	}
-	
+
 	// Loads data from files
 	private void load() throws Exception {
 		FileInputStream fileIn = new FileInputStream("savedata");
@@ -61,22 +62,26 @@ public class Roleplay implements Serializable {
 		objectIn.close();
 	}
 
+	// Get the list of users registered to the roleplay
 	public List<User> getUsers() {
 		return users;
 	}
 
+	// Get the list of rooms registered to the roleplay
 	public List<Room> getRooms() {
 		return rooms;
 	}
 
+	// Get the list of characters registered to the roleplay
 	public List<Chara> getCharas() {
 		return charas;
 	}
 
+	// Find a user registered to the roleplay from their Discord User ID
 	public User findUser(String discordId) throws InvalidInputException {
 
-		if (!InputChecker.validDiscordID(discordId)) {
-			throw new InvalidInputException("Discord user id must be an 18 digit number.");
+		if (discordId == null) {
+			throw new InvalidInputException("Discord User ID must be assigned.");
 		}
 
 		for (User user : users) {
@@ -85,68 +90,130 @@ public class Roleplay implements Serializable {
 			}
 		}
 
-		throw new InvalidInputException("The user could not be found.");
+		throw new InvalidInputException("No registered user with Discord ID `" + discordId + "` could be found.");
 
 	}
-	
+
+	// Find a room registered to the roleplay from its name and number
 	public Room findRoom(String name, int num) throws InvalidInputException {
 
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Room name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+		if (name == null) {
+			throw new InvalidInputException("Room name must be assigned.");
+		}
+
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Room name must be between 1 and 32 characters.");
 		}
 
 		if (num < 1) {
 			throw new InvalidInputException("Room number must be at least 1.");
 		}
 
-		List<Room> matchingRooms = new ArrayList<>();
-
+		int matchingRooms = 0;
 		for (Room room : rooms) {
 			if (room.getName().equalsIgnoreCase(name)) {
-				matchingRooms.add(room);
+				matchingRooms += 1;
+				if (matchingRooms >= num) {
+					return room;
+				}
 			}
 		}
 
-		if (num > matchingRooms.size()) {
-			throw new InvalidInputException("Room not found. There are " + matchingRooms.size() + " matching rooms.");
-		}
-
-		return matchingRooms.get(num-1);
+		throw new InvalidInputException("Room not found. There are " + matchingRooms + " rooms named `" + name + "`.");
 
 	}
-	
-	public Chara findPlayer(String name) throws InvalidInputException {
 
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Room name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+	// Find a room registered to the roleplay from its name
+	public Room findRoom(String name) throws InvalidInputException {
+		return this.findRoom(name, 1);
+	}
+
+	// Find a character registered to the roleplay from its name, and whether it's hidden
+	public Chara findCharacter(String name, Boolean hidden) throws InvalidInputException {
+
+		if (name == null) {
+			throw new InvalidInputException("Character name must be assigned.");
 		}
 
-		for (Chara player : charas) {
-			if (player.getName().equalsIgnoreCase(name)) {
-				return player;
+		for (Chara chara : charas) {
+			if (chara.getName().equalsIgnoreCase(name)) {
+				if (hidden == null || chara.isHidden() == hidden) {
+					return chara;
+				}
+				break;
+			}
+		}
+
+		throw new InvalidInputException("The character `" + name + "` could not be found.");
+
+	}
+
+	// Find a character registered to the roleplay from its name
+	public Chara findCharacter(String name) throws InvalidInputException {
+		return this.findCharacter(name, null);
+	}
+
+	// Find a character registered to the roleplay from its channel, and whether it's hidden
+	public Chara findCharacterByChannel(String discordId, Boolean hidden) throws InvalidInputException {
+
+		if (discordId == null) {
+			throw new InvalidInputException("Discord Channel ID must be assigned.");
+		}
+
+		for (Chara chara : charas) {
+			if (chara.getChannel().equals(discordId)) {
+				if (hidden == null || chara.isHidden() == hidden) {
+					return chara;
+				}
+				break;
 			}
 		}
 
 		throw new InvalidInputException("The character could not be found.");
 
 	}
-	
-	public Chara findPlayerByChannel(String channel) throws InvalidInputException {
 
-		if (!InputChecker.validDiscordID(channel)) {
-			throw new InvalidInputException("Discord channel ID must be an 18 digit number.");
-		}
-
-		for (Chara player : charas) {
-			if (player.getChannel().equals(channel)) {
-				return player;
-			}
-		}
-
-		throw new InvalidInputException("This Discord channel is not linked to a character.");
-
+	// Find a character registered to the roleplay from its channel
+	public Chara findCharacterByChannel(String discordId) throws InvalidInputException {
+		return findCharacterByChannel(discordId, null);
 	}
-	
+
+	// Register a user to the roleplay
+	public void addUser(User user) {
+		this.users.add(user);
+	}
+
+	// Register a room to the roleplay
+	public void addRoom(Room room) {
+		this.rooms.add(room);
+	}
+
+	// Register a character to the roleplay
+	public void addCharacter(Chara character) {
+		this.charas.add(character);
+	}
+
+	// Delete a user from the roleplay
+	public void delUser(User user) {
+		this.users.remove(user);
+	}
+
+	// Delete a room from the roleplay
+	// TODO Remove doors to connecting rooms
+	// TODO Remove inventory from user clipboards
+	public void delRoom(Room room) {
+		this.rooms.remove(room);
+	}
+
+	// Delete a character from the roleplay
+	// TODO Remove inventories from user clipboards
+	public void delCharacter(Chara character) {
+		this.charas.remove(character);
+	}
+
+	@Deprecated
+	// Find a door from a room
+	// TODO Add method to room instead of here
 	public Door findSpecificRoomDoor(Room room, String otherRoomName, int num, boolean locked, boolean includeHidden) throws InvalidInputException {
 		List<Door> matchingDoors = new ArrayList<>();
 		for (int i = 0; i < room.getSpecificDoors(locked, includeHidden).size(); i++) {
@@ -161,5 +228,6 @@ public class Roleplay implements Serializable {
 			throw new InvalidInputException("Door not found. There are " + matchingDoors.size() + " matching doors.");
 		}
 	}
+
 
 }

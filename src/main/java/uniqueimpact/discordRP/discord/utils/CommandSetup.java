@@ -129,7 +129,7 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "description", "The description of the room", true)
                                 .setRequiredLength(1, 1500),
-                        new OptionData(OptionType.NUMBER, "capacity", "The capacity of the room (Set to '0' for no limit)", false)
+                        new OptionData(OptionType.NUMBER, "capacity", "The capacity of the room", false)
                                 .setRequiredRange(0.0, 1000000.0)
                 ),
                 new SubcommandData("list", "List all of the rooms"),
@@ -148,7 +148,7 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "description", "The new description of the room", false)
                                 .setRequiredLength(1, 1500),
-                        new OptionData(OptionType.NUMBER, "capacity", "The new capacity of the room (Set to '0' for no limit)", false)
+                        new OptionData(OptionType.NUMBER, "capacity", "The new capacity of the room", false)
                                 .setRequiredRange(0.0, 1000000.0)
                 ),
                 new SubcommandData("delete", "Delete a room").addOptions(
@@ -176,9 +176,9 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "picture", "The image URL of the character", false)
                                 .setRequiredLength(1, 200),
-                        new OptionData(OptionType.NUMBER, "items_capacity", "The capacity of the player's inventory (Set to '0' for no limit)", false)
+                        new OptionData(OptionType.NUMBER, "items_capacity", "The capacity of the player's inventory", false)
                                 .setRequiredRange(0.0, 1000000.0),
-                        new OptionData(OptionType.NUMBER, "clothes_capacity", "The capacity of the player's clothes (Set to '0' for no limit)", false)
+                        new OptionData(OptionType.NUMBER, "clothes_capacity", "The capacity of the player's clothes", false)
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden", false)
                 ),
@@ -205,9 +205,9 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "picture", "The image URL of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 200),
-                        new OptionData(OptionType.NUMBER, "items_capacity", "The new capacity of the player's inventory (Set to '0' for no limit)", false)
+                        new OptionData(OptionType.NUMBER, "items_capacity", "The new capacity of the player's inventory", false)
                                 .setRequiredRange(0.0, 1000000.0),
-                        new OptionData(OptionType.NUMBER, "clothes_capacity", "The new capacity of the player's clothes (Set to '0' for no limit)", false)
+                        new OptionData(OptionType.NUMBER, "clothes_capacity", "The new capacity of the player's clothes", false)
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden (Default false)", false)
                 ),

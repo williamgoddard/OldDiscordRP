@@ -19,7 +19,7 @@ public class LockCommand implements Command {
         String channelId = command.getChannel().getId();
         Chara character;
         try {
-            character = roleplay.findPlayerByChannel(channelId);
+            character = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -38,7 +38,7 @@ public class LockCommand implements Command {
 
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
-            if (!item.getKey().equals("") && item.getKey().equals(door.getKeyword())) {
+            if (!item.getKeyword().equals("") && item.getKeyword().equals(door.getKeyword())) {
                 door.setLocked(true);
                 WebhookManager.sendOthers("*" + character.getDisplayName() + " locks the door to the " + roomName + " with their " + item.getName() + ".", character);
                 return "You lock the door to the `" + roomName + "` with the `" + item.getName() + "`.";

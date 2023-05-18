@@ -2,6 +2,8 @@ package uniqueimpact.discordRP.things;
 
 import java.io.Serializable;
 
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -19,17 +21,198 @@ public class Chara implements Serializable {
 	private Inventory inv;
 	private Inventory clothes;
 	private Room room;
-	
-	public Chara(String channel, String webhook, String name, String displayName, String picture, String description, Boolean hidden, Inventory inv, Inventory clothes, Room room) throws InvalidInputException {
-		if (!InputChecker.validDiscordID(channel)) {
-			throw new InvalidInputException("Discord channel ID must be an 18 digit number.");
+
+	public Chara(TextChannel channel, String name, String displayName, String picture, String description, boolean hidden, double inv_capacity, double clothes_capacity, Room room) throws InvalidInputException {
+
+		if (channel == null) {
+			throw new InvalidInputException("Character Discord Channel must be assigned.");
 		}
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
+
+		if (name == null) {
+			throw new InvalidInputException("Character name must be assigned.");
 		}
-		if (!InputChecker.validDescription(description)) {
-			throw new InvalidInputException("Description must be at most 1500 characters.");
+
+		if (description == null) {
+			throw new InvalidInputException("Character description must be assigned.");
 		}
+
+		if (room == null) {
+			throw new InvalidInputException("Room must be assigned.");
+		}
+
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Character name must be between 1 and 32 characters.");
+		}
+
+		if (displayName.length() < 1 || displayName.length() > 32) {
+			throw new InvalidInputException("Character display name must be between 1 and 32 characters.");
+		}
+
+		if (description.length() < 1 || description.length() > 1500) {
+			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
+		}
+
+		if (room == null) {
+			throw new InvalidInputException("Room must be assigned.");
+		}
+
+		this.channel = channel.getId();
+		this.webhook = WebhookManager.createOrGetWebhook(channel);
+		this.name = name;
+		this.displayName = displayName == null ? name : displayName;
+		this.picture = picture;
+		this.description = description;
+		this.hidden = hidden;
+		this.inv = new Inventory(inv_capacity);
+		this.clothes = new Inventory(clothes_capacity);
+		this.room = room;
+	}
+
+	// Get the character's channel
+	public String getChannel() {
+		return channel;
+	}
+
+	// Get the character's webhook
+	public String getWebhook() {
+		return webhook;
+	}
+
+	// Set the character's channel
+	public void setChannel(TextChannel channel) {
+
+		if (channel == null) {
+			return;
+		}
+
+		this.channel = channel.getName();
+		this.webhook = WebhookManager.createOrGetWebhook(channel);
+
+	}
+
+	// Get the character's name
+	public String getName() {
+		return name;
+	}
+
+	// Set the character's name
+	public void setName(String name) throws InvalidInputException {
+
+		if (name == null) {
+			return;
+		}
+
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Character name must be between 1 and 32 characters.");
+		}
+
+		this.name = name;
+	}
+
+	// Get the chararacter's display name
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	// Set the character's display name
+	public void setDisplayName(String displayName) throws InvalidInputException {
+
+		if (displayName == null) {
+			return;
+		}
+
+		if (displayName.length() < 1 || displayName.length() > 32) {
+			throw new InvalidInputException("Character display name must be between 1 and 32 characters.");
+		}
+
+		this.displayName = displayName;
+	}
+
+	// Get the character's picture
+	public String getPicture() {
+		return picture;
+	}
+
+	// Set the character's picture
+	public void setPicture(String picture) {
+		if (picture == null) {
+			return;
+		}
+
+		this.picture = picture;
+	}
+
+	// Get the character's description
+	public String getDescription() {
+		return description;
+	}
+
+	// Set the character's description
+	public void setDescription(String description) throws InvalidInputException {
+		if (description == null) {
+			return;
+		}
+
+		if (description.length() < 1 || description.length() > 1500) {
+			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
+		}
+
+		this.description = description;
+	}
+
+	// Get whether the character is hidden
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	// Set whether the character is hidden
+	public void setHidden(Boolean hidden) {
+		if (hidden == null) {
+			return;
+		}
+
+		this.hidden = hidden;
+	}
+
+	// Get the character's inventory
+	public Inventory getInv() {
+		return inv;
+	}
+
+	// Get the character's clothes
+	public Inventory getClothes() {
+		return clothes;
+	}
+
+	// Get the character's room
+	public Room getRoom() {
+		return room;
+	}
+
+	// Set the character's room
+	public void setRoom(Room room) {
+		if (room == null) {
+			return;
+		}
+
+		this.room = room;
+	}
+
+	@Deprecated
+	public Chara(String channel, String webhook, String name, String displayName, String picture, String description, boolean hidden, Inventory inv, Inventory clothes, Room room) throws InvalidInputException {
+
+		if (name.length() < 1 || name.length() > 32) {
+			throw new InvalidInputException("Character name must be between 1 and 32 characters.");
+		}
+
+		if (displayName.length() < 1 || displayName.length() > 32) {
+			throw new InvalidInputException("Character display name must be between 1 and 32 characters.");
+		}
+
+		if (description.length() < 1 || description.length() > 1500) {
+			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
+		}
+
 		this.channel = channel;
 		this.name = name;
 		this.displayName = displayName;
@@ -42,6 +225,7 @@ public class Chara implements Serializable {
 		this.hidden = hidden;
 	}
 
+	@Deprecated
 	public void edit(String channelId, String webhook, String newName, String displayName, String picture, String description, Boolean hidden, Double itemsCapacity, Double clothesCapacity) throws InvalidInputException {
 
 		if (channelId == null && webhook == null && newName == null && displayName == null && picture == null && description == null && hidden == null && itemsCapacity == null && clothesCapacity == null) {
@@ -110,96 +294,16 @@ public class Chara implements Serializable {
 
 	}
 
-	public String getChannel() {
-		return channel;
-	}
-
+	// Set the character's channel
+	@Deprecated
 	public void setChannel(String channel) throws InvalidInputException {
-		if (!InputChecker.validDiscordID(channel)) {
-			throw new InvalidInputException("Discord channel ID must be an 18 digit number.");
+
+		if (channel == null) {
+			return;
 		}
+
 		this.channel = channel;
-	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) throws InvalidInputException {
-		if (!InputChecker.validName(name)) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
-		}
-		this.name = name;
-	}
-	
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String firstName) throws InvalidInputException {
-		if (!InputChecker.validDisplayName(firstName)) {
-			throw new InvalidInputException("Display name must be 32 characters at most, and may use only letters, numbers, hyphens, underscores and spaces.");
-		}
-		this.displayName = firstName;
-	}
-	
-	public String getPicture() {
-		return picture;
-	}
-	
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) throws InvalidInputException {
-		if (!InputChecker.validDescription(description)) {
-			throw new InvalidInputException("Description must be at most 1500 characters.");
-		}
-		this.description = description;
-	}
-	
-	public Inventory getInv() {
-		return inv;
-	}
-
-	public void setInv(Inventory inv) {
-		this.inv = inv;
-	}
-	
-	public Boolean isHidden() {
-		return hidden;
-	}
-	
-	public void setHidden(Boolean hidden) {
-		this.hidden = hidden;
-	}
-
-	public Inventory getClothes() {
-		return clothes;
-	}
-
-	public void setClothes(Inventory clothes) {
-		this.clothes = clothes;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
-	public String getWebhook() {
-		return webhook;
-	}
-
-	public void setWebhook(String webhook) {
-		this.webhook = webhook;
 	}
 
 }

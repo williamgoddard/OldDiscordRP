@@ -160,7 +160,11 @@ public class ItemCommand implements Command {
             return e.getMessage();
         }
 
-        user.setClipboard(item);
+        try {
+            user.setClipboard(item);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
 
         return "The item was copied to your clipboard successfully.";
 

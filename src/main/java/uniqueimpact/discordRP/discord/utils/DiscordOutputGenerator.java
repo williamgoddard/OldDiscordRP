@@ -26,7 +26,7 @@ public class DiscordOutputGenerator {
 				"Takeable: `" +item.isTakeable() + "`, " +
 				"Wearable: `" + item.isWearable() + "`, " +
 				"Infinite: `" +item.isInfinite() + "`, " +
-				"Key: `" + ((item.getKey().equals("")) ? "none" : item.getKey()) + "`\n" +
+				"Key: `" + ((item.getKeyword().equals("")) ? "none" : item.getKeyword()) + "`\n" +
 				item.getDescription();
 	}
 	
