@@ -51,7 +51,7 @@ public class TakeWearCommand implements Command {
 
             Item newItem;
             try {
-                newItem = item.getCopy();
+                newItem = item.getFiniteCopy();
             } catch (InvalidInputException e) {
                 return e.getMessage();
             }
@@ -69,8 +69,8 @@ public class TakeWearCommand implements Command {
 
         } else {
 
-            character.getInv().getItems().add(item);
-            room.getInv().getItems().remove(item);
+            character.getInv().addItem(item);
+            room.getInv().delItem(item);
 
             WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on the " + item.getName() + ".*", character);
             return "You took and put on the `" + item.getName() + "`.";

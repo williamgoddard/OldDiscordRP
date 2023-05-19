@@ -38,8 +38,8 @@ public class WearCommand implements Command {
             return "You can't wear the `" + item.getName() + "` because you would be wearing too much.";
         }
 
-        character.getClothes().getItems().add(item);
-        character.getInv().getItems().remove(item);
+        character.getClothes().addItem(item);
+        character.getInv().delItem(item);
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " put on their " + item.getName() + ".*", character);
         return "You put on your `" + item.getName() + "`.";

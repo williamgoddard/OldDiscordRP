@@ -34,8 +34,8 @@ public class UndressCommand implements Command {
             return "You can't take off your `" + item.getName() + "` because you would be holding too much.";
         }
 
-        character.getInv().getItems().add(item);
-        character.getClothes().getItems().remove(item);
+        character.getInv().addItem(item);
+        character.getClothes().delItem(item);
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " took off their " + item.getName() + ".*", character);
         return "You took off your `" + item.getName() + "`.";
