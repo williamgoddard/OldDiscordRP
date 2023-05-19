@@ -27,7 +27,7 @@ public class Item implements Serializable {
 			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
 		}
 
-		if (keyword.length() < 1 || keyword.length() > 32) {
+		if ((keyword != null) && (keyword.length() < 1 || keyword.length() > 32)) {
 			throw new InvalidInputException("Keyword must be between 1 and 32 characters.");
 		}
 

@@ -18,6 +18,9 @@ public class CommandSetup {
 
         List<CommandData> commands = new ArrayList<>();
 
+        // Help Command
+        commands.add(Commands.slash("help", "List all of the player commands."));
+
         // Drop Command
         commands.add(Commands.slash("drop", "Drop an item from your inventory into the room").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)
@@ -68,8 +71,8 @@ public class CommandSetup {
 
         // Look Command
         commands.add(Commands.slash("look", "Look around at your surroundings.").addSubcommands(
-                new SubcommandData("room", "Look around at the room."),
-                new SubcommandData("item", "Look at an item in the room.").addOptions(
+                new SubcommandData("room", "Look around at the room"),
+                new SubcommandData("item", "Look at an item in the room").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
@@ -94,16 +97,16 @@ public class CommandSetup {
         ));
 
         // Items Command
-        commands.add(Commands.slash("items", "Look at all the items in the room."));
+        commands.add(Commands.slash("items", "List all the items in the room."));
 
         // Inv Command
-        commands.add(Commands.slash("inv", "Look at all the items you are currently holding."));
+        commands.add(Commands.slash("inv", "List all the items you are currently holding."));
 
         // Clothes Command
-        commands.add(Commands.slash("clothes", "Look at all the items you are currently wearing."));
+        commands.add(Commands.slash("clothes", "List all the items you are currently wearing."));
 
         // Doors command
-        commands.add(Commands.slash("doors", "Look at all the doors you can access from here."));
+        commands.add(Commands.slash("doors", "List all the doors you can access from here."));
 
         // Goto command
         commands.add(Commands.slash("goto", "Move to another room.").addOptions(
@@ -129,6 +132,8 @@ public class CommandSetup {
                         .setRequiredRange(1, 1000000)
         ));
 
+        // Admin Help Command
+        commands.add(Commands.slash("adminhelp", "List all of the admin commands."));
 
         // Room Command
         commands.add(Commands.slash("room", "Command to perform admin actions on rooms").addSubcommands(
@@ -378,7 +383,7 @@ public class CommandSetup {
         ));
 
         // Excuse Command
-        commands.add(Commands.slash("excuse", "Get a quick, randomly generated excuse for why you can't do something!").addOptions(
+        commands.add(Commands.slash("excuse", "Get a quick, randomly generated excuse for anything!").addOptions(
                 new OptionData(OptionType.STRING, "event", "The event which you need an excuse for.", false)
                         .setRequiredLength(1, 1000)
         ));

@@ -36,6 +36,7 @@ public class CommandListener implements EventListener{
         this.commands = new HashMap<String, Command>();
 
         // Admin Commands
+        commands.put("adminhelp", new AdminHelpCommand());
         commands.put("room", new RoomCommand());
         commands.put("character", new CharacterCommand());
         commands.put("inventory", new InventoryCommand());
@@ -67,6 +68,8 @@ public class CommandListener implements EventListener{
         commands.put("8ball", new EightBallCommand());
         commands.put("excuse", new ExcuseCommand());
         commands.put("secret", new SecretCommand());
+
+        commands.put("help", new HelpCommand());
 
     }
 

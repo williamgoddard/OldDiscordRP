@@ -2,11 +2,16 @@ package uniqueimpact.discordRP.discord.commands.admin;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
+import uniqueimpact.discordRP.discord.utils.AdminChecker;
 
 public class AdminHelpCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
+
+        if (!AdminChecker.isAdmin(command.getMember())) {
+            return "You do not have permission to use this command.";
+        }
 
         return """
                 **Room Commands**

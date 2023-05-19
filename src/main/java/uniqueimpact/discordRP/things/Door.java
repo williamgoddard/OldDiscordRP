@@ -29,7 +29,7 @@ public class Door implements Serializable {
 			throw new InvalidInputException("Room 1 and Room 2 must be different.");
 		}
 
-		if (keyword.length() < 1 || keyword.length() > 32) {
+		if ((keyword != null) && (keyword.length() < 1 || keyword.length() > 32)) {
 			throw new InvalidInputException("Keyword must be between 1 and 32 characters.");
 		}
 
