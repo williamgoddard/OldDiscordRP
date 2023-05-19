@@ -146,7 +146,7 @@ public class Room implements Serializable {
 
 		int doorsFound = 0;
 
-		for (Door door : getSpecificDoors(locked, hidden)) {
+		for (Door door : getDoors(locked, hidden)) {
 			if (door.getOtherRoom(this).getName().toLowerCase().equals(otherRoomName)) {
 				doorsFound++;
 				if (doorsFound == num) {
@@ -211,72 +211,6 @@ public class Room implements Serializable {
 	// Remove a door from the room
 	public void delDoor(Door door) {
 		this.doors.remove(door);
-	}
-
-	@Deprecated
-	public void edit(String name, String description, Double capacity) throws InvalidInputException {
-
-		if (name == null && description == null && capacity == null) {
-			throw new InvalidInputException("At least one field must be selected for editing.");
-		}
-
-		if (!(name == null || InputChecker.validName(name))) {
-			throw new InvalidInputException("Name must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
-		}
-
-		if (!(description == null || InputChecker.validDescription(description))) {
-			throw new InvalidInputException("Description must be at most 1500 characters.");
-		}
-
-		if (!(capacity == null || capacity >= 0)) {
-			throw new InvalidInputException("Inventory capacity must be at least 0.");
-		}
-
-		if (name != null) {
-			this.name = name;
-		}
-
-		if (description != null) {
-			this.description = description;
-		}
-
-		if (capacity != null) {
-			this.inv.setCapacity(capacity);
-		}
-
-	}
-
-	@Deprecated
-	public Room(String name, String description, Inventory inv) throws InvalidInputException {
-
-		if (name.length() < 1 || name.length() > 32) {
-			throw new InvalidInputException("Room name must be between 1 and 32 characters.");
-		}
-
-		if (name.length() < 1 || name.length() > 1500) {
-			throw new InvalidInputException("Description name must be between 1 and 1500 characters.");
-		}
-
-		this.name = name;
-		this.description = description;
-		this.inv = inv;
-		this.characters = new ArrayList<>();
-		this.doors = new ArrayList<>();
-
-	}
-
-	@Deprecated
-	public List<Door> getSpecificDoors(boolean locked, boolean includeHidden) {
-
-		List<Door> resultDoors = new ArrayList<>();
-		for (Door door : doors) {
-			if ((includeHidden || !door.isHidden()) && (locked == door.isLocked())) {
-				resultDoors.add(door);
-			}
-		}
-
-		return resultDoors;
-
 	}
 
 }

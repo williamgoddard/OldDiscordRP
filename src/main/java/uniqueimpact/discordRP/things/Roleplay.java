@@ -234,22 +234,4 @@ public class Roleplay implements Serializable {
 
 	}
 
-	@Deprecated
-	// Find a door from a room
-	public Door findSpecificRoomDoor(Room room, String otherRoomName, int num, boolean locked, boolean includeHidden) throws InvalidInputException {
-		List<Door> matchingDoors = new ArrayList<>();
-		for (int i = 0; i < room.getSpecificDoors(locked, includeHidden).size(); i++) {
-			Door door = room.getSpecificDoors(locked, includeHidden).get(i);
-			if (door.getRoom1().getName().toLowerCase().equals(otherRoomName) || door.getRoom2().getName().toLowerCase().equals(otherRoomName)) {
-				matchingDoors.add(door);
-			}
-		}
-		if (num <= matchingDoors.size()) {
-			return matchingDoors.get(num-1);
-		} else {
-			throw new InvalidInputException("Door not found. There are " + matchingDoors.size() + " matching doors.");
-		}
-	}
-
-
 }

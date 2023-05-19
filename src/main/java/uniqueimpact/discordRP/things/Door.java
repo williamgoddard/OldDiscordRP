@@ -107,29 +107,4 @@ public class Door implements Serializable {
 		throw new InvalidInputException("The door is not connected to the specified room.");
 	}
 
-	@Deprecated
-	public void edit(Boolean hidden, Boolean locked, String lock) throws InvalidInputException {
-
-		if (hidden == null && locked == null && lock == null) {
-			throw new InvalidInputException("At least one field must be selected for editing.");
-		}
-
-		if (!(lock == null || InputChecker.validName(lock))) {
-			throw new InvalidInputException("Keyword must be 32 characters at most, and may use only letters, numbers, hyphens and underscores.");
-		}
-
-		if (hidden != null) {
-			this.hidden = hidden;
-		}
-
-		if (locked != null) {
-			this.locked = locked;
-		}
-
-		if (lock != null) {
-			this.keyword = lock;
-		}
-
-	}
-
 }

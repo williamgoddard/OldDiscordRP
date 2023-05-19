@@ -58,17 +58,4 @@ public class User implements Serializable {
         this.inventory = inventory;
     }
 
-    @Deprecated
-    public User(String discordId, Item clipboard, Inventory inventory) throws InvalidInputException {
-
-        if (discordId == null) {
-            throw new InvalidInputException("Discord User ID must be assigned.");
-        }
-
-        this.discordId = discordId;
-        this.clipboard = clipboard;
-        this.inventory = inventory;
-
-    }
-
 }
