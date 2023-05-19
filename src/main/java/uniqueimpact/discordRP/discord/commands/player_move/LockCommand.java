@@ -28,7 +28,7 @@ public class LockCommand implements Command {
 
         Door door;
         try {
-            door = roleplay.findSpecificRoomDoor(room, roomName, roomNum, false, false);
+            door = room.findDoor(roomName, roomNum, false, false);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }

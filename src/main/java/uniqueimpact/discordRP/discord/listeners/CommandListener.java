@@ -16,6 +16,7 @@ import uniqueimpact.discordRP.discord.commands.player_look.ClothesCommand;
 import uniqueimpact.discordRP.discord.commands.player_look.InvCommand;
 import uniqueimpact.discordRP.discord.commands.player_look.ItemsCommand;
 import uniqueimpact.discordRP.discord.commands.player_look.LookCommand;
+import uniqueimpact.discordRP.discord.commands.player_move.DoorsCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.GotoCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.LockCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.UnlockCommand;
@@ -56,6 +57,7 @@ public class CommandListener implements EventListener{
         commands.put("clothes", new ClothesCommand());
 
         // Player Movement Commands
+        commands.put("doors", new DoorsCommand());
         commands.put("goto", new GotoCommand());
         commands.put("lock", new LockCommand());
         commands.put("unlock", new UnlockCommand());

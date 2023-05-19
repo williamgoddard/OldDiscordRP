@@ -102,9 +102,12 @@ public class CommandSetup {
         // Clothes Command
         commands.add(Commands.slash("clothes", "Look at all the items you are currently wearing."));
 
+        // Doors command
+        commands.add(Commands.slash("doors", "Look at all the doors you can access from here."));
+
         // Goto command
         commands.add(Commands.slash("goto", "Move to another room.").addOptions(
-                new OptionData(OptionType.STRING, "room", "The name of the room to move to", false)
+                new OptionData(OptionType.STRING, "room", "The name of the room to move to", true)
                         .setRequiredLength(1, 32),
                 new OptionData(OptionType.INTEGER, "num", "The number of the specific room, if there are multiple rooms with the same name", false)
                         .setRequiredRange(1, 1000000)

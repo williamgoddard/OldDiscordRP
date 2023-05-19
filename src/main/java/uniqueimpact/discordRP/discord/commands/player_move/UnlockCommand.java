@@ -28,7 +28,7 @@ public class UnlockCommand implements Command {
 
         Door door;
         try {
-            door = roleplay.findSpecificRoomDoor(room, roomName, roomNum, true, false);
+            door = room.findDoor(roomName, roomNum, true, false);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
