@@ -31,8 +31,8 @@ public class GotoCommand implements Command {
 
         if (roomName == null) {
 
-            List<Door> uDoors = room.getSpecificDoors(false, false);
-            List<Door> lDoors = room.getSpecificDoors(true, false);
+            List<Door> uDoors = room.getDoors(false, false);
+            List<Door> lDoors = room.getDoors(true, false);
 
             String outputString = "You look for places you can go.\n";
             if (uDoors.size() > 0) {
@@ -50,7 +50,7 @@ public class GotoCommand implements Command {
 
         Door door;
         try {
-            door = roleplay.findSpecificRoomDoor(room, roomName, roomNum, false, false);
+            door = room.findDoor(roomName, roomNum, false, false);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
