@@ -44,15 +44,15 @@ public class InventoryCommand implements Command {
             return e.getMessage();
         }
 
-        String userId = command.getUser().getId();
+        String userId = command.getMember().getId();
 
         User user;
         try {
             user = roleplay.findUser(userId);
         } catch (InvalidInputException e) {
             try {
-                user = new User(userId, null, null);
-                roleplay.getUsers().add(user);
+                user = new User(command.getMember());
+                roleplay.addUser(user);
             } catch (InvalidInputException ex) {
                 return ex.getMessage();
             }
@@ -66,63 +66,63 @@ public class InventoryCommand implements Command {
 
     private String items(SlashCommandInteractionEvent command) {
 
-        String playerName = command.getOption("character").getAsString();
+        String characterName = command.getOption("character").getAsString();
 
-        Chara player;
+        Chara character;
         try {
-            player = roleplay.findCharacter(playerName);
+            character = roleplay.findCharacter(characterName);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        String userId = command.getUser().getId();
+        String userId = command.getMember().getId();
 
         User user;
         try {
             user = roleplay.findUser(userId);
         } catch (InvalidInputException e) {
             try {
-                user = new User(userId, null, null);
-                roleplay.getUsers().add(user);
+                user = new User(command.getMember());
+                roleplay.addUser(user);
             } catch (InvalidInputException ex) {
                 return ex.getMessage();
             }
         }
 
-        user.setInventory(player.getInv());
+        user.setInventory(character.getInv());
 
-        return "Selected the inventory of character `" + playerName + "` successfully.";
+        return "Selected the inventory of character `" + characterName + "` successfully.";
 
     }
 
     private String clothes(SlashCommandInteractionEvent command) {
 
-        String playerName = command.getOption("character").getAsString();
+        String characterName = command.getOption("character").getAsString();
 
-        Chara player;
+        Chara character;
         try {
-            player = roleplay.findCharacter(playerName);
+            character = roleplay.findCharacter(characterName);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        String userId = command.getUser().getId();
+        String userId = command.getMember().getId();
 
         User user;
         try {
             user = roleplay.findUser(userId);
         } catch (InvalidInputException e) {
             try {
-                user = new User(userId, null, null);
-                roleplay.getUsers().add(user);
+                user = new User(command.getMember());
+                roleplay.addUser(user);
             } catch (InvalidInputException ex) {
                 return ex.getMessage();
             }
         }
 
-        user.setInventory(player.getClothes());
+        user.setInventory(character.getClothes());
 
-        return "Selected the clothes of character `" + playerName + "` successfully.";
+        return "Selected the clothes of character `" + characterName + "` successfully.";
 
     }
 

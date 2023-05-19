@@ -106,6 +106,29 @@ public class Inventory implements Serializable {
 		return findItem(name, 1, null, null, null);
 	}
 
+	// Add an item to the inventory
+	public void addItem(Item item) {
+
+		if (item == null) {
+			return;
+		}
+
+		items.add(item);
+
+	}
+
+	// Remove an item from the inventory
+	public void delItem(Item item) {
+
+		if (item == null) {
+			return;
+		}
+
+		items.remove(item);
+
+	}
+
+
 	// Get the remaining capacity of the inventory
 	public double getRemainingCapacity() {
 

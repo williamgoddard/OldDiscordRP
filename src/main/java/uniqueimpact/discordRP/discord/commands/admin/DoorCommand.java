@@ -66,8 +66,8 @@ public class DoorCommand implements Command {
             return e.getMessage();
         }
 
-        room1.getDoors().add(door);
-        room2.getDoors().add(door);
+        room1.addDoor(door);
+        room2.addDoor(door);
 
         return "The door was created successfully.";
 
@@ -125,10 +125,10 @@ public class DoorCommand implements Command {
 
         String room1Name = command.getOption("room1").getAsString();
         String room2Name = command.getOption("room2").getAsString();
-        Integer room1Num = command.getOption("room1_num") != null ? command.getOption("room1_num").getAsInt() : null;
-        Integer room2Num = command.getOption("room2_num") != null ? command.getOption("room2_num").getAsInt() : null;
-        Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
-        Boolean locked = (command.getOption("locked") != null) ? command.getOption("locked").getAsBoolean() : null;
+        Integer room1Num = command.getOption("room1_num") != null ? command.getOption("room1_num").getAsInt() : 1;
+        Integer room2Num = command.getOption("room2_num") != null ? command.getOption("room2_num").getAsInt() : 1;
+        Boolean hidden = command.getOption("hidden") != null ? command.getOption("hidden").getAsBoolean() : null;
+        Boolean locked = command.getOption("locked") != null ? command.getOption("locked").getAsBoolean() : null;
         String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
 
         Room room1;
@@ -152,13 +152,32 @@ public class DoorCommand implements Command {
             return e.getMessage();
         }
 
-        try {
-            door.edit(hidden, locked, keyword);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
+        String response = "";
+
+        if (hidden != null) {
+            door.setHidden(hidden);
+            response += "The door was set to be hidden successfully.\n";
         }
 
-        return "The door was edited successfully.";
+        if (locked != null) {
+            door.setLocked(locked);
+            response += "The door's locked value was edited successfully.\n";
+        }
+
+        if (keyword != null) {
+            try {
+                door.setKeyword(keyword);
+                response += "The door keyword was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The door's keyword was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (response.equals("")) {
+            return "The door was not edited: At least one field must be selected for editing.";
+        }
+
+        return response;
 
     }
 
@@ -190,8 +209,8 @@ public class DoorCommand implements Command {
             return e.getMessage();
         }
 
-        room1.getDoors().remove(door);
-        room2.getDoors().remove(door);
+        room1.delDoor(door);
+        room2.delDoor(door);
 
         return "The door was deleted successfully.";
 

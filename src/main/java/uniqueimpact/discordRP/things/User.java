@@ -1,7 +1,6 @@
 package uniqueimpact.discordRP.things;
 
 import net.dv8tion.jda.api.entities.Member;
-import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
 import java.io.Serializable;
@@ -25,6 +24,19 @@ public class User implements Serializable {
         this.inventory = inventory;
 
     }
+
+    public User(Member member) throws InvalidInputException {
+
+        if (member == null) {
+            throw new InvalidInputException("Discord Member must be assigned.");
+        }
+
+        this.discordId = member.getId();
+        this.clipboard = null;
+        this.inventory = null;
+
+    }
+
 
     public String getDiscordId() {
         return discordId;

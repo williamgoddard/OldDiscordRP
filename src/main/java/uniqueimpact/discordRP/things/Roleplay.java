@@ -201,6 +201,10 @@ public class Roleplay implements Serializable {
 	// Delete a room from the roleplay
 	public void delRoom(Room room) throws InvalidInputException {
 
+		if (room.getCharacters().size() > 0) {
+			throw new InvalidInputException("The room could not be deleted because it contains characters.");
+		}
+
 		this.rooms.remove(room);
 
 		for (Door door : room.getDoors()) {

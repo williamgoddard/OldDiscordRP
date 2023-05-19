@@ -4,10 +4,13 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Door;
 import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
+
+import java.util.List;
 
 public class RoomCommand implements Command {
 
@@ -40,31 +43,30 @@ public class RoomCommand implements Command {
     private String create(SlashCommandInteractionEvent command) {
 
         String name = command.getOption("name").getAsString();
-        String desc = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
-        double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : 0.0;
-
-        Inventory inv;
-        try {
-            inv = new Inventory(capacity);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
+        String desc = command.getOption("description").getAsString();
+        double capacity = command.getOption("capacity") != null ? command.getOption("capacity").getAsDouble() : 0.0;
 
         Room room;
         try {
-            room = new Room(name, desc, inv);
+            room = new Room(name, desc, capacity);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        roleplay.getRooms().add(room);
+        roleplay.addRoom(room);
         return "The room was created successfully.";
 
     }
 
     private String list(SlashCommandInteractionEvent command) {
 
-        return "List of rooms:\n" + DiscordOutputGenerator.convertRoomList(roleplay.getRooms(), 1900);
+        List<Room> rooms = roleplay.getRooms();
+
+        if (rooms.size() == 0) {
+            return "No rooms are currently registered.";
+        }
+
+        return "List of rooms registered to the roleplay:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getCharas(), 1900);
 
     }
 
@@ -91,7 +93,7 @@ public class RoomCommand implements Command {
 
         String newName = (command.getOption("name") != null) ? command.getOption("name").getAsString() : null;
         String description = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
-        double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : 0.0;
+        Double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : 0.0;
 
         Room room;
         try {
@@ -100,13 +102,40 @@ public class RoomCommand implements Command {
             return e.getMessage();
         }
 
-        try {
-            room.edit(newName, description, capacity);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
+        String response = "";
+
+        if (newName != null) {
+            try {
+                room.setName(newName);
+                response += "The room's name was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The room's name was not edited: " + e.getMessage() + "\n";
+            }
         }
 
-        return "The room was edited successfully.";
+        if (description != null) {
+            try {
+                room.setDescription(description);
+                response += "The room's description was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The room's description was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (capacity != null) {
+            try {
+                room.getInv().setCapacity(capacity);
+                response += "The room's capacity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The room's capacity was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (response.equals("")) {
+            return "The room was not edited: At least one field must be selected for editing.";
+        }
+
+        return response;
 
     }
 
@@ -122,21 +151,10 @@ public class RoomCommand implements Command {
             return e.getMessage();
         }
 
-        if (room.getCharacters().size() > 0) {
-            return "The room could not be deleted because it contains characters.";
-        }
-
-        roleplay.getRooms().remove(room);
-
-        for (int i = 0; i < room.getDoors().size(); i++) {
-            Door door = room.getDoors().get(i);
-            Room otherRoom = null;
-            try {
-                otherRoom = door.getOtherRoom(room);
-            } catch (InvalidInputException e) {
-                return e.getMessage();
-            }
-            otherRoom.getDoors().remove(door);
+        try {
+            roleplay.delRoom(room);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
 
         return "The room was deleted successfully.";

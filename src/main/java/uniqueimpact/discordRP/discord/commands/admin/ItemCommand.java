@@ -23,8 +23,8 @@ public class ItemCommand implements Command {
             user = roleplay.findUser(userId);
         } catch (InvalidInputException e) {
             try {
-                user = new User(userId, null, null);
-                roleplay.getUsers().add(user);
+                user = new User(command.getMember());
+                roleplay.addUser(user);
             } catch (InvalidInputException ex) {
                 return ex.getMessage();
             }
@@ -40,7 +40,7 @@ public class ItemCommand implements Command {
             case "item create":
                 return create(command, user);
             case "item list":
-                return list(command, user);
+                return list(user);
             case "item look":
                 return look(command, user);
             case "item edit":
@@ -60,7 +60,7 @@ public class ItemCommand implements Command {
     private String create(SlashCommandInteractionEvent command, User user) {
 
         String name = command.getOption("name").getAsString();
-        String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
+        String description = command.getOption("description").getAsString();
         Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : 0.0;
         Boolean takeable = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : true;
         Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : false;
@@ -74,12 +74,12 @@ public class ItemCommand implements Command {
             return e.getMessage();
         }
 
-        user.getInventory().getItems().add(item);
+        user.getInventory().addItem(item);
         return "The item was created successfully.";
 
     }
 
-    private String list(SlashCommandInteractionEvent command, User user) {
+    private String list(User user) {
 
         return "List of items in currently selected inventory:\n" + DiscordOutputGenerator.convertItemList(user.getInventory().getItems(), 1900);
 
@@ -88,7 +88,7 @@ public class ItemCommand implements Command {
     private String look(SlashCommandInteractionEvent command, User user) {
 
         String name = command.getOption("item").getAsString();
-        int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : null;
+        int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
 
         Item item;
         try {
@@ -108,9 +108,9 @@ public class ItemCommand implements Command {
         String newName = command.getOption("name") != null ? command.getOption("name").getAsString() : null;
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
         Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : null;
-        Boolean takeable = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
-        Boolean wearable = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
-        Boolean infinite = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
+        Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("takeable").getAsBoolean() : null;
+        Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : null;
+        Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : null;
         String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
 
         Item item;
@@ -120,13 +120,64 @@ public class ItemCommand implements Command {
             return e.getMessage();
         }
 
-        try {
-            item.edit(newName, description, weight, takeable, wearable, infinite, keyword);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
+        String response = "";
+
+        if (newName != null) {
+            try {
+                item.setName(newName);
+                response += "The item's name was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The item's name was not edited: " + e.getMessage() + "\n";
+            }
         }
 
-        return "The item was edited successfully";
+        if (description != null) {
+            try {
+                item.setDescription(description);
+                response += "The item's description was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The item's description was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (weight != null) {
+            try {
+                item.setWeight(weight);
+                response += "The item's weight was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The item's weight was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (takeable != null) {
+            item.setTakeable(takeable);
+            response += "The item's takeable value was edited successfully.\n";
+        }
+
+        if (wearable != null) {
+            item.setWearable(wearable);
+            response += "The item's wearable value was edited successfully.\n";
+        }
+
+        if (infinite != null) {
+            item.setInfinite(infinite);
+            response += "The item's infinite value was edited successfully.\n";
+        }
+
+        if (keyword != null) {
+            try {
+                item.setKeyword(keyword);
+                response += "The item's keyword was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The item's keyword was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (response.equals("")) {
+            return "The item was not edited: At least one field must be selected for editing.";
+        }
+
+        return response;
 
     }
 
