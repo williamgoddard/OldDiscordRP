@@ -186,14 +186,14 @@ public class ItemCommand implements Command {
         String name = command.getOption("item").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
 
-        Item item = null;
+        Item item;
         try {
             item = user.getInventory().findItem(name, num);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        user.getInventory().getItems().remove(item);
+        user.getInventory().delItem(item);
 
         return "The item was deleted successfully.";
 
@@ -204,7 +204,7 @@ public class ItemCommand implements Command {
         String name = command.getOption("item").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
 
-        Item item = null;
+        Item item;
         try {
             item = user.getInventory().findItem(name, num);
         } catch (InvalidInputException e) {
@@ -212,7 +212,7 @@ public class ItemCommand implements Command {
         }
 
         try {
-            user.setClipboard(item);
+            user.setClipboard(item.getCopy());
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -229,7 +229,11 @@ public class ItemCommand implements Command {
 
         Item item = user.getClipboard();
 
-        user.getInventory().getItems().add(item);
+        try {
+            user.getInventory().getItems().add(item.getCopy());
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
 
         return "The item was pasted successfully.";
 

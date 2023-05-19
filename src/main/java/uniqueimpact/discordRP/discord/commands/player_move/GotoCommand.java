@@ -16,7 +16,7 @@ public class GotoCommand implements Command {
     @Override
     public String run(SlashCommandInteractionEvent command) {
 
-        String roomName = command.getOption("room") != null ? command.getOption("room").getAsString() : null;
+        String roomName = command.getOption("room").getAsString();
         Integer roomNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
 
         String channelId = command.getChannel().getId();
@@ -28,25 +28,6 @@ public class GotoCommand implements Command {
         }
 
         Room room = character.getRoom();
-
-        if (roomName == null) {
-
-            List<Door> uDoors = room.getDoors(false, false);
-            List<Door> lDoors = room.getDoors(true, false);
-
-            String outputString = "You look for places you can go.\n";
-            if (uDoors.size() > 0) {
-                outputString += "I can go to these places from here:\n" + DiscordOutputGenerator.convertDoorList(uDoors, room, 1000) + "\n";
-            } else {
-                outputString += "I can't go anywhere from here.\n";
-            }
-            if (lDoors.size() > 0) {
-                outputString += "The doors to these places are locked:\n" + DiscordOutputGenerator.convertDoorList(lDoors, room, 800);
-            }
-
-            return outputString;
-
-        }
 
         Door door;
         try {
@@ -64,9 +45,9 @@ public class GotoCommand implements Command {
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " leaves to the " + targetRoom.getName() + ".*", character);
 
-        targetRoom.getCharacters().add(character);
+        targetRoom.addCharacter(character);
         character.setRoom(targetRoom);
-        room.getCharacters().remove(character);
+        room.delCharacter(character);
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " enters from the " + room.getName() + ".*", character);
 

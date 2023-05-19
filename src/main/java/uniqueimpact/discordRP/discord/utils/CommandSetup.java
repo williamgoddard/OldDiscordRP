@@ -190,7 +190,7 @@ public class CommandSetup {
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden", false)
                 ),
-                new SubcommandData("list", "List all of the characters").addOptions(
+                new SubcommandData("list", "List all of the characters, or all characters in a room").addOptions(
                         new OptionData(OptionType.STRING, "room", "The room to list the characters in", false)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
@@ -250,7 +250,7 @@ public class CommandSetup {
                 ),
                 new SubcommandData("list", "List all of the items in the currently selected inventory"
                 ),
-                new SubcommandData("look", "Look at an item").addOptions(
+                new SubcommandData("look", "Look at an item in the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
