@@ -37,7 +37,7 @@ public class Door implements Serializable {
 		this.room2 = room2;
 		this.hidden = hidden;
 		this.locked = locked;
-		this.keyword = keyword.equalsIgnoreCase("none") ? null : keyword;
+		this.keyword = keyword == null || keyword.equalsIgnoreCase("none") ? null : keyword;
 	}
 
 	// Get the door's first room

@@ -61,8 +61,8 @@ public class ItemCommand implements Command {
 
         String name = command.getOption("name").getAsString();
         String description = command.getOption("description").getAsString();
-        Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : 0.0;
-        Boolean takeable = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : true;
+        Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : 1.0;
+        Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("hidden").getAsBoolean() : true;
         Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : false;
         Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : false;
         String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;

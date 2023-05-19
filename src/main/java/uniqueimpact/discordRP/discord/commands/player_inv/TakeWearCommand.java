@@ -57,7 +57,7 @@ public class TakeWearCommand implements Command {
             }
 
             newItem.setInfinite(false);
-            character.getInv().getItems().add(newItem);
+            character.getClothes().addItem(newItem);
 
             if (Arrays.asList('A', 'E', 'I', 'O', 'U', '8').contains(item.getName().toUpperCase().charAt(0))) {
                 WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on an " + item.getName() + ".*" , character);
@@ -69,7 +69,7 @@ public class TakeWearCommand implements Command {
 
         } else {
 
-            character.getInv().addItem(item);
+            character.getClothes().addItem(item);
             room.getInv().delItem(item);
 
             WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on the " + item.getName() + ".*", character);

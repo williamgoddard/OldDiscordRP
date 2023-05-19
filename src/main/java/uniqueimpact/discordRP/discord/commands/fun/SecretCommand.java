@@ -24,10 +24,17 @@ public class SecretCommand implements Command {
             case "69": return "Nice";
             case "bad": return "unique is bad";
             case "badder": return "but jacob is badder";
+            case "baddest": return "aeglen lol";
             case "jacob": return "slavery is fun!";
             case "door": return "You open the secret door and that leads you to another secret door!";
             case "doctor": return "Doctor Who?";
             case "your mother": return "is gay";
+            case "fish": return "https://images-ext-1.discordapp.net/external/7Xvmvw_CtiHCDkySpEMMXCfe-pEZhkl_RBK67n7HE5k/https/media.tenor.com/qPPGBNcRJ8oAAAAd/fish-cannon.gif";
+            case "clara": return "https://media.discordapp.net/attachments/585478705632247819/600780221230350339/unknown.png";
+            case "dream": return "Tehehehe!";
+            case "monokuma": return "Puhuhuhu!";
+            case "forecast": return "Wouldn't you like to know, weather boi?";
+            case "weather": return "Cloudy with a chance of uncertainty?";
             default: return "Nope, that's not a secret command.";
         }
 

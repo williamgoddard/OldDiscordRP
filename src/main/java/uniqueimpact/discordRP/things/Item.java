@@ -41,7 +41,7 @@ public class Item implements Serializable {
 		this.takeable = takeable;
 		this.wearable = wearable;
 		this.infinite = infinite;
-		this.keyword = keyword.equalsIgnoreCase("none") ? null : keyword;
+		this.keyword = keyword == null || keyword.equalsIgnoreCase("none") ? null : keyword;
 
 	}
 

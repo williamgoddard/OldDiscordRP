@@ -30,7 +30,7 @@ public class ClothesCommand implements Command {
             return "You are currently not wearing much...";
         }
 
-        return "You are currently wearing these clothes:*\n" + DiscordOutputGenerator.convertItemList(items, 1900);
+        return "You are currently wearing these clothes:\n" + DiscordOutputGenerator.convertItemList(items, 1900);
 
     }
 
