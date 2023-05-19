@@ -15,9 +15,6 @@ public class ClothesCommand implements Command {
     @Override
     public String run(SlashCommandInteractionEvent command) {
 
-        String itemName = command.getOption("item") != null ? command.getOption("item").getAsString() : null;
-        Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
-
         String channelId = command.getChannel().getId();
         Chara player;
         try {
@@ -29,24 +26,11 @@ public class ClothesCommand implements Command {
         Inventory inv = player.getClothes();
         List<Item> items = inv.getItems();
 
-        if (itemName == null ) {
-
-            if (items.size() == 0) {
-                return "You are currently not wearing much...";
-            }
-
-            return "You are currently wearing these clothes:*\n" + DiscordOutputGenerator.convertItemList(items, 1900);
-
+        if (items.size() == 0) {
+            return "You are currently not wearing much...";
         }
 
-        Item item;
-        try {
-            item = inv.findItem(itemName, itemNum);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
-
-        return "You examine your `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
+        return "You are currently wearing these clothes:*\n" + DiscordOutputGenerator.convertItemList(items, 1900);
 
     }
 

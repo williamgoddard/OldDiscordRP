@@ -15,9 +15,6 @@ public class InvCommand implements Command {
     @Override
     public String run(SlashCommandInteractionEvent command) {
 
-        String itemName = command.getOption("item") != null ? command.getOption("item").getAsString() : null;
-        Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
-
         String channelId = command.getChannel().getId();
         Chara player;
         try {
@@ -29,24 +26,11 @@ public class InvCommand implements Command {
         Inventory inv = player.getInv();
         List<Item> items = inv.getItems();
 
-        if (itemName == null ) {
-
-            if (items.size() == 0) {
-                return "You are currently not holding anything.";
-            }
-
-            return "You are currently holding these items:\n" + DiscordOutputGenerator.convertItemList(items, 1900);
-
+        if (items.size() == 0) {
+            return "You are currently not holding anything.";
         }
 
-        Item item;
-        try {
-            item = inv.findItem(itemName, itemNum);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
-
-        return "You examine the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
+        return "You are currently holding these items:\n" + DiscordOutputGenerator.convertItemList(items, 1900);
 
     }
 

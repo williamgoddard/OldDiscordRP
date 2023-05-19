@@ -52,8 +52,48 @@ public class Inventory implements Serializable {
 		this.capacity = capacity;
 	}
 
+	// Get a list of the items in the room
 	public List<Item> getItems() {
 		return items;
+	}
+
+	// Get a list of the items in the room, filtering by name, takeable, wearable and infinite
+	public List<Item> getItems(String name, Boolean takeable, Boolean wearable, Boolean infinite) {
+		ArrayList<Item> returnItems = new ArrayList<>();
+
+		for (Item item : items) {
+			if ((name == null || item.getName().equalsIgnoreCase(name)) && (takeable == null || item.isTakeable() == takeable) && (wearable == null || item.isWearable() == wearable) && (infinite == null || item.isInfinite() == infinite)) {
+				returnItems.add(item);
+			}
+		}
+
+		return returnItems;
+	}
+
+	// Get a list of the items in the room, filtering by name
+	public List<Item> getItems(String name) {
+		ArrayList<Item> returnItems = new ArrayList<>();
+
+		for (Item item : items) {
+			if (name == null || item.getName().equalsIgnoreCase(name)) {
+				returnItems.add(item);
+			}
+		}
+
+		return returnItems;
+	}
+
+	// Get a list of the items in the room, filtering by takeable, wearable and infinite
+	public List<Item> getItems(Boolean takeable, Boolean wearable, Boolean infinite) {
+		ArrayList<Item> returnItems = new ArrayList<>();
+
+		for (Item item : items) {
+			if ((takeable == null || item.isTakeable() == takeable) && (wearable == null || item.isWearable() == wearable) && (infinite == null || item.isInfinite() == infinite)) {
+				returnItems.add(item);
+			}
+		}
+
+		return returnItems;
 	}
 
 	// Find an item from its name and number, filtering by takeable, wearable, and infinite

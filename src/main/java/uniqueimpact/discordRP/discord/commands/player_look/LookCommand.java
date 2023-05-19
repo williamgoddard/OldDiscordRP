@@ -32,6 +32,10 @@ public class LookCommand implements Command {
                 return room(command, player);
             case "look item":
                 return item(command, player);
+            case "look inv":
+                return inv(command, player);
+            case "look clothes":
+                return clothes(command, player);
             case "look character":
                 return character(command, player);
             default:
@@ -49,42 +53,10 @@ public class LookCommand implements Command {
 
     private String item(SlashCommandInteractionEvent command, Chara player) {
 
-        String itemName = command.getOption("item") != null ? command.getOption("item").getAsString() : null;
+        String itemName = command.getOption("item").getAsString();
         Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
 
         Inventory inv = player.getRoom().getInv();
-        List<Item> items = inv.getItems();
-
-        List<Item> tItems = new ArrayList<>();
-        List<Item> iItems = new ArrayList<>();
-        List<Item> uItems = new ArrayList<>();
-        for (Item item : items) {
-            if (!item.isTakeable()) {
-                uItems.add(item);
-            } else if (item.isInfinite()) {
-                iItems.add(item);
-            } else {
-                tItems.add(item);
-            }
-        }
-
-        if (itemName == null ) {
-            String outputString = "You take a look around...\n";
-            if (tItems.size() > 0) {
-                outputString += "You see these items:\n" + DiscordOutputGenerator.convertItemList(tItems, 1000) + "\n";
-            } else if (iItems.size() == 0) {
-                outputString += "You don't see any items here.\n";
-            }
-            if (iItems.size() > 0) {
-                outputString += "You see lots of these items:\n" + DiscordOutputGenerator.convertItemList(iItems, 400) + "\n";
-            }
-            if (uItems.size() > 0) {
-                outputString += "You see these objects:\n" + DiscordOutputGenerator.convertItemList(uItems, 400);
-            } else {
-                outputString += "You don't see any objects here.";
-            }
-            return outputString;
-        }
 
         Item item;
         try {
@@ -97,9 +69,45 @@ public class LookCommand implements Command {
 
     }
 
+    private String inv(SlashCommandInteractionEvent command, Chara player) {
+
+        String itemName = command.getOption("item").getAsString();
+        Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
+
+        Inventory inv = player.getInv();
+
+        Item item;
+        try {
+            item = inv.findItem(itemName, itemNum);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        return "You examine the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
+
+    }
+
+    private String clothes(SlashCommandInteractionEvent command, Chara player) {
+
+        String itemName = command.getOption("item").getAsString();
+        Integer itemNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
+
+        Inventory inv = player.getClothes();
+
+        Item item;
+        try {
+            item = inv.findItem(itemName, itemNum);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        return "You examine your `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
+
+    }
+
     private String character(SlashCommandInteractionEvent command, Chara player) {
 
-        String characterName = command.getOption("character") != null ? command.getOption("character").getAsString() : null;
+        String characterName = command.getOption("character").getAsString();
 
         Room room = player.getRoom();
 

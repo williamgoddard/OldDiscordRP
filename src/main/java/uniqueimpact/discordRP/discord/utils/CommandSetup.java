@@ -70,32 +70,37 @@ public class CommandSetup {
         commands.add(Commands.slash("look", "Look around at your surroundings.").addSubcommands(
                 new SubcommandData("room", "Look around at the room."),
                 new SubcommandData("item", "Look at an item in the room.").addOptions(
-                        new OptionData(OptionType.STRING, "item", "The name of the item", false)
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                ),
+                new SubcommandData("inv", "Look at an item you are currently holding.").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                ),
+                new SubcommandData("clothes", "Look at an item you are currently wearing.").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
                                 .setRequiredRange(1, 1000000)
                 ),
                 new SubcommandData("character", "Look at a character in the room.").addOptions(
-                        new OptionData(OptionType.STRING, "character", "The name of the character", false)
+                        new OptionData(OptionType.STRING, "character", "The name of the character", true)
                                 .setRequiredLength(1, 32)
                 )
         ));
 
-        // Inv Command
-        commands.add(Commands.slash("inv", "Look at what you are currently holding.").addOptions(
-                new OptionData(OptionType.STRING, "item", "The name of the item", false)
-                        .setRequiredLength(1, 32),
-                new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, 1000000)
-        ));
+        // Items Command
+        commands.add(Commands.slash("items", "Look at all the items in the room."));
 
-        // Clothes command
-        commands.add(Commands.slash("clothes", "Look at what you are currently wearing.").addOptions(
-                new OptionData(OptionType.STRING, "item", "The name of the item", false)
-                        .setRequiredLength(1, 32),
-                new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                        .setRequiredRange(1, 1000000)
-        ));
+        // Inv Command
+        commands.add(Commands.slash("inv", "Look at all the items you are currently holding."));
+
+        // Clothes Command
+        commands.add(Commands.slash("clothes", "Look at all the items you are currently wearing."));
 
         // Goto command
         commands.add(Commands.slash("goto", "Move to another room.").addOptions(
