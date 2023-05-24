@@ -14,6 +14,7 @@ public class DiscordOutputGenerator {
 	public static String convertItem(Item item) {
 		return "Item Name: `" + item.getName() + "`, " +
 				"Weight: `" + item.getWeight() + "`, " +
+				"Quantity: `" + item.getQuantity() + "`, " +
 				"Takeable: `" +item.isTakeable() + "`, " +
 				"Wearable: `" + item.isWearable() + "`, " +
 				"Infinite: `" +item.isInfinite() + "`\n" +
@@ -23,6 +24,7 @@ public class DiscordOutputGenerator {
 	public static String convertItemAdmin(Item item) {
 		return "Item Name: `" + item.getName() + "`, " +
 				"Weight: `" + item.getWeight() + "`, " +
+				"Quantity: `" + item.getQuantity() + "`, " +
 				"Takeable: `" +item.isTakeable() + "`, " +
 				"Wearable: `" + item.isWearable() + "`, " +
 				"Infinite: `" +item.isInfinite() + "`, " +
@@ -36,7 +38,7 @@ public class DiscordOutputGenerator {
 		}
 		Map<String, Integer> itemCounts = new HashMap<>();
 		for (Item item : items) {
-			itemCounts.put(item.getName(), itemCounts.getOrDefault(item.getName(), 0) + 1);
+			itemCounts.put(item.getName(), itemCounts.getOrDefault(item.getName(), 0) + item.getQuantity());
 		}
 		String output = "";
 		for (String itemName : itemCounts.keySet()) {
