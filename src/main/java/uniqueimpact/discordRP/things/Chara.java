@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
-import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class Chara implements Serializable {

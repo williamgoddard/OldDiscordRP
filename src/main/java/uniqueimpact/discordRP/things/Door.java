@@ -2,7 +2,6 @@ package uniqueimpact.discordRP.things;
 
 import java.io.Serializable;
 
-import uniqueimpact.discordRP.utils.InputChecker;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
 public class Door implements Serializable {
