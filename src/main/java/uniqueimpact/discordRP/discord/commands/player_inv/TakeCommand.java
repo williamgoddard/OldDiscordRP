@@ -47,7 +47,7 @@ public class TakeCommand implements Command {
 
             Item newItem;
             try {
-                newItem = item.getFiniteCopy();
+                newItem = item.getSingleCopy();
             } catch (InvalidInputException e) {
                 return e.getMessage();
             }

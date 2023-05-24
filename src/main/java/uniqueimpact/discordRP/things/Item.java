@@ -195,8 +195,8 @@ public class Item implements Serializable {
 	}
 
 	// Get a finite copy of the item
-	public Item getFiniteCopy() throws InvalidInputException {
-		return new Item(name, description, weight, quantity, takeable, wearable, false, keyword);
+	public Item getSingleCopy() throws InvalidInputException {
+		return new Item(name, description, weight, 1, takeable, wearable, false, keyword);
 	}
 
 }
