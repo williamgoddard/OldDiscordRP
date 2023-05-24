@@ -27,6 +27,7 @@ public class AdminHelpCommand implements Command {
                 `/character look` Look at a character
                 `/character edit` Edit a character
                 `/character move` Move a character
+                `/character moveall` Move all characters
                 `/character delete` Delete a character
                 
                 **Door Commands**
@@ -37,6 +38,7 @@ public class AdminHelpCommand implements Command {
                 `/door delete` Delete a door
                 
                 **Inventory Commands**
+                `/inventory storage` Select the roleplay's storage inventory
                 `/inventory room` Select a room's inventory
                 `/inventory items` Select a character's inventory
                 `/inventory clothes` Select a character's clothes

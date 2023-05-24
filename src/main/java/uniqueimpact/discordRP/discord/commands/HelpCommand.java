@@ -22,6 +22,7 @@ public class HelpCommand implements Command {
                 `/look inv` Look at an item you are currently holding
                 `/look clothes` Look at an item you are currently wearing
                 `/look character` Look at a character in the room
+                `/look self` Look at yourself
                 `/items` List all the items in the room
                 `/inv` List all the items you are currently holding
                 `/clothes` List all the items you are currently wearing
