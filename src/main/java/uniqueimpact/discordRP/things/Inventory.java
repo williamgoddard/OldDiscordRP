@@ -167,22 +167,16 @@ public class Inventory implements Serializable {
 
 	}
 
-
 	// Get the remaining capacity of the inventory
 	public double getRemainingCapacity() {
 
 		double remaining_capacity = capacity;
 		for (Item item : items) {
-			remaining_capacity -= item.getWeight();
+			remaining_capacity -= (item.getWeight() * (item.isInfinite() ? 1 : item.getQuantity()));
 		}
 
 		return remaining_capacity;
 
-	}
-
-	// Get whether this inventory has enough capacity for an item
-	public boolean canFitItem(Item item) {
-		return (item.getWeight()) <= this.getRemainingCapacity();
 	}
 
 }
