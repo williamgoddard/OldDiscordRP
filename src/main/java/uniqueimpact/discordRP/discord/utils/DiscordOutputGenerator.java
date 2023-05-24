@@ -26,7 +26,7 @@ public class DiscordOutputGenerator {
 				"Takeable: `" +item.isTakeable() + "`, " +
 				"Wearable: `" + item.isWearable() + "`, " +
 				"Infinite: `" +item.isInfinite() + "`, " +
-				("Key: `" + item.getKeyword() == null ? "none" : item.getKeyword() + "`\n") +
+				"Keyword: `" + (item.getKeyword() == null ? "none" : item.getKeyword()) + "`\n" +
 				item.getDescription();
 	}
 	
@@ -99,7 +99,7 @@ public class DiscordOutputGenerator {
 				"Room 2: `" + door.getRoom2().getName() + "`, " +
 				"Hidden: `" + door.isHidden() + "`, " +
 				"Locked: `" + door.isLocked() + "`, " +
-				"Lock: `" + (door.getKeyword() == null ? "" : door.getKeyword()) + "`";
+				"Keyword: `" + (door.getKeyword() == null ? "" : door.getKeyword()) + "`";
 	}
 	
 	public static String convertDoorList(List<Door> doors, Room currentRoom, int charLimit) {
