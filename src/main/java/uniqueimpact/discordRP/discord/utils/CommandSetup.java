@@ -232,6 +232,12 @@ public class CommandSetup {
                         new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
                                 .setRequiredRange(1, 1000000)
                 ),
+                new SubcommandData("moveall", "Move all characters").addOptions(
+                        new OptionData(OptionType.STRING, "room", "The name of the room", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                ),
                 new SubcommandData("delete", "Delete a character").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
                                 .setRequiredLength(1, 32)

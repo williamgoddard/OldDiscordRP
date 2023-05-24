@@ -1,5 +1,7 @@
 package uniqueimpact.discordRP.discord.commands.admin;
 
+import net.dv8tion.jda.api.entities.GuildWelcomeScreen;
+import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
@@ -35,6 +37,8 @@ public class CharacterCommand implements Command {
                 return edit(command);
             case "character move":
                 return move(command);
+            case "character moveall":
+                return moveall(command);
             case "character delete":
                 return delete(command);
             default:
@@ -227,6 +231,11 @@ public class CharacterCommand implements Command {
             }
         }
 
+        if (hidden != null) {
+            character.setHidden(hidden);
+            response += "The character's hidden value was edited successfully.\n";
+        }
+
         if (response.equals("")) {
             return "The character was not edited: At least one field must be selected for editing.";
         }
@@ -259,7 +268,34 @@ public class CharacterCommand implements Command {
         character.setRoom(room);
         room.addCharacter(character);
 
+        try {
+        } catch (NullPointerException e) {
+            return e.getMessage();
+        }
+
         return "The character was moved successfully.";
+
+    }
+
+    private String moveall(SlashCommandInteractionEvent command) {
+
+        String roomName = command.getOption("room").getAsString();
+        Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
+
+        Room room;
+        try {
+            room = roleplay.findRoom(roomName, roomNum);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        for (Chara character : roleplay.getCharas()) {
+            character.getRoom().delCharacter(character);
+            character.setRoom(room);
+            room.addCharacter(character);
+        }
+
+        return "All characters were moved successfully.";
 
     }
 
