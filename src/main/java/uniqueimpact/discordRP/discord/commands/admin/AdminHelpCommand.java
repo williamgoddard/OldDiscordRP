@@ -51,6 +51,7 @@ public class AdminHelpCommand implements Command {
                 `/item look` Look at an item in the currently selected inventory
                 `/item edit` Edit an item in the currently selected inventory
                 `/item delete` Delete an item from the currently selected inventory
+                `/item cut` Cut an item to the clipboard from the currently selected inventory
                 `/item copy` Copy an item to the clipboard from the currently selected inventory
                 `/item paste` Paste the item from the clipboard into the currently selected inventory
                 """;

@@ -47,6 +47,8 @@ public class ItemCommand implements Command {
                 return edit(command, user);
             case "item delete":
                 return delete(command, user);
+            case "item cut":
+                return cut(command, user);
             case "item copy":
                 return copy(command, user);
             case "item paste":
@@ -196,6 +198,30 @@ public class ItemCommand implements Command {
         user.getInventory().delItem(item);
 
         return "The item was deleted successfully.";
+
+    }
+
+    private String cut(SlashCommandInteractionEvent command, User user) {
+
+        String name = command.getOption("item").getAsString();
+        int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
+
+        Item item;
+        try {
+            item = user.getInventory().findItem(name, num);
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        try {
+            user.setClipboard(item.getCopy());
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        user.getInventory().delItem(item);
+
+        return "The item was cut to your clipboard successfully.";
 
     }
 

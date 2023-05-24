@@ -296,6 +296,13 @@ public class CommandSetup {
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
                                 .setRequiredRange(1, 1000000)
                 ),
+
+                new SubcommandData("cut", "Cut an item to the clipboard from the currently selected inventory").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                ),
                 new SubcommandData("copy", "Copy an item to the clipboard from the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
