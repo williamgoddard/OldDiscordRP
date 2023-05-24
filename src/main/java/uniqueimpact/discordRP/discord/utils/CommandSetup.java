@@ -258,8 +258,10 @@ public class CommandSetup {
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.STRING, "description", "The description of the item", true)
                                 .setRequiredLength(1, 1500),
-                        new OptionData(OptionType.NUMBER, "weight", "The weight of the item", false)
+                        new OptionData(OptionType.NUMBER, "weight", "The weight of the item (Default 1)", false)
                                 .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.INTEGER, "quantity", "The quantity of the item (Default 1)", false)
+                                .setRequiredRange(0, 1000),
                         new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken (Default true)", false),
                         new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn (Default false)", false),
                         new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely (Default false)", false),
@@ -285,6 +287,8 @@ public class CommandSetup {
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
                                 .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.INTEGER, "quantity", "The new quantity of the item", false)
+                                .setRequiredRange(0, 1000),
                         new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
                         new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
                         new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
