@@ -37,8 +37,12 @@ public class CharacterCommand implements Command {
                 return edit(command);
             case "character move":
                 return move(command);
-            case "character moveall":
+            case "character move-all":
                 return moveall(command);
+            case "character freeze-all":
+                return freezeall(command);
+            case "character unfreeze-all":
+                return unfreezeall(command);
             case "character delete":
                 return delete(command);
             default:
@@ -62,6 +66,8 @@ public class CharacterCommand implements Command {
         Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : 0.0;
         Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : 0.0;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : false;
+        Boolean frozen = (command.getOption("frozen") != null) ? command.getOption("frozen").getAsBoolean() : false;
+        Boolean npc = (command.getOption("npc") != null) ? command.getOption("npc").getAsBoolean() : false;
 
         try {
             roleplay.findCharacter(name);
@@ -82,7 +88,7 @@ public class CharacterCommand implements Command {
 
         Chara character;
         try {
-            character = new Chara(channel, name, displayName, picture, description, hidden, itemsCapacity, clothesCapacity, room);
+            character = new Chara(channel, name, displayName, picture, description, hidden, frozen, npc, itemsCapacity, clothesCapacity, room);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -152,6 +158,8 @@ public class CharacterCommand implements Command {
         Double itemsCapacity = (command.getOption("items_capacity") != null) ? command.getOption("items_capacity").getAsDouble() : null;
         Double clothesCapacity = (command.getOption("clothes_capacity") != null) ? command.getOption("clothes_capacity").getAsDouble() : null;
         Boolean hidden = (command.getOption("hidden") != null) ? command.getOption("hidden").getAsBoolean() : null;
+        Boolean frozen = (command.getOption("frozen") != null) ? command.getOption("frozen").getAsBoolean() : null;
+        Boolean npc = (command.getOption("npc") != null) ? command.getOption("npc").getAsBoolean() : null;
 
         Chara character;
         try {
@@ -233,7 +241,17 @@ public class CharacterCommand implements Command {
 
         if (hidden != null) {
             character.setHidden(hidden);
-            response += "The character's hidden value was edited successfully.\n";
+            response += "The character's hidden status was edited successfully.\n";
+        }
+
+        if (frozen != null) {
+            character.setFrozen(frozen);
+            response += "The character's frozen status was edited successfully.\n";
+        }
+
+        if (npc != null) {
+            character.setNpc(npc);
+            response += "The character's npc status was edited successfully.\n";
         }
 
         if (response.equals("")) {
@@ -290,12 +308,38 @@ public class CharacterCommand implements Command {
         }
 
         for (Chara character : roleplay.getCharas()) {
-            character.getRoom().delCharacter(character);
-            character.setRoom(room);
-            room.addCharacter(character);
+            if (!character.isNpc()) {
+                character.getRoom().delCharacter(character);
+                character.setRoom(room);
+                room.addCharacter(character);
+            }
         }
 
         return "All characters were moved successfully.";
+
+    }
+
+    private String freezeall(SlashCommandInteractionEvent command) {
+
+        for (Chara character : roleplay.getCharas()) {
+            if (!character.isNpc()) {
+                character.setFrozen(true);
+            }
+        }
+
+        return "All characters were frozen successfully.";
+
+    }
+
+    private String unfreezeall(SlashCommandInteractionEvent command) {
+
+        for (Chara character : roleplay.getCharas()) {
+            if (!character.isNpc()) {
+                character.setFrozen(false);
+            }
+        }
+
+        return "All characters were frozen successfully.";
 
     }
 

@@ -27,6 +27,10 @@ public class GotoCommand implements Command {
             return e.getMessage();
         }
 
+        if (character.isFrozen()) {
+            return "You are currently not allowed to move.";
+        }
+
         Room room = character.getRoom();
 
         Door door;

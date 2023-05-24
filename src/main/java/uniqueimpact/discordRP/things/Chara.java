@@ -18,11 +18,13 @@ public class Chara implements Serializable {
 	private String picture;
 	private String description;
 	private Boolean hidden;
+	private Boolean frozen;
+	private Boolean npc;
 	private Inventory inv;
 	private Inventory clothes;
 	private Room room;
 
-	public Chara(TextChannel channel, String name, String displayName, String picture, String description, boolean hidden, double inv_capacity, double clothes_capacity, Room room) throws InvalidInputException {
+	public Chara(TextChannel channel, String name, String displayName, String picture, String description, boolean hidden, boolean frozen, boolean npc, double inv_capacity, double clothes_capacity, Room room) throws InvalidInputException {
 
 		if (channel == null) {
 			throw new InvalidInputException("Character Discord Channel must be assigned.");
@@ -63,6 +65,8 @@ public class Chara implements Serializable {
 		this.picture = picture;
 		this.description = description;
 		this.hidden = hidden;
+		this.frozen = frozen;
+		this.npc = npc;
 		this.inv = new Inventory(inv_capacity);
 		this.clothes = new Inventory(clothes_capacity);
 		this.room = room;
@@ -172,6 +176,34 @@ public class Chara implements Serializable {
 		}
 
 		this.hidden = hidden;
+	}
+
+	// Get whether the character is frozen
+	public boolean isFrozen() {
+		return frozen;
+	}
+
+	// Set whether the character is frozen
+	public void setFrozen(Boolean frozen) {
+		if (frozen == null) {
+			return;
+		}
+
+		this.frozen = frozen;
+	}
+
+	// Get whether the character is an NPC
+	public boolean isNpc() {
+		return npc;
+	}
+
+	// Set whether the character is an NPC
+	public void setNpc(Boolean npc) {
+		if (npc == null) {
+			return;
+		}
+
+		this.npc = npc;
 	}
 
 	// Get the character's inventory

@@ -27,7 +27,9 @@ public class AdminHelpCommand implements Command {
                 `/character look` Look at a character
                 `/character edit` Edit a character
                 `/character move` Move a character
-                `/character moveall` Move all characters
+                `/character move-all` Move all characters (Excludes NPC characters)
+                `/character freeze-all` Freeze all characters (Excludes NPC characters)
+                `/character unfreeze-all` Unfreeze all characters (Excludes NPC characters)
                 `/character delete` Delete a character
                 
                 **Door Commands**

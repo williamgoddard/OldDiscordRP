@@ -63,6 +63,8 @@ public class DiscordOutputGenerator {
 	public static String convertPlayerAdmin(Chara player) {
 		return "Name: `" + player.getDisplayName() + "`, " +
 				"Hidden: `" + player.isHidden() + "`, " +
+				"Frozen: `" + player.isFrozen() + "`, " +
+				"NPC: `" + player.isNpc() + "`, " +
 				"Max Items: `" + player.getInv().getCapacity() + "`, " +
 				"Max Clothes: `" + player.getClothes().getCapacity() + "`, " +
 				"Channel Id: `" + player.getChannel() + "`\n" +

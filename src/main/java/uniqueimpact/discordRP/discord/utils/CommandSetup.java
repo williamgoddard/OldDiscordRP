@@ -194,7 +194,9 @@ public class CommandSetup {
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.NUMBER, "clothes_capacity", "The capacity of the player's clothes", false)
                                 .setRequiredRange(0.0, 1000000.0),
-                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden", false)
+                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden (Default false)", false),
+                        new OptionData(OptionType.BOOLEAN, "frozen", "Whether the player is frozen (Default false)", false),
+                        new OptionData(OptionType.BOOLEAN, "npc", "Whether the player is an NPC (Default false)", false)
                 ),
                 new SubcommandData("list", "List all of the characters, or all characters in a room").addOptions(
                         new OptionData(OptionType.STRING, "room", "The room to list the characters in", false)
@@ -217,13 +219,15 @@ public class CommandSetup {
                                 .setRequiredLength(1, 1500),
                         new OptionData(OptionType.STRING, "display_name", "The display name of the character (Set to 'none' to clear)", false)
                                 .setRequiredLength(1, 32),
-                        new OptionData(OptionType.STRING, "picture", "The image URL of the character (Set to 'none' to clear)", false)
+                        new OptionData(OptionType.STRING, "picture", "The image URL of the character", false)
                                 .setRequiredLength(1, 200),
                         new OptionData(OptionType.NUMBER, "items_capacity", "The new capacity of the player's inventory", false)
                                 .setRequiredRange(0.0, 1000000.0),
                         new OptionData(OptionType.NUMBER, "clothes_capacity", "The new capacity of the player's clothes", false)
                                 .setRequiredRange(0.0, 1000000.0),
-                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden (Default false)", false)
+                        new OptionData(OptionType.BOOLEAN, "hidden", "Whether the player is hidden", false),
+                        new OptionData(OptionType.BOOLEAN, "frozen", "Whether the player is frozen", false),
+                        new OptionData(OptionType.BOOLEAN, "npc", "Whether the player is an NPC", false)
                 ),
                 new SubcommandData("move", "Move a character").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
@@ -233,12 +237,14 @@ public class CommandSetup {
                         new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
                                 .setRequiredRange(1, 1000000)
                 ),
-                new SubcommandData("moveall", "Move all characters").addOptions(
+                new SubcommandData("move-all", "Move all characters (Excludes NPC characters)").addOptions(
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "room_num", "The number of the specific room, if there are multiple rooms with the same name", false)
                                 .setRequiredRange(1, 1000000)
                 ),
+                new SubcommandData("freeze-all", "Freeze all characters (Excludes NPC characters)"),
+                new SubcommandData("unfreeze-all", "Unfreeze all characters (Excludes NPC characters)"),
                 new SubcommandData("delete", "Delete a character").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
                                 .setRequiredLength(1, 32)
