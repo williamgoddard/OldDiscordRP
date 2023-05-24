@@ -20,6 +20,8 @@ public class Roleplay implements Serializable {
 	private List<Room> rooms;
 	private List<Chara> charas;
 
+	private Inventory storageInv;
+
 
 	private Roleplay() {
 		try {
@@ -27,10 +29,16 @@ public class Roleplay implements Serializable {
 			users = instance.users;
 			rooms = instance.rooms;
 			charas = instance.charas;
+			storageInv = instance.storageInv;
 		} catch (Exception e) {
 			users = new ArrayList<>();
 			rooms = new ArrayList<>();
 			charas = new ArrayList<>();
+			try {
+				storageInv = new Inventory(0);
+			} catch (InvalidInputException ex) {
+				throw new RuntimeException(ex);
+			}
 		}
 	}
 
@@ -75,6 +83,11 @@ public class Roleplay implements Serializable {
 	// Get the list of characters registered to the roleplay
 	public List<Chara> getCharas() {
 		return charas;
+	}
+
+	// Get the roleplay's storage inventory
+	public Inventory getStorageInv() {
+		return storageInv;
 	}
 
 	// Find a user registered to the roleplay from their Discord User ID

@@ -20,6 +20,8 @@ public class InventoryCommand implements Command {
         String path = command.getFullCommandName();
 
         switch (path) {
+            case "inventory storage":
+                return storage(command);
             case "inventory room":
                 return room(command);
             case "inventory items":
@@ -29,6 +31,28 @@ public class InventoryCommand implements Command {
             default:
                 return "Error: Invalid command path (" + path + ")";
         }
+
+    }
+
+    private String storage(SlashCommandInteractionEvent command) {
+
+        String userId = command.getMember().getId();
+
+        User user;
+        try {
+            user = roleplay.findUser(userId);
+        } catch (InvalidInputException e) {
+            try {
+                user = new User(command.getMember());
+                roleplay.addUser(user);
+            } catch (InvalidInputException ex) {
+                return ex.getMessage();
+            }
+        }
+
+        user.setInventory(roleplay.getStorageInv());
+
+        return "Selected the roleplay's storage inventory successfully.";
 
     }
 

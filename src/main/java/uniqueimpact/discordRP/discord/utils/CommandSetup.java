@@ -301,6 +301,7 @@ public class CommandSetup {
 
         // Inventory Command
         commands.add(Commands.slash("inventory", "Command to select an inventory to work with").addSubcommands(
+                new SubcommandData("storage", "Select the roleplay's storage inventory"),
                 new SubcommandData("room", "Select a room's inventory").addOptions(
                         new OptionData(OptionType.STRING, "room", "The name of the room", true)
                                 .setRequiredLength(1, 32),
