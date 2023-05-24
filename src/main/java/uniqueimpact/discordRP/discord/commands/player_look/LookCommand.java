@@ -38,6 +38,8 @@ public class LookCommand implements Command {
                 return clothes(command, player);
             case "look character":
                 return character(command, player);
+            case "look self":
+                return self(command, player);
             default:
                 return "Error: Invalid command path (" + path + ")";
         }
@@ -111,15 +113,6 @@ public class LookCommand implements Command {
 
         Room room = player.getRoom();
 
-        if (characterName == null) {
-            List<Chara> players = room.getCharacters(false);
-            if (players.size() > 1) {
-                return "You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
-            } else {
-                return "You don't see anyone else here.";
-            }
-        }
-
         Chara otherPlayer;
         try {
             otherPlayer = room.findCharacter(characterName, false);
@@ -138,6 +131,12 @@ public class LookCommand implements Command {
         }
 
         return outputMessage;
+
+    }
+
+    private String self(SlashCommandInteractionEvent command, Chara player) {
+
+        return DiscordOutputGenerator.convertPlayer(player);
 
     }
 

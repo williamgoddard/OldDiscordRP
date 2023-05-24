@@ -93,7 +93,8 @@ public class CommandSetup {
                 new SubcommandData("character", "Look at a character in the room.").addOptions(
                         new OptionData(OptionType.STRING, "character", "The name of the character", true)
                                 .setRequiredLength(1, 32)
-                )
+                ),
+                new SubcommandData("self", "Look at yourself.")
         ));
 
         // Items Command
