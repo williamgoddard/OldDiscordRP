@@ -26,7 +26,7 @@ public class DiscordOutputGenerator {
 				"Takeable: `" +item.isTakeable() + "`, " +
 				"Wearable: `" + item.isWearable() + "`, " +
 				"Infinite: `" +item.isInfinite() + "`, " +
-				"Key: `" + ((item.getKeyword().equals("")) ? "none" : item.getKeyword()) + "`\n" +
+				("Key: `" + item.getKeyword() == null ? "none" : item.getKeyword() + "`\n") +
 				item.getDescription();
 	}
 	
@@ -95,11 +95,11 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertDoorAdmin(Door door) {
-		return "Room 1: `" + door.getRoom1() + "`, " +
-				"Room 2: `" + door.getRoom2() + "`, " +
+		return "Room 1: `" + door.getRoom1().getName() + "`, " +
+				"Room 2: `" + door.getRoom2().getName() + "`, " +
 				"Hidden: `" + door.isHidden() + "`, " +
 				"Locked: `" + door.isLocked() + "`, " +
-				"Lock: `" + ((door.getKeyword().equals("")) ? "none" : door.getKeyword()) + "`";
+				"Lock: `" + (door.getKeyword() == null ? "" : door.getKeyword()) + "`";
 	}
 	
 	public static String convertDoorList(List<Door> doors, Room currentRoom, int charLimit) {

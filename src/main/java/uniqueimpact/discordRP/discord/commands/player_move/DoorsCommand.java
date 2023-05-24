@@ -27,7 +27,7 @@ public class DoorsCommand implements Command {
         Room room = character.getRoom();
 
         List<Door> uDoors = room.getDoors(false, false);
-        List<Door> lDoors = room.getDoors(false, true);
+        List<Door> lDoors = room.getDoors(true, false);
 
         String outputString = "You look for places you can go.\n";
         if (uDoors.size() > 0) {

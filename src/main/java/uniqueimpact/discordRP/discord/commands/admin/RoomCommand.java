@@ -44,7 +44,7 @@ public class RoomCommand implements Command {
 
         String name = command.getOption("name").getAsString();
         String desc = command.getOption("description").getAsString();
-        Double capacity = command.getOption("capacity") != null ? command.getOption("capacity").getAsDouble() : null;
+        Double capacity = command.getOption("capacity") != null ? command.getOption("capacity").getAsDouble() : 0.0;
 
         Room room;
         try {
@@ -66,7 +66,7 @@ public class RoomCommand implements Command {
             return "No rooms are currently registered.";
         }
 
-        return "List of rooms registered to the roleplay:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getCharas(), 1900);
+        return "List of rooms registered to the roleplay:\n" + DiscordOutputGenerator.convertRoomList(rooms, 1900);
 
     }
 
@@ -93,7 +93,7 @@ public class RoomCommand implements Command {
 
         String newName = (command.getOption("name") != null) ? command.getOption("name").getAsString() : null;
         String description = (command.getOption("description") != null) ? command.getOption("description").getAsString() : null;
-        Double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : 0.0;
+        Double capacity = (command.getOption("capacity") != null) ? command.getOption("capacity").getAsDouble() : null;
 
         Room room;
         try {

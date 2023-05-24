@@ -107,7 +107,7 @@ public class Room implements Serializable {
 	}
 
 	//Get the room's doors which match hidden and locked
-	public List<Door> getDoors(Boolean hidden, Boolean locked) {
+	public List<Door> getDoors(Boolean locked, Boolean hidden) {
 
 		List<Door> resultDoors = new ArrayList<>();
 		for (Door door : doors) {
@@ -147,7 +147,7 @@ public class Room implements Serializable {
 		int doorsFound = 0;
 
 		for (Door door : getDoors(locked, hidden)) {
-			if (door.getOtherRoom(this).getName().toLowerCase().equals(otherRoomName)) {
+			if (door.getOtherRoom(this).getName().equalsIgnoreCase(otherRoomName)) {
 				doorsFound++;
 				if (doorsFound == num) {
 					return door;
