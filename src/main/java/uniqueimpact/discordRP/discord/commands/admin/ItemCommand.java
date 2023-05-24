@@ -64,6 +64,7 @@ public class ItemCommand implements Command {
         String name = command.getOption("name").getAsString();
         String description = command.getOption("description").getAsString();
         Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : 1.0;
+        Integer quantity = (command.getOption("quantity") != null) ? command.getOption("quantity").getAsInt() : 1;
         Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("hidden").getAsBoolean() : true;
         Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : false;
         Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : false;
@@ -71,7 +72,7 @@ public class ItemCommand implements Command {
 
         Item item;
         try {
-            item = new Item(name, description, weight, takeable, wearable, infinite, keyword);
+            item = new Item(name, description, weight, quantity, takeable, wearable, infinite, keyword);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
@@ -110,6 +111,7 @@ public class ItemCommand implements Command {
         String newName = command.getOption("name") != null ? command.getOption("name").getAsString() : null;
         String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
         Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : null;
+        Integer quantity = (command.getOption("quantity") != null) ? command.getOption("quantity").getAsInt() : null;
         Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("takeable").getAsBoolean() : null;
         Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : null;
         Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : null;
@@ -148,6 +150,15 @@ public class ItemCommand implements Command {
                 response += "The item's weight was edited successfully.\n";
             } catch (InvalidInputException e) {
                 response += "The item's weight was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (quantity != null) {
+            try {
+                item.setQuantity(quantity);
+                response += "The item's quantity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The item's quantity was not edited: " + e.getMessage() + "\n";
             }
         }
 
