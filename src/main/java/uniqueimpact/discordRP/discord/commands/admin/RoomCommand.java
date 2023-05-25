@@ -107,6 +107,8 @@ public class RoomCommand implements Command {
         if (newName != null) {
             try {
                 room.setName(newName);
+                roleplay.delRoom(room);
+                roleplay.addRoom(room);
                 response += "The room's name was edited successfully.\n";
             } catch (InvalidInputException e) {
                 response += "The room's name was not edited: " + e.getMessage() + "\n";

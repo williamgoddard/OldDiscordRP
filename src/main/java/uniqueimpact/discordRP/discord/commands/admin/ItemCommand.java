@@ -129,6 +129,8 @@ public class ItemCommand implements Command {
         if (newName != null) {
             try {
                 item.setName(newName);
+                user.getInventory().delItem(item);
+                user.getInventory().addItem(item);
                 response += "The item's name was edited successfully.\n";
             } catch (InvalidInputException e) {
                 response += "The item's name was not edited: " + e.getMessage() + "\n";

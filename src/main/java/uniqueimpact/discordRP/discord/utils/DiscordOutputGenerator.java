@@ -36,25 +36,27 @@ public class DiscordOutputGenerator {
 		if (items.size() == 0) {
 			return "None";
 		}
-		Map<String, Integer> itemCounts = new HashMap<>();
-		for (Item item : items) {
-			itemCounts.put(item.getName(), itemCounts.getOrDefault(item.getName(), 0) + item.getQuantity());
-		}
+
 		String output = "";
-		for (String itemName : itemCounts.keySet()) {
-			String addToOutput = "`" + itemName;
-			if (itemCounts.get(itemName) > 1) {
-				addToOutput += " (" + itemCounts.get(itemName) + ")";
+
+		for (Item item : items) {
+			String addToOutput = "`" + item.getName();
+			if (item.isInfinite()) {
+				addToOutput += "(∞)";
+			} else if (item.getQuantity() > 1) {
+				addToOutput += "(" + item.getQuantity() + ")";
 			}
 			addToOutput += "` ";
 			if (output.length() + addToOutput.length() > charLimit) {
-				output += "(and more) ";
+				output += "(and more)";
 				return output;
 			} else {
 				output += addToOutput;
 			}
 		}
+
 		return output;
+
 	}
 	
 	public static String convertPlayer(Chara player) {
@@ -73,29 +75,26 @@ public class DiscordOutputGenerator {
 				player.getDescription();
 	}
 	
-	public static String convertPlayerList(List<Chara> players, int charLimit) {
-		if (players.size() == 0) {
+	public static String convertCharaList(List<Chara> charas, int charLimit) {
+
+		if (charas.size() == 0) {
 			return "None";
 		}
-		Map<String, Integer> playerCounts = new HashMap<>();
-		for (Chara player : players) {
-			playerCounts.put(player.getName(), playerCounts.getOrDefault(player.getName(), 0) + 1);
-		}
+
 		String output = "";
-		for (String playerName : playerCounts.keySet()) {
-			String addToOutput = "`" + playerName;
-			if (playerCounts.get(playerName) > 1) {
-				addToOutput += " (" + playerCounts.get(playerName) + ")";
-			}
-			addToOutput += "` ";
+
+		for (Chara chara : charas) {
+			String addToOutput = "`" + chara.getName() + "` ";
 			if (output.length() + addToOutput.length() > charLimit) {
-				output += "(and more) ";
+				output += "(and more)";
 				return output;
 			} else {
 				output += addToOutput;
 			}
 		}
+
 		return output;
+
 	}
 	
 	public static String convertDoorAdmin(Door door) {
@@ -130,28 +129,25 @@ public class DiscordOutputGenerator {
 	}
 	
 	public static String convertRoomList(List<Room> rooms, int charLimit) {
+
 		if (rooms.size() == 0) {
 			return "None";
 		}
-		Map<String, Integer> roomCounts = new HashMap<>();
-		for (Room room : rooms) {
-			roomCounts.put(room.getName(), roomCounts.getOrDefault(room.getName(), 0) + 1);
-		}
+
 		String output = "";
-		for (String roomName : roomCounts.keySet()) {
-			String addToOutput = "`" + roomName;
-			if (roomCounts.get(roomName) > 1) {
-				addToOutput += " (" + roomCounts.get(roomName) + ")";
-			}
-			addToOutput += "` ";
+
+		for (Room room : rooms) {
+			String addToOutput = "`" + room.getName() + "` ";
 			if (output.length() + addToOutput.length() > charLimit) {
-				output += "(and more) ";
+				output += "(and more)";
 				return output;
 			} else {
 				output += addToOutput;
 			}
 		}
+
 		return output;
+
 	}
 	
 	public static String convertRoomAdmin(Room room) {

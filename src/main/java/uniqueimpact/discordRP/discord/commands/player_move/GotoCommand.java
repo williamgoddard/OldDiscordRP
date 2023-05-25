@@ -57,7 +57,7 @@ public class GotoCommand implements Command {
 
         List<Chara> players = targetRoom.getCharacters(false);
         if (players.size() > 1) {
-            return "You go to the " + targetRoom.getName() + ". You see these people here:\n" + DiscordOutputGenerator.convertPlayerList(players, 1900);
+            return "You go to the " + targetRoom.getName() + ". You see these people here:\n" + DiscordOutputGenerator.convertCharaList(players, 1900);
         } else {
             return "You go to the " + targetRoom.getName() + ". You don't see anyone else here.";
         }

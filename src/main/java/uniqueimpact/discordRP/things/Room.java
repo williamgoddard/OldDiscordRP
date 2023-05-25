@@ -195,7 +195,23 @@ public class Room implements Serializable, Comparable<Room> {
 
 	// Add a character to the room
 	public void addCharacter(Chara character) {
-		this.characters.add(character);
+		if (character == null) {
+			return;
+		}
+
+		int p1 = 0;
+		int p2 = characters.size();
+		while (p1 < p2) {
+			int midpoint = (p1 + p2) / 2;
+			Chara currentChara = characters.get(midpoint);
+			if (character.compareTo(currentChara) > 0) {
+				p1 = midpoint + 1;
+			} else {
+				p2 = midpoint;
+			}
+		}
+
+		characters.add(p1, character);
 	}
 
 	// Add a door to the room

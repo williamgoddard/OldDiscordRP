@@ -152,7 +152,19 @@ public class Inventory implements Serializable {
 			return;
 		}
 
-		items.add(item);
+		int p1 = 0;
+		int p2 = items.size();
+		while (p1 < p2) {
+			int midpoint = (p1 + p2) / 2;
+			Item currentItem = items.get(midpoint);
+			if (item.compareTo(currentItem) > 0) {
+				p1 = midpoint + 1;
+			} else {
+				p2 = midpoint;
+			}
+		}
+
+		items.add(p1, item);
 
 	}
 

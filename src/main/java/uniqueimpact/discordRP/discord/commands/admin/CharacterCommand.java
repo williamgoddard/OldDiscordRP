@@ -1,14 +1,10 @@
 package uniqueimpact.discordRP.discord.commands.admin;
 
-import net.dv8tion.jda.api.entities.GuildWelcomeScreen;
-import net.dv8tion.jda.api.entities.channel.Channel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
-import uniqueimpact.discordRP.discord.utils.WebhookManager;
-import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
@@ -112,7 +108,7 @@ public class CharacterCommand implements Command {
                 return "No characters are currently registered.";
             }
 
-            return "List of characters registered to the roleplay:\n" + DiscordOutputGenerator.convertPlayerList(roleplay.getCharas(), 1900);
+            return "List of characters registered to the roleplay:\n" + DiscordOutputGenerator.convertCharaList(roleplay.getCharas(), 1900);
         }
 
         Room room;
@@ -128,7 +124,7 @@ public class CharacterCommand implements Command {
             return "There are no characters in room `" + roomName + "`.";
         }
 
-        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertPlayerList(room.getCharacters(), 1900);
+        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertCharaList(room.getCharacters(), 1900);
 
     }
 
@@ -187,6 +183,10 @@ public class CharacterCommand implements Command {
         if (newName != null) {
             try {
                 character.setName(newName);
+                roleplay.delCharacter(character);
+                roleplay.addCharacter(character);
+                character.getRoom().delCharacter(character);
+                character.getRoom().addCharacter(character);
                 response += "The character's name was edited successfully.\n";
             } catch (InvalidInputException e) {
                 response += "The character's name was not edited: " + e.getMessage() + "\n";
