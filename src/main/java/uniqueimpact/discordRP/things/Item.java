@@ -2,9 +2,10 @@ package uniqueimpact.discordRP.things;
 
 import java.io.Serializable;
 
+import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class Item implements Serializable {
+public class Item implements Serializable, Comparable<Item> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -199,4 +200,10 @@ public class Item implements Serializable {
 		return new Item(name, description, weight, 1, takeable, wearable, false, keyword);
 	}
 
+	@Override
+	public int compareTo(@NotNull Item item) {
+
+		return (this.name.compareToIgnoreCase(item.getName()));
+
+	}
 }

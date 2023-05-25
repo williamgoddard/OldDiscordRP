@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class Room implements Serializable {
+public class Room implements Serializable, Comparable<Room> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -212,4 +213,10 @@ public class Room implements Serializable {
 		this.doors.remove(door);
 	}
 
+	@Override
+	public int compareTo(@NotNull Room room) {
+
+		return (this.name.compareToIgnoreCase(room.getName()));
+
+	}
 }

@@ -3,10 +3,11 @@ package uniqueimpact.discordRP.things;
 import java.io.Serializable;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
+import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class Chara implements Serializable {
+public class Chara implements Serializable, Comparable<Chara> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -229,4 +230,10 @@ public class Chara implements Serializable {
 		this.room = room;
 	}
 
+	@Override
+	public int compareTo(@NotNull Chara chara) {
+
+		return (this.name.compareToIgnoreCase(chara.getName()));
+
+	}
 }
