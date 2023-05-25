@@ -152,7 +152,35 @@ public class Inventory implements Serializable {
 			return;
 		}
 
-		items.add(item);
+		for (Item otherItem : items) {
+			if (item.equalsContent(otherItem)) {
+				if (item.isInfinite()) {
+					otherItem.setInfinite(true);
+				}
+				try {
+					int newQuantity = otherItem.getQuantity() + item.getQuantity();
+					newQuantity = newQuantity > 1000 ? 1000 : newQuantity;
+					otherItem.setQuantity(newQuantity);
+				} catch (InvalidInputException e) {
+					throw new RuntimeException(e);
+				}
+				return;
+			}
+		}
+
+		int p1 = 0;
+		int p2 = items.size();
+		while (p1 < p2) {
+			int midpoint = (p1 + p2) / 2;
+			Item currentItem = items.get(midpoint);
+			if (item.compareTo(currentItem) > 0) {
+				p1 = midpoint + 1;
+			} else {
+				p2 = midpoint;
+			}
+		}
+
+		items.add(p1, item);
 
 	}
 
@@ -167,22 +195,16 @@ public class Inventory implements Serializable {
 
 	}
 
-
 	// Get the remaining capacity of the inventory
 	public double getRemainingCapacity() {
 
 		double remaining_capacity = capacity;
 		for (Item item : items) {
-			remaining_capacity -= item.getWeight();
+			remaining_capacity -= (item.getWeight() * (item.isInfinite() ? 1 : item.getQuantity()));
 		}
 
 		return remaining_capacity;
 
-	}
-
-	// Get whether this inventory has enough capacity for an item
-	public boolean canFitItem(Item item) {
-		return (item.getWeight()) <= this.getRemainingCapacity();
 	}
 
 }

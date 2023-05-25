@@ -37,8 +37,26 @@ public class UndressDropCommand implements Command {
             return "You can't take off and drop your `" + item.getName() + "` because the room is too full.";
         }
 
-        room.getInv().addItem(item);
-        character.getClothes().delItem(item);
+        Item newItem;
+        try {
+            newItem = item.getSingleCopy();
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        if (!item.isInfinite()) {
+            if (item.getQuantity() > 1) {
+                try {
+                    item.setQuantity(item.getQuantity() - 1);
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
+                }
+            } else {
+                character.getClothes().delItem(item);
+            }
+        }
+
+        room.getInv().addItem(newItem);
 
         WebhookManager.sendOthers("*" + character.getDisplayName() + " took off and dropped their " + item.getName() + ".*", character);
         return "You took off and dropped your `" + item.getName() + "`.";

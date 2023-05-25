@@ -2,21 +2,23 @@ package uniqueimpact.discordRP.things;
 
 import java.io.Serializable;
 
+import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class Item implements Serializable {
+public class Item implements Serializable, Comparable<Item> {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
 	private String description;
 	private double weight;
+	private int quantity;
 	private boolean takeable;
 	private boolean wearable;
 	private boolean infinite;
 	private String keyword;
 	
-	public Item(String name, String description, double weight, boolean takeable, boolean wearable, boolean infinite, String keyword) throws InvalidInputException {
+	public Item(String name, String description, double weight, int quantity, boolean takeable, boolean wearable, boolean infinite, String keyword) throws InvalidInputException {
 
 		if (name.length() < 1 || name.length() > 32) {
 			throw new InvalidInputException("Item name must be between 1 and 32 characters.");
@@ -37,6 +39,7 @@ public class Item implements Serializable {
 		this.name = name;
 		this.description = description;
 		this.weight = weight;
+		this.quantity = quantity;
 		this.takeable = takeable;
 		this.wearable = wearable;
 		this.infinite = infinite;
@@ -104,6 +107,26 @@ public class Item implements Serializable {
 
 	}
 
+	// Get the item's quantity
+	public int getQuantity() {
+		return quantity;
+	}
+
+	// Set the item's quantity
+	public void setQuantity(Integer quantity) throws InvalidInputException {
+
+		if (quantity == null) {
+			return;
+		}
+
+		if (quantity < 0 || quantity > 1000) {
+			throw new InvalidInputException("Item quantity must be between 0 and 1000.");
+		}
+
+		this.quantity = quantity;
+
+	}
+
  	// Get whether the item is takeable
 	public boolean isTakeable() {
 		return takeable;
@@ -168,12 +191,27 @@ public class Item implements Serializable {
 
 	// Get a copy of the item
 	public Item getCopy() throws InvalidInputException {
-		return new Item(name, description, weight, takeable, wearable, infinite, keyword);
+		return new Item(name, description, weight, quantity, takeable, wearable, infinite, keyword);
 	}
 
 	// Get a finite copy of the item
-	public Item getFiniteCopy() throws InvalidInputException {
-		return new Item(name, description, weight, takeable, wearable, false, keyword);
+	public Item getSingleCopy() throws InvalidInputException {
+		return new Item(name, description, weight, 1, takeable, wearable, false, keyword);
 	}
 
+	public boolean equalsContent(@NotNull Item item) {
+		return this.getName().equalsIgnoreCase(item.getName()) &&
+				this.getDescription().equals(item.getDescription()) &&
+				this.getWeight() == item.getWeight() &&
+				this.isTakeable() == item.isTakeable() &&
+				this.isWearable() == item.isWearable() &&
+				((this.getKeyword() == null && item.getKeyword() == null) || (this.getKeyword().equals(item.getKeyword())));
+	}
+
+	@Override
+	public int compareTo(@NotNull Item item) {
+
+		return (this.name.compareToIgnoreCase(item.getName()));
+
+	}
 }

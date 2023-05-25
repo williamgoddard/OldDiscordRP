@@ -198,12 +198,43 @@ public class Roleplay implements Serializable {
 
 	// Register a room to the roleplay
 	public void addRoom(Room room) {
-		this.rooms.add(room);
+
+		int p1 = 0;
+		int p2 = rooms.size();
+		while (p1 < p2) {
+			int midpoint = (p1 + p2) / 2;
+			System.out.println("p1: " + p1 + " p2: " + p2 + " midpoint: " + midpoint);
+			Room currentRoom = rooms.get(midpoint);
+			if (room.compareTo(currentRoom) >= 0) {
+				p1 = midpoint + 1;
+			} else {
+				p2 = midpoint;
+			}
+		}
+
+		System.out.println("chosen location: " + p1);
+
+		rooms.add(p1, room);
+
 	}
 
 	// Register a character to the roleplay
 	public void addCharacter(Chara character) {
-		this.charas.add(character);
+
+		int p1 = 0;
+		int p2 = charas.size();
+		while (p1 < p2) {
+			int midpoint = (p1 + p2) / 2;
+			Chara currentChara = charas.get(midpoint);
+			if (character.compareTo(currentChara) > 0) {
+				p1 = midpoint + 1;
+			} else {
+				p2 = midpoint;
+			}
+		}
+
+		charas.add(p1, character);
+
 	}
 
 	// Delete a user from the roleplay

@@ -43,35 +43,29 @@ public class TakeCommand implements Command {
             return "You can't take the `" + item.getName() + "` because you would be holding too much.";
         }
 
-        if (item.isInfinite()) {
-
-            Item newItem;
-            try {
-                newItem = item.getFiniteCopy();
-            } catch (InvalidInputException e) {
-                return e.getMessage();
-            }
-
-            newItem.setInfinite(false);
-            character.getInv().getItems().add(newItem);
-
-            if (Arrays.asList('A', 'E', 'I', 'O', 'U', '8').contains(item.getName().toUpperCase().charAt(0))) {
-                WebhookManager.sendOthers("*" + character.getDisplayName() + " took an " + item.getName() + ".*" , character);
-                return "You took an `" + item.getName() + "`.";
-            } else {
-                WebhookManager.sendOthers("*" + character.getDisplayName() + " took a " + item.getName() + ".*" , character);
-                return "You took a `" + item.getName() + "`.";
-            }
-
-        } else {
-
-            character.getInv().addItem(item);
-            room.getInv().delItem(item);
-
-            WebhookManager.sendOthers("*" + character.getDisplayName() + " took the " + item.getName() + ".*", character);
-            return "You took the `" + item.getName() + "`.";
-
+        Item newItem;
+        try {
+            newItem = item.getSingleCopy();
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
+
+        if (!item.isInfinite()) {
+            if (item.getQuantity() > 1) {
+                try {
+                    item.setQuantity(item.getQuantity() - 1);
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
+                }
+            } else {
+                room.getInv().delItem(item);
+            }
+        }
+
+        character.getInv().addItem(newItem);
+
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " took the " + item.getName() + ".*", character);
+        return "You took the `" + item.getName() + "`.";
 
     }
 

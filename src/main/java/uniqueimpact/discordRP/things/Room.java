@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-public class Room implements Serializable {
+public class Room implements Serializable, Comparable<Room> {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -194,7 +195,23 @@ public class Room implements Serializable {
 
 	// Add a character to the room
 	public void addCharacter(Chara character) {
-		this.characters.add(character);
+		if (character == null) {
+			return;
+		}
+
+		int p1 = 0;
+		int p2 = characters.size();
+		while (p1 < p2) {
+			int midpoint = (p1 + p2) / 2;
+			Chara currentChara = characters.get(midpoint);
+			if (character.compareTo(currentChara) > 0) {
+				p1 = midpoint + 1;
+			} else {
+				p2 = midpoint;
+			}
+		}
+
+		characters.add(p1, character);
 	}
 
 	// Add a door to the room
@@ -212,4 +229,10 @@ public class Room implements Serializable {
 		this.doors.remove(door);
 	}
 
+	@Override
+	public int compareTo(@NotNull Room room) {
+
+		return (this.name.compareToIgnoreCase(room.getName()));
+
+	}
 }
