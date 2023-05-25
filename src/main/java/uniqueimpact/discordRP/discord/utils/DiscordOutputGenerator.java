@@ -42,9 +42,9 @@ public class DiscordOutputGenerator {
 		for (Item item : items) {
 			String addToOutput = "`" + item.getName();
 			if (item.isInfinite()) {
-				addToOutput += "(∞)";
+				addToOutput += " (∞)";
 			} else if (item.getQuantity() > 1) {
-				addToOutput += "(" + item.getQuantity() + ")";
+				addToOutput += " (" + item.getQuantity() + ")";
 			}
 			addToOutput += "` ";
 			if (output.length() + addToOutput.length() > charLimit) {

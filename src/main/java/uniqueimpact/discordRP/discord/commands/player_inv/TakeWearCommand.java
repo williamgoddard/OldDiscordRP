@@ -47,35 +47,29 @@ public class TakeWearCommand implements Command {
             return "You can't take and put on the `" + item.getName() + "` because you would be wearing too much.";
         }
 
-        if (item.isInfinite()) {
-
-            Item newItem;
-            try {
-                newItem = item.getSingleCopy();
-            } catch (InvalidInputException e) {
-                return e.getMessage();
-            }
-
-            newItem.setInfinite(false);
-            character.getClothes().addItem(newItem);
-
-            if (Arrays.asList('A', 'E', 'I', 'O', 'U', '8').contains(item.getName().toUpperCase().charAt(0))) {
-                WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on an " + item.getName() + ".*" , character);
-                return "You took and put on an `" + item.getName() + "`.";
-            } else {
-                WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on a " + item.getName() + ".*" , character);
-                return "You took and put on a `" + item.getName() + "`.";
-            }
-
-        } else {
-
-            character.getClothes().addItem(item);
-            room.getInv().delItem(item);
-
-            WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on the " + item.getName() + ".*", character);
-            return "You took and put on the `" + item.getName() + "`.";
-
+        Item newItem;
+        try {
+            newItem = item.getSingleCopy();
+        } catch (InvalidInputException e) {
+            return e.getMessage();
         }
+
+        if (!item.isInfinite()) {
+            if (item.getQuantity() > 1) {
+                try {
+                    item.setQuantity(item.getQuantity() - 1);
+                } catch (InvalidInputException e) {
+                    return e.getMessage();
+                }
+            } else {
+                room.getInv().delItem(item);
+            }
+        }
+
+        character.getClothes().addItem(newItem);
+
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " took and put on the " + item.getName() + ".*", character);
+        return "You took and put on the `" + item.getName() + "`.";
 
     }
 
