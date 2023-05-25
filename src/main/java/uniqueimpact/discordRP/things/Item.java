@@ -40,7 +40,6 @@ public class Item implements Serializable, Comparable<Item> {
 		this.description = description;
 		this.weight = weight;
 		this.quantity = quantity;
-		this.quantity = quantity;
 		this.takeable = takeable;
 		this.wearable = wearable;
 		this.infinite = infinite;
@@ -198,6 +197,15 @@ public class Item implements Serializable, Comparable<Item> {
 	// Get a finite copy of the item
 	public Item getSingleCopy() throws InvalidInputException {
 		return new Item(name, description, weight, 1, takeable, wearable, false, keyword);
+	}
+
+	public boolean equalsContent(@NotNull Item item) {
+		return this.getName().equalsIgnoreCase(item.getName()) &&
+				this.getDescription().equals(item.getDescription()) &&
+				this.getWeight() == item.getWeight() &&
+				this.isTakeable() == item.isTakeable() &&
+				this.isWearable() == item.isWearable() &&
+				((this.getKeyword() == null && item.getKeyword() == null) || (this.getKeyword().equals(item.getKeyword())));
 	}
 
 	@Override

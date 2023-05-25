@@ -152,6 +152,22 @@ public class Inventory implements Serializable {
 			return;
 		}
 
+		for (Item otherItem : items) {
+			if (item.equalsContent(otherItem)) {
+				if (item.isInfinite()) {
+					otherItem.setInfinite(true);
+				}
+				try {
+					int newQuantity = otherItem.getQuantity() + item.getQuantity();
+					newQuantity = newQuantity > 1000 ? 1000 : newQuantity;
+					otherItem.setQuantity(newQuantity);
+				} catch (InvalidInputException e) {
+					throw new RuntimeException(e);
+				}
+				return;
+			}
+		}
+
 		int p1 = 0;
 		int p2 = items.size();
 		while (p1 < p2) {
