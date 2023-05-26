@@ -166,17 +166,17 @@ public class ItemCommand implements Command {
 
         if (takeable != null) {
             item.setTakeable(takeable);
-            response += "The item's takeable value was edited successfully.\n";
+            response += "The item's takeable status was edited successfully.\n";
         }
 
         if (wearable != null) {
             item.setWearable(wearable);
-            response += "The item's wearable value was edited successfully.\n";
+            response += "The item's wearable status was edited successfully.\n";
         }
 
         if (infinite != null) {
             item.setInfinite(infinite);
-            response += "The item's infinite value was edited successfully.\n";
+            response += "The item's infinite status was edited successfully.\n";
         }
 
         if (keyword != null) {
@@ -276,17 +276,17 @@ public class ItemCommand implements Command {
 
         if (takeable != null) {
             item.setTakeable(takeable);
-            response += "The cut item's takeable value was edited successfully.\n";
+            response += "The cut item's takeable status was edited successfully.\n";
         }
 
         if (wearable != null) {
             item.setWearable(wearable);
-            response += "The cut item's wearable value was edited successfully.\n";
+            response += "The cut item's wearable status was edited successfully.\n";
         }
 
         if (infinite != null) {
             item.setInfinite(infinite);
-            response += "The cut item's infinite value was edited successfully.\n";
+            response += "The cut item's infinite status was edited successfully.\n";
         }
 
         if (keyword != null) {
@@ -372,17 +372,17 @@ public class ItemCommand implements Command {
 
         if (takeable != null) {
             item.setTakeable(takeable);
-            response += "The copied item's takeable value was edited successfully.\n";
+            response += "The copied item's takeable status was edited successfully.\n";
         }
 
         if (wearable != null) {
             item.setWearable(wearable);
-            response += "The copied item's wearable value was edited successfully.\n";
+            response += "The copied item's wearable status was edited successfully.\n";
         }
 
         if (infinite != null) {
             item.setInfinite(infinite);
-            response += "The copied item's infinite value was edited successfully.\n";
+            response += "The copied item's infinite status was edited successfully.\n";
         }
 
         if (keyword != null) {
@@ -468,17 +468,17 @@ public class ItemCommand implements Command {
 
         if (takeable != null) {
             item.setTakeable(takeable);
-            response += "The pasted item's takeable value was edited successfully.\n";
+            response += "The pasted item's takeable status was edited successfully.\n";
         }
 
         if (wearable != null) {
             item.setWearable(wearable);
-            response += "The pasted item's wearable value was edited successfully.\n";
+            response += "The pasted item's wearable status was edited successfully.\n";
         }
 
         if (infinite != null) {
             item.setInfinite(infinite);
-            response += "The pasted item's infinite value was edited successfully.\n";
+            response += "The pasted item's infinite status was edited successfully.\n";
         }
 
         if (keyword != null) {

@@ -161,7 +161,7 @@ public class DoorCommand implements Command {
 
         if (locked != null) {
             door.setLocked(locked);
-            response += "The door's locked value was edited successfully.\n";
+            response += "The door's locked status was edited successfully.\n";
         }
 
         if (keyword != null) {
