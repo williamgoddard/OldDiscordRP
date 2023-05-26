@@ -305,15 +305,52 @@ public class CommandSetup {
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, 1000000)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.STRING, "name", "The new name of the item", false)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "description", "The new description of the item", false)
+                                .setRequiredLength(1, 1500),
+                        new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
+                                .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.INTEGER, "quantity", "The new quantity of the item", false)
+                                .setRequiredRange(0, 1000),
+                        new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
+                        new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
+                        new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item (Set to 'none' to clear)", false)
                 ),
                 new SubcommandData("copy", "Copy an item to the clipboard from the currently selected inventory").addOptions(
                         new OptionData(OptionType.STRING, "item", "The name of the item", true)
                                 .setRequiredLength(1, 32),
                         new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
-                                .setRequiredRange(1, 1000000)
+                                .setRequiredRange(1, 1000000),
+                        new OptionData(OptionType.STRING, "name", "The new name of the item", false)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "description", "The new description of the item", false)
+                                .setRequiredLength(1, 1500),
+                        new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
+                                .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.INTEGER, "quantity", "The new quantity of the item", false)
+                                .setRequiredRange(0, 1000),
+                        new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
+                        new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
+                        new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item (Set to 'none' to clear)", false)
                 ),
-                new SubcommandData("paste", "Paste the item from the clipboard into the currently selected inventory")
+                new SubcommandData("paste", "Paste the item from the clipboard into the currently selected inventory").addOptions(
+                        new OptionData(OptionType.STRING, "name", "The new name of the item", false)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.STRING, "description", "The new description of the item", false)
+                                .setRequiredLength(1, 1500),
+                        new OptionData(OptionType.NUMBER, "weight", "The new weight of the item", false)
+                                .setRequiredRange(0.0, 1000000.0),
+                        new OptionData(OptionType.INTEGER, "quantity", "The new quantity of the item", false)
+                                .setRequiredRange(0, 1000),
+                        new OptionData(OptionType.BOOLEAN, "takeable", "Whether the item can be taken", false),
+                        new OptionData(OptionType.BOOLEAN, "wearable", "Whether the item can be worn", false),
+                        new OptionData(OptionType.BOOLEAN, "infinite", "Whether the item can be taken infinitely", false),
+                        new OptionData(OptionType.STRING, "keyword", "The new keyword associated with this item (Set to 'none' to clear)", false)
+                )
         ));
 
         // Inventory Command

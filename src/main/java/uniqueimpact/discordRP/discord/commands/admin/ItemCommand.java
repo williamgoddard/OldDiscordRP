@@ -218,6 +218,14 @@ public class ItemCommand implements Command {
 
         String name = command.getOption("item").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
+        String newName = command.getOption("name") != null ? command.getOption("name").getAsString() : null;
+        String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
+        Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : null;
+        Integer quantity = (command.getOption("quantity") != null) ? command.getOption("quantity").getAsInt() : null;
+        Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("takeable").getAsBoolean() : null;
+        Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : null;
+        Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : null;
+        String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
 
         Item item;
         try {
@@ -226,15 +234,79 @@ public class ItemCommand implements Command {
             return e.getMessage();
         }
 
+        String response = "";
+
+        if (newName != null) {
+            try {
+                item.setName(newName);
+                user.getInventory().delItem(item);
+                user.getInventory().addItem(item);
+                response += "The cut item's name was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The cut item's name was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (description != null) {
+            try {
+                item.setDescription(description);
+                response += "The cut item's description was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The cut item's description was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (weight != null) {
+            try {
+                item.setWeight(weight);
+                response += "The cut item's weight was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The cut item's weight was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (quantity != null) {
+            try {
+                item.setQuantity(quantity);
+                response += "The cut item's quantity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The cut item's quantity was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (takeable != null) {
+            item.setTakeable(takeable);
+            response += "The cut item's takeable value was edited successfully.\n";
+        }
+
+        if (wearable != null) {
+            item.setWearable(wearable);
+            response += "The cut item's wearable value was edited successfully.\n";
+        }
+
+        if (infinite != null) {
+            item.setInfinite(infinite);
+            response += "The cut item's infinite value was edited successfully.\n";
+        }
+
+        if (keyword != null) {
+            try {
+                item.setKeyword(keyword);
+                response += "The cut item's keyword was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The cut item's keyword was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
         try {
-            user.setClipboard(item.getCopy());
+            user.setClipboard(item);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
         user.getInventory().delItem(item);
 
-        return "The item was cut to your clipboard successfully.";
+        return "The item was cut to your clipboard successfully.\n" + response;
 
     }
 
@@ -242,31 +314,181 @@ public class ItemCommand implements Command {
 
         String name = command.getOption("item").getAsString();
         int num = (command.getOption("num") != null) ? command.getOption("num").getAsInt() : 1;
+        String newName = command.getOption("name") != null ? command.getOption("name").getAsString() : null;
+        String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
+        Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : null;
+        Integer quantity = (command.getOption("quantity") != null) ? command.getOption("quantity").getAsInt() : null;
+        Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("takeable").getAsBoolean() : null;
+        Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : null;
+        Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : null;
+        String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
 
         Item item;
         try {
-            item = user.getInventory().findItem(name, num);
+            item = user.getInventory().findItem(name, num).getCopy();
         } catch (InvalidInputException e) {
             return e.getMessage();
+        }
+
+        String response = "";
+
+        if (newName != null) {
+            try {
+                item.setName(newName);
+                user.getInventory().delItem(item);
+                user.getInventory().addItem(item);
+                response += "The copied item's name was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The copied item's name was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (description != null) {
+            try {
+                item.setDescription(description);
+                response += "The copied item's description was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The copied item's description was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (weight != null) {
+            try {
+                item.setWeight(weight);
+                response += "The copied item's weight was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The copied item's weight was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (quantity != null) {
+            try {
+                item.setQuantity(quantity);
+                response += "The copied item's quantity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The copied item's quantity was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (takeable != null) {
+            item.setTakeable(takeable);
+            response += "The copied item's takeable value was edited successfully.\n";
+        }
+
+        if (wearable != null) {
+            item.setWearable(wearable);
+            response += "The copied item's wearable value was edited successfully.\n";
+        }
+
+        if (infinite != null) {
+            item.setInfinite(infinite);
+            response += "The copied item's infinite value was edited successfully.\n";
+        }
+
+        if (keyword != null) {
+            try {
+                item.setKeyword(keyword);
+                response += "The copied item's keyword was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The copied item's keyword was not edited: " + e.getMessage() + "\n";
+            }
         }
 
         try {
-            user.setClipboard(item.getCopy());
+            user.setClipboard(item);
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
 
-        return "The item was copied to your clipboard successfully.";
+        return "The item was copied to your clipboard successfully.\n" + response;
 
     }
 
     private String paste(SlashCommandInteractionEvent command, User user) {
 
+        String newName = command.getOption("name") != null ? command.getOption("name").getAsString() : null;
+        String description = command.getOption("description") != null ? command.getOption("description").getAsString() : null;
+        Double weight = (command.getOption("weight") != null) ? command.getOption("weight").getAsDouble() : null;
+        Integer quantity = (command.getOption("quantity") != null) ? command.getOption("quantity").getAsInt() : null;
+        Boolean takeable = (command.getOption("takeable") != null) ? command.getOption("takeable").getAsBoolean() : null;
+        Boolean wearable = (command.getOption("wearable") != null) ? command.getOption("wearable").getAsBoolean() : null;
+        Boolean infinite = (command.getOption("infinite") != null) ? command.getOption("infinite").getAsBoolean() : null;
+        String keyword = command.getOption("keyword") != null ? command.getOption("keyword").getAsString() : null;
+
         if (user.getClipboard() == null) {
             return "You cannot paste an item because your clipboard is currently empty.";
         }
 
-        Item item = user.getClipboard();
+        Item item;
+        try {
+            item = user.getClipboard().getCopy();
+        } catch (InvalidInputException e) {
+            return e.getMessage();
+        }
+
+        String response = "";
+
+        if (newName != null) {
+            try {
+                item.setName(newName);
+                user.getInventory().delItem(item);
+                user.getInventory().addItem(item);
+                response += "The pasted item's name was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The pasted item's name was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (description != null) {
+            try {
+                item.setDescription(description);
+                response += "The pasted item's description was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The pasted item's description was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (weight != null) {
+            try {
+                item.setWeight(weight);
+                response += "The pasted item's weight was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The pasted item's weight was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (quantity != null) {
+            try {
+                item.setQuantity(quantity);
+                response += "The pasted item's quantity was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The pasted item's quantity was not edited: " + e.getMessage() + "\n";
+            }
+        }
+
+        if (takeable != null) {
+            item.setTakeable(takeable);
+            response += "The pasted item's takeable value was edited successfully.\n";
+        }
+
+        if (wearable != null) {
+            item.setWearable(wearable);
+            response += "The pasted item's wearable value was edited successfully.\n";
+        }
+
+        if (infinite != null) {
+            item.setInfinite(infinite);
+            response += "The pasted item's infinite value was edited successfully.\n";
+        }
+
+        if (keyword != null) {
+            try {
+                item.setKeyword(keyword);
+                response += "The pasted item's keyword was edited successfully.\n";
+            } catch (InvalidInputException e) {
+                response += "The pasted item's keyword was not edited: " + e.getMessage() + "\n";
+            }
+        }
 
         try {
             user.getInventory().getItems().add(item.getCopy());
@@ -274,7 +496,7 @@ public class ItemCommand implements Command {
             return e.getMessage();
         }
 
-        return "The item was pasted successfully.";
+        return "The item was pasted successfully.\n" + response;
 
     }
 
