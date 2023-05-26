@@ -14,10 +14,9 @@ public class DiscordOutputGenerator {
 	public static String convertItem(Item item) {
 		return "Item Name: `" + item.getName() + "`, " +
 				"Weight: `" + item.getWeight() + "`, " +
-				"Quantity: `" + item.getQuantity() + "`, " +
 				"Takeable: `" +item.isTakeable() + "`, " +
 				"Wearable: `" + item.isWearable() + "`, " +
-				"Infinite: `" +item.isInfinite() + "`\n" +
+				"Quantity: `" + (item.isInfinite() ? "∞" : item.getQuantity()) + "`\n" +
 				item.getDescription();
 	}
 	

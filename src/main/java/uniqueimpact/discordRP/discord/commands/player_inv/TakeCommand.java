@@ -36,7 +36,7 @@ public class TakeCommand implements Command {
         }
 
         if (!item.isTakeable()) {
-            return "You can't take the 1" + item.getName() + "1.";
+            return "You can't take the `" + item.getName() + "`.";
         }
 
         if (item.getWeight() > character.getInv().getRemainingCapacity()) {

@@ -58,7 +58,7 @@ public class DropCommand implements Command {
 
         room.getInv().addItem(newItem);
 
-        WebhookManager.sendOthers(character.getDisplayName() + " dropped their " + item.getName() + ".", character);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " dropped their " + item.getName() + ".*", character);
         return "You dropped the `" + item.getName() + "`.";
 
     }
