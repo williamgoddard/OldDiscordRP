@@ -10,8 +10,6 @@ import java.util.Scanner;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.ChunkingFilter;
-import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import uniqueimpact.discordRP.discord.listeners.CommandListener;
 import uniqueimpact.discordRP.discord.listeners.MessageListener;
 import uniqueimpact.discordRP.discord.listeners.ReadyListener;

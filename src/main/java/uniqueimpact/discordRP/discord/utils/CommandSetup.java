@@ -457,8 +457,7 @@ public class CommandSetup {
         ));
 
         // Update Commands
-        bot.updateCommands().addCommands().queue();
-        bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
+        bot.updateCommands().addCommands().addCommands(commands).queue();
 
     }
 
