@@ -35,6 +35,7 @@ public class SecretCommand implements Command {
             case "monokuma": return "Puhuhuhu!";
             case "forecast": return "Wouldn't you like to know, weather boi?";
             case "weather": return "Cloudy with a chance of uncertainty?";
+            case  "illuminati": return "https://cdn.discordapp.com/attachments/641755891808600076/1111787515431620709/Illuminati_confirmed_funny_vine.gif";
             default: return "Nope, that's not a secret command.";
         }
 

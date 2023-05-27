@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>uniqueimpact</groupId>
   <artifactId>discordRP</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
     <build>
         <plugins>
             <plugin>
@@ -11,6 +11,17 @@
                 <configuration>
                     <source>15</source>
                     <target>15</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>uniqueimpact.discordRP.Runner</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
