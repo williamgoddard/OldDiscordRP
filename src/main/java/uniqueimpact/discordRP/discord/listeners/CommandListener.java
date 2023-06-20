@@ -12,10 +12,7 @@ import uniqueimpact.discordRP.discord.commands.fun.ExcuseCommand;
 import uniqueimpact.discordRP.discord.commands.fun.RollCommand;
 import uniqueimpact.discordRP.discord.commands.fun.SecretCommand;
 import uniqueimpact.discordRP.discord.commands.player_inv.*;
-import uniqueimpact.discordRP.discord.commands.player_look.ClothesCommand;
-import uniqueimpact.discordRP.discord.commands.player_look.InvCommand;
-import uniqueimpact.discordRP.discord.commands.player_look.ItemsCommand;
-import uniqueimpact.discordRP.discord.commands.player_look.LookCommand;
+import uniqueimpact.discordRP.discord.commands.player_look.*;
 import uniqueimpact.discordRP.discord.commands.player_move.DoorsCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.GotoCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.LockCommand;
@@ -53,6 +50,7 @@ public class CommandListener implements EventListener{
 
         // Player Look Commands
         commands.put("look", new LookCommand());
+        commands.put("show", new ShowCommand());
         commands.put("items", new ItemsCommand());
         commands.put("inv", new InvCommand());
         commands.put("clothes", new ClothesCommand());

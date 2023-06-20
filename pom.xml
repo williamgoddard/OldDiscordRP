@@ -3,8 +3,11 @@
   <groupId>uniqueimpact</groupId>
   <artifactId>discordRP</artifactId>
   <version>1.0</version>
+
     <build>
+
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -13,6 +16,7 @@
                     <target>15</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -22,7 +26,7 @@
                     <shadeTestJar>false</shadeTestJar>
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>uniqueimpact.discordRP.Runner</mainClass>
+                            <mainClass>uniqueimpact.discordRP.RunnerKt</mainClass>
                         </transformer>
                     </transformers>
                 </configuration>
@@ -35,7 +39,9 @@
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
+
     </build>
 
     <dependencies>
@@ -55,11 +61,13 @@
   </dependencies>
 	
 	<repositories>
+
 		<repository>
 		    <id>jcenter</id>
 		    <name>jcenter-bintray</name>
 		    <url>https://jcenter.bintray.com</url>
 		</repository>
+
 	</repositories>
 	
 </project>

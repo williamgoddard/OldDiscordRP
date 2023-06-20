@@ -97,6 +97,28 @@ public class CommandSetup {
                 new SubcommandData("self", "Look at yourself.")
         ));
 
+        // Show Command
+        commands.add(Commands.slash("show", "Show off an item to others.").addSubcommands(
+                new SubcommandData("item", "Show off an item in the room").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                ),
+                new SubcommandData("inv", "Show off an item you are currently holding.").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                ),
+                new SubcommandData("clothes", "Show off an item you are currently wearing.").addOptions(
+                        new OptionData(OptionType.STRING, "item", "The name of the item", true)
+                                .setRequiredLength(1, 32),
+                        new OptionData(OptionType.INTEGER, "num", "The number of the specific item, if there are multiple items with the same name", false)
+                                .setRequiredRange(1, 1000000)
+                )
+        ));
+
         // Items Command
         commands.add(Commands.slash("items", "List all the items in the room."));
 

@@ -121,10 +121,10 @@ public class CharacterCommand implements Command {
         List<Chara> characters = room.getCharacters();
 
         if (characters.size() == 0) {
-            return "There are no characters in room `" + roomName + "`.";
+            return "There are no characters in room `" + room.getName() + "`.";
         }
 
-        return "Characters in room `" + roomName + "`:\n" + DiscordOutputGenerator.convertCharaList(room.getCharacters(), 1900);
+        return "Characters in room `" + room.getName() + "`:\n" + DiscordOutputGenerator.convertCharaList(room.getCharacters(), 1900);
 
     }
 

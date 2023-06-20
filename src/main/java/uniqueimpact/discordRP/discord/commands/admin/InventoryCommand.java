@@ -84,7 +84,7 @@ public class InventoryCommand implements Command {
 
         user.setInventory(room.getInv());
 
-        return "Selected the inventory of room `" + roomName + "` successfully.";
+        return "Selected the inventory of room `" + room.getName() + "` successfully.";
 
     }
 
@@ -115,7 +115,7 @@ public class InventoryCommand implements Command {
 
         user.setInventory(character.getInv());
 
-        return "Selected the inventory of character `" + characterName + "` successfully.";
+        return "Selected the inventory of character `" + character.getName() + "` successfully.";
 
     }
 
@@ -146,7 +146,7 @@ public class InventoryCommand implements Command {
 
         user.setInventory(character.getClothes());
 
-        return "Selected the clothes of character `" + characterName + "` successfully.";
+        return "Selected the clothes of character `" + character.getName() + "` successfully.";
 
     }
 

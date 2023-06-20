@@ -3,16 +3,16 @@ package uniqueimpact.discordRP.discord.commands.player_look;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
+import uniqueimpact.discordRP.discord.utils.WebhookManager;
+import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Item;
-import uniqueimpact.discordRP.things.Chara;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class LookCommand implements Command {
+public class ShowCommand implements Command {
 
     @Override
     public String run(SlashCommandInteractionEvent command) {
@@ -28,29 +28,15 @@ public class LookCommand implements Command {
         }
 
         switch (path) {
-            case "look room":
-                return room(command, character);
-            case "look item":
+            case "show item":
                 return item(command, character);
-            case "look inv":
+            case "show inv":
                 return inv(command, character);
-            case "look clothes":
+            case "show clothes":
                 return clothes(command, character);
-            case "look character":
-                return character(command, character);
-            case "look self":
-                return self(command, character);
             default:
                 return "Error: Invalid command path (" + path + ")";
         }
-    }
-
-    private String room(SlashCommandInteractionEvent command, Chara character) {
-
-        Room room = character.getRoom();
-
-        return "You are currently in the `" + room.getName() + "`.\n" + room.getDescription();
-
     }
 
     private String item(SlashCommandInteractionEvent command, Chara character) {
@@ -67,7 +53,8 @@ public class LookCommand implements Command {
             return e.getMessage();
         }
 
-        return "You examine the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " shows the `" + item.getName() + "`.*\n" + item.getDescription(), character);
+        return "You show the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
 
     }
 
@@ -85,7 +72,8 @@ public class LookCommand implements Command {
             return e.getMessage();
         }
 
-        return "You examine the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " shows the `" + item.getName() + "`.*\n" + item.getDescription(), character);
+        return "You show the `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
 
     }
 
@@ -103,40 +91,8 @@ public class LookCommand implements Command {
             return e.getMessage();
         }
 
+        WebhookManager.sendOthers("*" + character.getDisplayName() + " shows their `" + item.getName() + "`.*\n" + item.getDescription(), character);
         return "You examine your `" + item.getName() + "`:\n" + DiscordOutputGenerator.convertItem(item);
-
-    }
-
-    private String character(SlashCommandInteractionEvent command, Chara character) {
-
-        String characterName = command.getOption("character").getAsString();
-
-        Room room = character.getRoom();
-
-        Chara otherPlayer;
-        try {
-            otherPlayer = room.findCharacter(characterName, false);
-        } catch (InvalidInputException e) {
-            return e.getMessage();
-        }
-
-        String outputMessage = DiscordOutputGenerator.convertPlayer(otherPlayer) + "\n";
-
-        Inventory targetClothesInv = otherPlayer.getClothes();
-        List<Item> targetClothes = targetClothesInv.getItems();
-        if (targetClothes.size() > 0) {
-            outputMessage += "`" + otherPlayer.getDisplayName() + "` is currently wearing these clothes:\n" + DiscordOutputGenerator.convertItemList(targetClothes, 300);
-        } else {
-            outputMessage += "`" + otherPlayer.getDisplayName() + "` is currently not wearing much...";
-        }
-
-        return outputMessage;
-
-    }
-
-    private String self(SlashCommandInteractionEvent command, Chara character) {
-
-        return DiscordOutputGenerator.convertPlayer(character);
 
     }
 

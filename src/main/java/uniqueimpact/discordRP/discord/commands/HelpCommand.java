@@ -17,19 +17,27 @@ public class HelpCommand implements Command {
                 `/undressdrop` Undress an item of clothing and drop it into the room
                 
                 **Examination Commands**
-                `/look room` Look around at the room
-                `/look item` Look at an item in the room
-                `/look inv` Look at an item you are currently holding
-                `/look clothes` Look at an item you are currently wearing
-                `/look character` Look at a character in the room
-                `/look self` Look at yourself
                 `/items` List all the items in the room
                 `/inv` List all the items you are currently holding
                 `/clothes` List all the items you are currently wearing
                 
+                `/look item` Look at an item in the room
+                `/look inv` Look at an item you are currently holding
+                `/look clothes` Look at an item you are currently wearing
+                
+                `/show item` Show off an item in the room
+                `/show inv` Show off an item you are currently holding
+                `/show clothes` Show off an item you are currently wearing
+                
+                `/look room` Look around at the room
+                
+                `/look character` Look at a character in the room
+                `/look self` Look at yourself
+                
+                
                 **Navigation Commands**
                 `/doors` List all the doors you can access from here
-                '/goto' Move to another room
+                `/goto` Move to another room
                 `/lock` Lock the door to another room
                 `/unlock` Unlock the door to another room
                 

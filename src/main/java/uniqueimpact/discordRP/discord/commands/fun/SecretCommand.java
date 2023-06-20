@@ -12,6 +12,8 @@ public class SecretCommand implements Command {
 
         switch (commandString.toLowerCase()) {
             case "secret": return "yep you did it well done you found a secret command";
+            case "secret secret": return "yep you did it well done you found a secret secret command";
+            case "secret secret secret": return "don't push your luck";
             case "unique": return "Please subscribe! https://www.youtube.com/user/TheUniqueImpact";
             case "traitor": return "Maybe the real traitor is the friends we make along the way...";
             case "mastermind": return "The mastermind is... Junko Enoshima!";
@@ -35,7 +37,15 @@ public class SecretCommand implements Command {
             case "monokuma": return "Puhuhuhu!";
             case "forecast": return "Wouldn't you like to know, weather boi?";
             case "weather": return "Cloudy with a chance of uncertainty?";
-            case  "illuminati": return "https://cdn.discordapp.com/attachments/641755891808600076/1111787515431620709/Illuminati_confirmed_funny_vine.gif";
+            case "illuminati": return "https://cdn.discordapp.com/attachments/641755891808600076/1111787515431620709/Illuminati_confirmed_funny_vine.gif";
+            case "application": return ":robot: :mega:   You're allowed to submit the application form before completing the character doc.";
+            case "frick": return "heck";
+            case "heck": return "frick";
+            case "ping": return "You've got mail!";
+            case "runescape": return "Go alch yourself";
+            case "danganronpa": return "Correct";
+            case "amogus": return "Sus";
+            case "funyarinpa": return "https://static.wikia.nocookie.net/ninehourspersonsdoors/images/f/f7/Brainsucker.png/revision/latest?cb=20111022013411";
             default: return "Nope, that's not a secret command.";
         }
 
