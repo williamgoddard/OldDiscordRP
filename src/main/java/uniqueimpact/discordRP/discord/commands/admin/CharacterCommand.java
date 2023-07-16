@@ -204,7 +204,7 @@ public class CharacterCommand implements Command {
             } catch (InvalidInputException e) {
                 response += "The character's description was not edited: " + e.getMessage() + "\n";
             }
-            response += "The character's channel was edited successfully.\n";
+            response += "The character's description was edited successfully.\n";
         }
 
         if (displayName != null) {
@@ -213,12 +213,12 @@ public class CharacterCommand implements Command {
             } catch (InvalidInputException e) {
                 response += "The character's display name was not edited: " + e.getMessage() + "\n";
             }
-            response += "The character's channel was edited successfully.\n";
+            response += "The character's display name was edited successfully.\n";
         }
 
         if (picture != null) {
             character.setPicture(picture);
-            response += "The character's channel was edited successfully.\n";
+            response += "The character's picture was edited successfully.\n";
         }
 
         if (itemsCapacity != null) {

@@ -21,6 +21,9 @@ public class CommandSetup {
         // Help Command
         commands.add(Commands.slash("help", "List all of the player commands."));
 
+        // Time Command
+        commands.add(Commands.slash("time", "Get the current in-game time."));
+
         // Drop Command
         commands.add(Commands.slash("drop", "Drop an item from your inventory into the room").addOptions(
                 new OptionData(OptionType.STRING, "item", "The name of the item", true)

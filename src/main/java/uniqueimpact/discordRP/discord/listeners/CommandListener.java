@@ -67,7 +67,9 @@ public class CommandListener implements EventListener{
         commands.put("excuse", new ExcuseCommand());
         commands.put("secret", new SecretCommand());
 
+        // Info Commands
         commands.put("help", new HelpCommand());
+        commands.put("time", new TimeCommand());
 
     }
 

@@ -30,10 +30,8 @@ public class HelpCommand implements Command {
                 `/show clothes` Show off an item you are currently wearing
                 
                 `/look room` Look around at the room
-                
                 `/look character` Look at a character in the room
                 `/look self` Look at yourself
-                
                 
                 **Navigation Commands**
                 `/doors` List all the doors you can access from here
@@ -46,6 +44,10 @@ public class HelpCommand implements Command {
                 `/8ball` Ask a yes or no question to the all-knowing 8-ball to learn from its infinite wisdom!
                 `/excuse` Get a quick, randomly generated excuse for anything!
                 `/secret` I wonder what this command does...
+                
+                **Info Commands**
+                `/time` Get the current in-game time
+                `/help` Get a list of all the commands
                 """;
 
     }

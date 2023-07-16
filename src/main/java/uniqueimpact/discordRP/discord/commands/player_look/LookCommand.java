@@ -49,7 +49,14 @@ public class LookCommand implements Command {
 
         Room room = character.getRoom();
 
-        return "You are currently in the `" + room.getName() + "`.\n" + room.getDescription();
+        String output = "You are currently in the `" + room.getName() + "`.\n" + room.getDescription();
+        if (room.getCharacters(false).size() > 1) {
+            output += "\nYou see these people here:\n" + DiscordOutputGenerator.convertCharaList(room.getCharacters(false), 400);
+        } else {
+            output += "\nYou don't see anyone else here.";
+        }
+
+        return output;
 
     }
 

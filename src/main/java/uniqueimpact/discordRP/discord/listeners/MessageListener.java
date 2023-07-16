@@ -26,7 +26,7 @@ public class MessageListener implements EventListener {
 		}
 
 		String message = messageEvent.getMessage().getContentRaw();
-		if (message.isEmpty() || message == null) {
+		if (message.isEmpty() || message == null || message.charAt(0) == '!') {
 			return;
 		}
 

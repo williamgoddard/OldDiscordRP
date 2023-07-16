@@ -55,8 +55,12 @@ public class Roleplay implements Serializable {
 		try {
 			FileOutputStream fileOut = new FileOutputStream("savedata");
 			ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+			FileOutputStream backupFileOut = new FileOutputStream("savedata_backup_" + System.currentTimeMillis());
+			ObjectOutputStream backupObjectOut = new ObjectOutputStream(backupFileOut);
             objectOut.writeObject(instance);
+			backupObjectOut.writeObject(instance);
             objectOut.close();
+			backupObjectOut.close();
 		} catch (Exception e) {
             e.printStackTrace();
         } 
@@ -203,7 +207,6 @@ public class Roleplay implements Serializable {
 		int p2 = rooms.size();
 		while (p1 < p2) {
 			int midpoint = (p1 + p2) / 2;
-			System.out.println("p1: " + p1 + " p2: " + p2 + " midpoint: " + midpoint);
 			Room currentRoom = rooms.get(midpoint);
 			if (room.compareTo(currentRoom) >= 0) {
 				p1 = midpoint + 1;
@@ -211,8 +214,6 @@ public class Roleplay implements Serializable {
 				p2 = midpoint;
 			}
 		}
-
-		System.out.println("chosen location: " + p1);
 
 		rooms.add(p1, room);
 
