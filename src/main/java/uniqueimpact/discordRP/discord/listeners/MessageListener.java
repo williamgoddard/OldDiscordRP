@@ -54,7 +54,12 @@ public class MessageListener implements EventListener {
 			}
 		}
 
-		WebhookManager.sendOthers(formattedMessage, player);
+		if (formattedMessage.length() < 2000) {
+			WebhookManager.sendOthers(formattedMessage, player);
+		} else {
+			WebhookManager.sendOthers(formattedMessage.substring(0, 2000), player);
+			WebhookManager.sendOthers(formattedMessage.substring(2000), player);
+		}
 
 	}
 }
