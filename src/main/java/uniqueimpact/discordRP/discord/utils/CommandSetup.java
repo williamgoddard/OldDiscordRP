@@ -158,6 +158,15 @@ public class CommandSetup {
                         .setRequiredRange(1, 1000000)
         ));
 
+        // Whisper Command
+        commands.add(Commands.slash("whisper", "Whisper to another character in the room.").addOptions(
+                new OptionData(OptionType.STRING, "character", "The name of the character you want to whisper to", true)
+                        .setRequiredLength(1, 32),
+                new OptionData(OptionType.STRING, "message", "The message to whisper", true)
+                        .setRequiredLength(1, 1500)
+        ));
+
+
         // Admin Help Command
         commands.add(Commands.slash("adminhelp", "List all of the admin commands."));
 

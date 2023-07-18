@@ -32,6 +32,24 @@ public class WebhookManager {
 			}
 		}
 	}
+
+	public static void send(String message, Chara fromChara, Chara toChara) {
+
+		String webhook = toChara.getWebhook();
+		String name = fromChara.getDisplayName();
+		String picture = fromChara.getPicture();
+
+		WebhookClient client = WebhookClient.withUrl(webhook);
+
+		WebhookMessageBuilder builder = new WebhookMessageBuilder();
+		builder.setUsername(name);
+		builder.setAvatarUrl(picture);
+		builder.setContent(message);
+
+		client.send(builder.build());
+		client.close();
+
+	}
 	
 	public static void sendSelf(String message, Chara player) {
 		
@@ -51,11 +69,11 @@ public class WebhookManager {
 		
 	}
 	
-	public static void sendAll(String message, Chara player) {
+	public static void sendAll(String message, Chara chara) {
 		
-		Room room = player.getRoom();
-		String name = player.getDisplayName();
-		String picture = player.getPicture();
+		Room room = chara.getRoom();
+		String name = chara.getDisplayName();
+		String picture = chara.getPicture();
 		
 		WebhookMessageBuilder builder = new WebhookMessageBuilder();
 		builder.setUsername(name);
@@ -74,22 +92,22 @@ public class WebhookManager {
 		}
 	}
 	
-	public static void sendOthers(String message, Chara player) {
+	public static void sendOthers(String message, Chara chara) {
 		
-		Room room = player.getRoom();
-		String name = player.getDisplayName();
-		String picture = player.getPicture();
+		Room room = chara.getRoom();
+		String name = chara.getDisplayName();
+		String picture = chara.getPicture();
 		
 		WebhookMessageBuilder builder = new WebhookMessageBuilder();
 		builder.setUsername(name);
 		builder.setAvatarUrl(picture);
 		builder.setContent(message);
 		
-		for (Chara toPlayer : room.getCharacters()) {
+		for (Chara toChara : room.getCharacters()) {
 			
-			if (player != toPlayer) {
+			if (chara != toChara) {
 			
-				String webhook = toPlayer.getWebhook();
+				String webhook = toChara.getWebhook();
 				
 				WebhookClient client = WebhookClient.withUrl(webhook);
 				

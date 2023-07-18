@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.discord.commands.admin.*;
+import uniqueimpact.discordRP.discord.commands.chat.WhisperCommand;
 import uniqueimpact.discordRP.discord.commands.fun.EightBallCommand;
 import uniqueimpact.discordRP.discord.commands.fun.ExcuseCommand;
 import uniqueimpact.discordRP.discord.commands.fun.RollCommand;
@@ -60,6 +61,9 @@ public class CommandListener implements EventListener{
         commands.put("goto", new GotoCommand());
         commands.put("lock", new LockCommand());
         commands.put("unlock", new UnlockCommand());
+
+        // Player Chat Commands
+        commands.put("whisper", new WhisperCommand());
 
         // Fun Commands
         commands.put("roll", new RollCommand());
