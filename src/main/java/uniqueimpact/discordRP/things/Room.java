@@ -184,7 +184,7 @@ public class Room implements Serializable, Comparable<Room> {
 			}
 		}
 
-		throw new InvalidInputException("The character `" + this.name + "` could not be found.");
+		throw new InvalidInputException("The character `" + name + "` could not be found.");
 
 	}
 

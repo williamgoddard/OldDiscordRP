@@ -32,6 +32,10 @@ public class WhisperCommand implements Command {
             return e.getMessage();
         }
 
+        if (character == otherCharacter) {
+            return "You can't whisper to yourself.";
+        }
+
         for (Chara c : room.getCharacters()) {
             if (c != character && c != otherCharacter) {
                 WebhookManager.send("*" + character.getDisplayName() + " whispers something to " + otherCharacter.getDisplayName() + ".*", character, c);
