@@ -10,7 +10,7 @@ import java.util.Scanner;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import uniqueimpact.discordRP.discord.listeners.CommandListener;
+import uniqueimpact.discordRP.discord.listeners.InteractionListener;
 import uniqueimpact.discordRP.discord.listeners.MessageListener;
 import uniqueimpact.discordRP.discord.listeners.ReadyListener;
 import uniqueimpact.discordRP.discord.utils.CommandSetup;
@@ -50,7 +50,7 @@ public class DiscordRunner {
 		builder.addEventListeners(
 				new MessageListener(),
 				new ReadyListener(),
-				new CommandListener());
+				new InteractionListener());
 
 		// Create and start the bot
 		JDA bot = builder.build();

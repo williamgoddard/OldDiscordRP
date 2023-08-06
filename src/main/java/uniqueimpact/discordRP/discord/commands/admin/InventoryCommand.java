@@ -59,7 +59,7 @@ public class InventoryCommand implements Command {
     private String room(SlashCommandInteractionEvent command) {
 
         String roomName = command.getOption("room").getAsString();
-        Integer roomNum = command.getOption("room_num") != null ? command.getOption("room_num").getAsInt() : 1;
+        Integer roomNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;
 
         Room room;
         try {

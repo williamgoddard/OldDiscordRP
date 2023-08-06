@@ -1,17 +1,14 @@
-package uniqueimpact.discordRP.discord.listeners;
+package uniqueimpact.discordRP.discord.commands;
 
-import uniqueimpact.discordRP.discord.commands.*;
-
-import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.hooks.EventListener;
-import org.jetbrains.annotations.NotNull;
 import uniqueimpact.discordRP.discord.commands.admin.*;
 import uniqueimpact.discordRP.discord.commands.chat.WhisperCommand;
 import uniqueimpact.discordRP.discord.commands.fun.EightBallCommand;
 import uniqueimpact.discordRP.discord.commands.fun.ExcuseCommand;
 import uniqueimpact.discordRP.discord.commands.fun.RollCommand;
 import uniqueimpact.discordRP.discord.commands.fun.SecretCommand;
+import uniqueimpact.discordRP.discord.commands.player_info.HelpCommand;
+import uniqueimpact.discordRP.discord.commands.player_info.TimeCommand;
 import uniqueimpact.discordRP.discord.commands.player_inv.*;
 import uniqueimpact.discordRP.discord.commands.player_look.*;
 import uniqueimpact.discordRP.discord.commands.player_move.DoorsCommand;
@@ -23,13 +20,15 @@ import uniqueimpact.discordRP.things.Roleplay;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandListener implements EventListener{
+public class CommandHandler {
+
+    private static final CommandHandler INSTANCE = new CommandHandler();
 
     Roleplay roleplay = Roleplay.getInstance();
 
     private final Map<String, Command> commands;
 
-    public CommandListener() {
+    private CommandHandler() {
 
         this.commands = new HashMap<String, Command>();
 
@@ -77,22 +76,18 @@ public class CommandListener implements EventListener{
 
     }
 
-    @Override
-    public void onEvent(@NotNull GenericEvent event) {
+    public static CommandHandler getInstance() {
+        return CommandHandler.INSTANCE;
+    }
 
-        if (event instanceof SlashCommandInteractionEvent) {
+    public final void handle(SlashCommandInteractionEvent commandEvent) {
 
-            SlashCommandInteractionEvent commandEvent = (SlashCommandInteractionEvent) event;
-
-            String commandName = commandEvent.getName();
-            if (commands.containsKey(commandName)) {
-                String reply = commands.get(commandName).run(commandEvent);
-                commandEvent.reply(reply).queue();
-                roleplay.save();
-            } else {
-                commandEvent.reply("That command is not implemented yet :(").queue();
-            }
-
+        String commandName = commandEvent.getName();
+        if (commands.containsKey(commandName)) {
+            String reply = commands.get(commandName).run(commandEvent);
+            commandEvent.reply(reply).queue();
+        } else {
+            commandEvent.reply("That command is not implemented yet :(");
         }
 
     }
