@@ -12,7 +12,7 @@ public class RollCommand implements Command {
     private static Random random = new Random();
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         Integer sides = command.getOption("sides") != null ? command.getOption("sides").getAsInt() : 20;
         Integer count = command.getOption("count") != null ? command.getOption("count").getAsInt() : 1;
@@ -26,7 +26,7 @@ public class RollCommand implements Command {
         }
         output += "\nTotal: `" + total + "`";
 
-        return new MessageCreateBuilder().setContent(output).build();
+        command.reply(output).queue();
 
     }
 

@@ -12,7 +12,7 @@ import uniqueimpact.discordRP.utils.InvalidInputException;
 public class WhisperCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         String characterName = command.getOption("character").getAsString();
         String message = command.getOption("message").getAsString();
@@ -22,7 +22,8 @@ public class WhisperCommand implements Command {
         try {
             character = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
-            return new MessageCreateBuilder().setContent(e.getMessage()).build();
+            command.reply(e.getMessage()).queue();
+            return;
         }
 
         Room room = character.getRoom();
@@ -31,11 +32,13 @@ public class WhisperCommand implements Command {
         try {
             otherCharacter = room.findCharacter(characterName, false);
         } catch (InvalidInputException e) {
-            return new MessageCreateBuilder().setContent(e.getMessage()).build();
+            command.reply(e.getMessage()).queue();
+            return;
         }
 
         if (character == otherCharacter) {
-            return new MessageCreateBuilder().setContent("You can't whisper to yourself.").build();
+            command.reply("You can't whisper to yourself.").queue();
+            return;
         }
 
         for (Chara c : room.getCharacters()) {
@@ -46,7 +49,7 @@ public class WhisperCommand implements Command {
 
         WebhookManager.send("*" + character.getDisplayName() + " whispers to you:*\n" + message, character, otherCharacter);
 
-        return new MessageCreateBuilder().setContent("You whisper to " + otherCharacter.getDisplayName() + ":\n" + message).build();
+        command.reply("You whisper to " + otherCharacter.getDisplayName() + ":\n" + message).queue();
 
     }
 

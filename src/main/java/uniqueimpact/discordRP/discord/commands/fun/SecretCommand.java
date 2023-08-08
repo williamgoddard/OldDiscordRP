@@ -2,17 +2,16 @@ package uniqueimpact.discordRP.discord.commands.fun;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
-import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 
 public class SecretCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
-        return new MessageCreateBuilder().setContent(parseSecretCommand(command)).build();
+    public void run(SlashCommandInteractionEvent command) {
+        command.reply(runCommand(command)).queue();
     }
 
-    private String parseSecretCommand(SlashCommandInteractionEvent command) {
+    private String runCommand(SlashCommandInteractionEvent command) {
 
         String commandString = command.getOption("command").getAsString();
 

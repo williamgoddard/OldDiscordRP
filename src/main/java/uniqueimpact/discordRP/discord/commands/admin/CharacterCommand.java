@@ -3,7 +3,6 @@ package uniqueimpact.discordRP.discord.commands.admin;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
-import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
@@ -16,12 +15,13 @@ import java.util.List;
 public class CharacterCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         String response;
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
+            command.reply("You do not have permission to use this command.").queue();
+            return;
         }
 
         String path = command.getFullCommandName();
@@ -58,7 +58,7 @@ public class CharacterCommand implements Command {
                 response = "Error: Invalid command path (" + path + ")";
         }
 
-        return new MessageCreateBuilder().setContent(response).build();
+        command.reply(response).queue();
 
     }
 

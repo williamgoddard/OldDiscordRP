@@ -12,7 +12,7 @@ public class ExcuseCommand implements Command {
     Random random = new Random();
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         String excuse = command.getOption("event") != null ? "\"" + command.getOption("event").getAsString() : "\"I can't right now";
         excuse += " because ";
@@ -46,7 +46,7 @@ public class ExcuseCommand implements Command {
         int actionNum = random.nextInt(actions.length);
         int victimNum = random.nextInt(victims.length);
         excuse += attackers[attackerNum] + " is " + actions[actionNum] + " " + victims[victimNum] + ".\"";
-        return new MessageCreateBuilder().setContent(excuse).build();
+        command.reply(excuse).queue();
 
     }
 

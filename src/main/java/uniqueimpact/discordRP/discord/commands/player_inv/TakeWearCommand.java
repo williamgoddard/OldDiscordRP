@@ -15,8 +15,8 @@ import java.util.Arrays;
 public class TakeWearCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
-        return new MessageCreateBuilder().setContent(runCommand(command)).build();
+    public void run(SlashCommandInteractionEvent command) {
+        command.reply(runCommand(command)).queue();
     }
 
     private String runCommand(SlashCommandInteractionEvent command) {

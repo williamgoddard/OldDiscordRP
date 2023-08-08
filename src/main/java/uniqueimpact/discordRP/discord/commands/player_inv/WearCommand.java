@@ -12,8 +12,8 @@ import uniqueimpact.discordRP.utils.InvalidInputException;
 public class WearCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
-        return new MessageCreateBuilder().setContent(runCommand(command)).build();
+    public void run(SlashCommandInteractionEvent command) {
+        command.reply(runCommand(command)).queue();
     }
 
     private String runCommand(SlashCommandInteractionEvent command) {

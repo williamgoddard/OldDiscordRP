@@ -14,10 +14,11 @@ import java.util.List;
 public class RoomCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
+            command.reply("You do not have permission to use this command.").queue();
+            return;
         }
 
         String path = command.getFullCommandName();
@@ -43,7 +44,7 @@ public class RoomCommand implements Command {
                 response =  "Error: Invalid command path (" + path + ")";
         }
 
-        return new MessageCreateBuilder().setContent(response).build();
+        command.reply(response).queue();
 
     }
 

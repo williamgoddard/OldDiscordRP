@@ -9,10 +9,11 @@ import uniqueimpact.discordRP.discord.utils.AdminChecker;
 public class AdminHelpCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-             return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
+             command.reply("You do not have permission to use this command.").queue();
+             return;
         }
 
         String response =
@@ -59,7 +60,7 @@ public class AdminHelpCommand implements Command {
                 `/item paste` Paste the item from the clipboard into the currently selected inventory
                 """;
 
-        return new MessageCreateBuilder().setContent(response).build();
+        command.reply(response).queue();
 
     }
 

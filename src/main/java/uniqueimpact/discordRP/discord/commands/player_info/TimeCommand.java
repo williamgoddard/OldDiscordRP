@@ -9,8 +9,8 @@ import uniqueimpact.discordRP.utils.TimeKeeper;
 public class TimeCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
-        return new MessageCreateBuilder().setContent( "The current in-game time is " + TimeKeeper.getCurrentTime()).build();
+    public void run(SlashCommandInteractionEvent command) {
+        command.reply( "The current in-game time is " + TimeKeeper.getCurrentTime()).queue();
     }
 
 }

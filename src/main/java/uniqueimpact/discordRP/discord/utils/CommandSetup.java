@@ -490,8 +490,8 @@ public class CommandSetup {
                         .setRequiredLength(1, 1000)
         ));
 
-        // Test Command
-        commands.add(Commands.slash("test", "Test command."));;
+        // Set Desc Command
+        commands.add(Commands.slash("setdesc", "Set your character's description."));
 
         // Update Commands
         //bot.updateCommands().addCommands().addCommands(commands).queue();

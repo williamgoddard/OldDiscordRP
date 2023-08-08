@@ -12,7 +12,7 @@ public class EightBallCommand implements Command {
     private static Random random = new Random();
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         String question = command.getOption("question").getAsString();
 
@@ -52,7 +52,7 @@ public class EightBallCommand implements Command {
             case 30: output += ":8ball: Absolutely fricking not. :8ball:"; break;
         }
 
-        return new MessageCreateBuilder().setContent(output).build();
+        command.reply(output).queue();
 
     }
 

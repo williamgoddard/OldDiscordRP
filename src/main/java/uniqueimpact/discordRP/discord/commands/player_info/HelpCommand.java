@@ -8,7 +8,7 @@ import uniqueimpact.discordRP.discord.commands.Command;
 public class HelpCommand implements Command {
 
     @Override
-    public MessageCreateData run(SlashCommandInteractionEvent command) {
+    public void run(SlashCommandInteractionEvent command) {
 
         String response =
                 """
@@ -57,7 +57,7 @@ public class HelpCommand implements Command {
                 `/help` Get a list of all the commands
                 """;
 
-        return new MessageCreateBuilder().setContent(response).build();
+        command.reply(response).queue();
 
     }
 

@@ -8,6 +8,7 @@ import uniqueimpact.discordRP.discord.commands.fun.EightBallCommand;
 import uniqueimpact.discordRP.discord.commands.fun.ExcuseCommand;
 import uniqueimpact.discordRP.discord.commands.fun.RollCommand;
 import uniqueimpact.discordRP.discord.commands.fun.SecretCommand;
+import uniqueimpact.discordRP.discord.commands.player_customise.SetDescCommand;
 import uniqueimpact.discordRP.discord.commands.player_info.HelpCommand;
 import uniqueimpact.discordRP.discord.commands.player_info.TimeCommand;
 import uniqueimpact.discordRP.discord.commands.player_inv.*;
@@ -16,7 +17,6 @@ import uniqueimpact.discordRP.discord.commands.player_move.DoorsCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.GotoCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.LockCommand;
 import uniqueimpact.discordRP.discord.commands.player_move.UnlockCommand;
-import uniqueimpact.discordRP.things.Roleplay;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,8 +24,6 @@ import java.util.Map;
 public class CommandHandler {
 
     private static final CommandHandler INSTANCE = new CommandHandler();
-
-    Roleplay roleplay = Roleplay.getInstance();
 
     private final Map<String, Command> commands;
 
@@ -75,7 +73,7 @@ public class CommandHandler {
         commands.put("help", new HelpCommand());
         commands.put("time", new TimeCommand());
 
-        commands.put("test", new TestCommand());
+        commands.put("setdesc", new SetDescCommand());
 
     }
 
@@ -87,8 +85,7 @@ public class CommandHandler {
 
         String commandName = commandEvent.getName();
         if (commands.containsKey(commandName)) {
-            MessageCreateData reply = commands.get(commandName).run(commandEvent);
-            commandEvent.reply(reply).queue();
+            commands.get(commandName).run(commandEvent);
         } else {
             commandEvent.reply("That command is not implemented yet :(");
         }
