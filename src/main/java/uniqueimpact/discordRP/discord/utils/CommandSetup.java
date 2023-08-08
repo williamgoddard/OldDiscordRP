@@ -494,8 +494,8 @@ public class CommandSetup {
         commands.add(Commands.slash("setdesc", "Set your character's description."));
 
         // Update Commands
-        //bot.updateCommands().addCommands().addCommands(commands).queue();
-        bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
+        bot.updateCommands().addCommands().addCommands(commands).queue();
+        //bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
 
     }
 
