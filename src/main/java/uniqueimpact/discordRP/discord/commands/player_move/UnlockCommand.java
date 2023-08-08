@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.player_move;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.*;
@@ -11,7 +13,11 @@ import java.util.List;
 public class UnlockCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
+        return new MessageCreateBuilder().setContent(runCommand(command)).build();
+    }
+
+    private String runCommand(SlashCommandInteractionEvent command) {
 
         String roomName = command.getOption("room").getAsString();
         Integer roomNum = command.getOption("num") != null ? command.getOption("num").getAsInt() : 1;

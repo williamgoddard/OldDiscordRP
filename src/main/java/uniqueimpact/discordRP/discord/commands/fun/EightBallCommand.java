@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.fun;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 
 import java.util.Random;
@@ -10,7 +12,7 @@ public class EightBallCommand implements Command {
     private static Random random = new Random();
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         String question = command.getOption("question").getAsString();
 
@@ -50,7 +52,7 @@ public class EightBallCommand implements Command {
             case 30: output += ":8ball: Absolutely fricking not. :8ball:"; break;
         }
 
-        return output;
+        return new MessageCreateBuilder().setContent(output).build();
 
     }
 

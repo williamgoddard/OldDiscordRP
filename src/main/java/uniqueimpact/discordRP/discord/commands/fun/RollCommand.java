@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.fun;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 
 import java.util.Random;
@@ -10,7 +12,7 @@ public class RollCommand implements Command {
     private static Random random = new Random();
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         Integer sides = command.getOption("sides") != null ? command.getOption("sides").getAsInt() : 20;
         Integer count = command.getOption("count") != null ? command.getOption("count").getAsInt() : 1;
@@ -24,7 +26,7 @@ public class RollCommand implements Command {
         }
         output += "\nTotal: `" + total + "`";
 
-        return output;
+        return new MessageCreateBuilder().setContent(output).build();
 
     }
 

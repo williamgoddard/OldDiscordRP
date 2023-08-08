@@ -2,6 +2,8 @@ package uniqueimpact.discordRP.discord.commands.admin;
 
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
@@ -14,36 +16,49 @@ import java.util.List;
 public class CharacterCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
+
+        String response;
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return "You do not have permission to use this command.";
+            return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
         }
 
         String path = command.getFullCommandName();
 
         switch (path) {
             case "character create":
-                return create(command);
+                response = create(command);
+                break;
             case "character list":
-                return list(command);
+                response = list(command);
+                break;
             case "character look":
-                return look(command);
+                response = look(command);
+                break;
             case "character edit":
-                return edit(command);
+                response = edit(command);
+                break;
             case "character move":
-                return move(command);
+                response = move(command);
+                break;
             case "character move-all":
-                return moveall(command);
+                response = moveall(command);
+                break;
             case "character freeze-all":
-                return freezeall(command);
+                response = freezeall(command);
+                break;
             case "character unfreeze-all":
-                return unfreezeall(command);
+                response = unfreezeall(command);
+                break;
             case "character delete":
-                return delete(command);
+                response = delete(command);
+                break;
             default:
-                return "Error: Invalid command path (" + path + ")";
+                response = "Error: Invalid command path (" + path + ")";
         }
+
+        return new MessageCreateBuilder().setContent(response).build();
 
     }
 

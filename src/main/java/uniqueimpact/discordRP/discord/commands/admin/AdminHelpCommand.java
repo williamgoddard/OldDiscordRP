@@ -1,19 +1,22 @@
 package uniqueimpact.discordRP.discord.commands.admin;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 
 public class AdminHelpCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return "You do not have permission to use this command.";
+             return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
         }
 
-        return """
+        String response =
+                """
                 **Room Commands**
                 `/room create` Create a room
                 `/room list` List all of the rooms
@@ -55,6 +58,8 @@ public class AdminHelpCommand implements Command {
                 `/item copy` Copy an item to the clipboard from the currently selected inventory
                 `/item paste` Paste the item from the clipboard into the currently selected inventory
                 """;
+
+        return new MessageCreateBuilder().setContent(response).build();
 
     }
 

@@ -490,8 +490,12 @@ public class CommandSetup {
                         .setRequiredLength(1, 1000)
         ));
 
+        // Test Command
+        commands.add(Commands.slash("test", "Test command."));;
+
         // Update Commands
-        bot.updateCommands().addCommands().addCommands(commands).queue();
+        //bot.updateCommands().addCommands().addCommands(commands).queue();
+        bot.getGuildById("933432644857909339").updateCommands().addCommands(commands).queue();
 
     }
 

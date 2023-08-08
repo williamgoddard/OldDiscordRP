@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.player_look;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
@@ -15,7 +17,11 @@ import java.util.List;
 public class ShowCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
+        return new MessageCreateBuilder().setContent(runCommand(command)).build();
+    }
+
+    private String runCommand(SlashCommandInteractionEvent command) {
 
         String path = command.getFullCommandName();
 

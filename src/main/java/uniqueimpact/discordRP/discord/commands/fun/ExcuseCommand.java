@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.fun;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 
 import java.util.Random;
@@ -10,7 +12,7 @@ public class ExcuseCommand implements Command {
     Random random = new Random();
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         String excuse = command.getOption("event") != null ? "\"" + command.getOption("event").getAsString() : "\"I can't right now";
         excuse += " because ";
@@ -44,7 +46,7 @@ public class ExcuseCommand implements Command {
         int actionNum = random.nextInt(actions.length);
         int victimNum = random.nextInt(victims.length);
         excuse += attackers[attackerNum] + " is " + actions[actionNum] + " " + victims[victimNum] + ".\"";
-        return excuse;
+        return new MessageCreateBuilder().setContent(excuse).build();
 
     }
 

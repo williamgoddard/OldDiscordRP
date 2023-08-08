@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.admin;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.things.Chara;
@@ -11,26 +13,33 @@ import uniqueimpact.discordRP.utils.InvalidInputException;
 public class InventoryCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return "You do not have permission to use this command.";
+            return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
         }
 
         String path = command.getFullCommandName();
+        String response;
 
         switch (path) {
             case "inventory storage":
-                return storage(command);
+                response = storage(command);
+                break;
             case "inventory room":
-                return room(command);
+                response = room(command);
+                break;
             case "inventory items":
-                return items(command);
+                response = items(command);
+                break;
             case "inventory clothes":
-                return clothes(command);
+                response = clothes(command);
+                break;
             default:
-                return "Error: Invalid command path (" + path + ")";
+                response = "Error: Invalid command path (" + path + ")";
         }
+
+        return new MessageCreateBuilder().setContent(response).build();
 
     }
 

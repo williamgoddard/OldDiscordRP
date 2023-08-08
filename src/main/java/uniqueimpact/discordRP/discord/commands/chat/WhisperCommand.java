@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.chat;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.WebhookManager;
 import uniqueimpact.discordRP.things.Chara;
@@ -10,7 +12,7 @@ import uniqueimpact.discordRP.utils.InvalidInputException;
 public class WhisperCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         String characterName = command.getOption("character").getAsString();
         String message = command.getOption("message").getAsString();
@@ -20,7 +22,7 @@ public class WhisperCommand implements Command {
         try {
             character = roleplay.findCharacterByChannel(channelId);
         } catch (InvalidInputException e) {
-            return e.getMessage();
+            return new MessageCreateBuilder().setContent(e.getMessage()).build();
         }
 
         Room room = character.getRoom();
@@ -29,11 +31,11 @@ public class WhisperCommand implements Command {
         try {
             otherCharacter = room.findCharacter(characterName, false);
         } catch (InvalidInputException e) {
-            return e.getMessage();
+            return new MessageCreateBuilder().setContent(e.getMessage()).build();
         }
 
         if (character == otherCharacter) {
-            return "You can't whisper to yourself.";
+            return new MessageCreateBuilder().setContent("You can't whisper to yourself.").build();
         }
 
         for (Chara c : room.getCharacters()) {
@@ -44,7 +46,7 @@ public class WhisperCommand implements Command {
 
         WebhookManager.send("*" + character.getDisplayName() + " whispers to you:*\n" + message, character, otherCharacter);
 
-        return "You whisper to " + otherCharacter.getDisplayName() + ":\n" + message;
+        return new MessageCreateBuilder().setContent("You whisper to " + otherCharacter.getDisplayName() + ":\n" + message).build();
 
     }
 

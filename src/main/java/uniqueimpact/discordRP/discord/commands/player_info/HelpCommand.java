@@ -1,14 +1,17 @@
 package uniqueimpact.discordRP.discord.commands.player_info;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 
 public class HelpCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
-        return """
+        String response =
+                """
                 **Item Management Commands**
                 `/take` Take an item from the room into your inventory
                 `/drop` Drop an item from your inventory into the room
@@ -53,6 +56,8 @@ public class HelpCommand implements Command {
                 `/time` Get the current in-game time
                 `/help` Get a list of all the commands
                 """;
+
+        return new MessageCreateBuilder().setContent(response).build();
 
     }
 

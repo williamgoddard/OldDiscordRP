@@ -1,12 +1,11 @@
 package uniqueimpact.discordRP.discord.commands.admin;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
-import uniqueimpact.discordRP.things.Chara;
-import uniqueimpact.discordRP.things.Door;
-import uniqueimpact.discordRP.things.Inventory;
 import uniqueimpact.discordRP.things.Room;
 import uniqueimpact.discordRP.utils.InvalidInputException;
 
@@ -15,28 +14,36 @@ import java.util.List;
 public class RoomCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return "You do not have permission to use this command.";
+            return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
         }
 
         String path = command.getFullCommandName();
+        String response;
 
         switch (path) {
             case "room create":
-                return create(command);
+                response = create(command);
+                break;
             case "room list":
-                return list(command);
+                response =  list(command);
+                break;
             case "room look":
-                return look(command);
+                response =  look(command);
+                break;
             case "room edit":
-                return edit(command);
+                response =  edit(command);
+                break;
             case "room delete":
-                return delete(command);
+                response =  delete(command);
+                break;
             default:
-                return "Error: Invalid command path (" + path + ")";
+                response =  "Error: Invalid command path (" + path + ")";
         }
+
+        return new MessageCreateBuilder().setContent(response).build();
 
     }
 

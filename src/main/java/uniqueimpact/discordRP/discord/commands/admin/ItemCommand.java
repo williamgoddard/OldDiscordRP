@@ -1,6 +1,8 @@
 package uniqueimpact.discordRP.discord.commands.admin;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.Command;
 import uniqueimpact.discordRP.discord.utils.AdminChecker;
 import uniqueimpact.discordRP.discord.utils.DiscordOutputGenerator;
@@ -11,10 +13,10 @@ import uniqueimpact.discordRP.utils.InvalidInputException;
 public class ItemCommand implements Command {
 
     @Override
-    public String run(SlashCommandInteractionEvent command) {
+    public MessageCreateData run(SlashCommandInteractionEvent command) {
 
         if (!AdminChecker.isAdmin(command.getMember())) {
-            return "You do not have permission to use this command.";
+            return new MessageCreateBuilder().setContent("You do not have permission to use this command.").build();
         }
 
         String userId = command.getUser().getId();
@@ -26,36 +28,48 @@ public class ItemCommand implements Command {
                 user = new User(command.getMember());
                 roleplay.addUser(user);
             } catch (InvalidInputException ex) {
-                return ex.getMessage();
+                return new MessageCreateBuilder().setContent(ex.getMessage()).build();
             }
         }
 
         String path = command.getFullCommandName();
 
         if (user.getInventory() == null) {
-            return "You must first select an inventory with `/inventory` to use this command.";
+            return new MessageCreateBuilder().setContent("You must first select an inventory with `/inventory` to use this command.").build();
         }
+
+        String response;
 
         switch (path) {
             case "item create":
-                return create(command, user);
+                response = create(command, user);
+                break;
             case "item list":
-                return list(user);
+                response = list(user);
+                break;
             case "item look":
-                return look(command, user);
+                response = look(command, user);
+                break;
             case "item edit":
-                return edit(command, user);
+                response = edit(command, user);
+                break;
             case "item delete":
-                return delete(command, user);
+                response = delete(command, user);
+                break;
             case "item cut":
-                return cut(command, user);
+                response = cut(command, user);
+                break;
             case "item copy":
-                return copy(command, user);
+                response = copy(command, user);
+                break;
             case "item paste":
-                return paste(command, user);
+                response = paste(command, user);
+                break;
             default:
-                return "Error: Invalid command path (" + path + ")";
+                response = "Error: Invalid command path (" + path + ")";
         }
+
+        return new MessageCreateBuilder().setContent(response).build();
 
     }
 

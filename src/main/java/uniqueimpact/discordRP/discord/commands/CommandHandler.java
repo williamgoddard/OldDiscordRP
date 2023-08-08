@@ -1,6 +1,7 @@
 package uniqueimpact.discordRP.discord.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.admin.*;
 import uniqueimpact.discordRP.discord.commands.chat.WhisperCommand;
 import uniqueimpact.discordRP.discord.commands.fun.EightBallCommand;
@@ -74,6 +75,8 @@ public class CommandHandler {
         commands.put("help", new HelpCommand());
         commands.put("time", new TimeCommand());
 
+        commands.put("test", new TestCommand());
+
     }
 
     public static CommandHandler getInstance() {
@@ -84,7 +87,7 @@ public class CommandHandler {
 
         String commandName = commandEvent.getName();
         if (commands.containsKey(commandName)) {
-            String reply = commands.get(commandName).run(commandEvent);
+            MessageCreateData reply = commands.get(commandName).run(commandEvent);
             commandEvent.reply(reply).queue();
         } else {
             commandEvent.reply("That command is not implemented yet :(");
