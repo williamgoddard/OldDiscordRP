@@ -166,6 +166,12 @@ public class CommandSetup {
                         .setRequiredLength(1, 1500)
         ));
 
+        // Set Command
+        commands.add(Commands.slash("set", "Modify your character.").addSubcommands(
+                new SubcommandData("description", "Set your character's description."),
+                new SubcommandData("name", "Set your character's display name."),
+                new SubcommandData("picture", "Set your character's picture.")
+        ));
 
         // Admin Help Command
         commands.add(Commands.slash("adminhelp", "List all of the admin commands."));
@@ -489,9 +495,6 @@ public class CommandSetup {
                 new OptionData(OptionType.STRING, "command", "The secret command you want to run...", true)
                         .setRequiredLength(1, 1000)
         ));
-
-        // Set Desc Command
-        commands.add(Commands.slash("setdesc", "Set your character's description."));
 
         // Update Commands
         bot.updateCommands().addCommands().addCommands(commands).queue();

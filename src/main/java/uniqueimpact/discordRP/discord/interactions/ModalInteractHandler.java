@@ -17,6 +17,8 @@ public class ModalInteractHandler {
         this.interactions = new HashMap<String, ModalInteract>();
 
         interactions.put("SCD", new SetCharacterDescriptionModalInteract());
+        interactions.put("SCN", new SetCharacterDisplayNameModalInteract());
+        interactions.put("SCP", new SetCharacterPictureModalInteract());
 
     }
 

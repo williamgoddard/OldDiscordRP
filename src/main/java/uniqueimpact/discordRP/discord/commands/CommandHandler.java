@@ -1,14 +1,13 @@
 package uniqueimpact.discordRP.discord.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.utils.messages.MessageCreateData;
 import uniqueimpact.discordRP.discord.commands.admin.*;
 import uniqueimpact.discordRP.discord.commands.chat.WhisperCommand;
 import uniqueimpact.discordRP.discord.commands.fun.EightBallCommand;
 import uniqueimpact.discordRP.discord.commands.fun.ExcuseCommand;
 import uniqueimpact.discordRP.discord.commands.fun.RollCommand;
 import uniqueimpact.discordRP.discord.commands.fun.SecretCommand;
-import uniqueimpact.discordRP.discord.commands.player_customise.SetDescCommand;
+import uniqueimpact.discordRP.discord.commands.player_customise.SetCommand;
 import uniqueimpact.discordRP.discord.commands.player_info.HelpCommand;
 import uniqueimpact.discordRP.discord.commands.player_info.TimeCommand;
 import uniqueimpact.discordRP.discord.commands.player_inv.*;
@@ -73,7 +72,7 @@ public class CommandHandler {
         commands.put("help", new HelpCommand());
         commands.put("time", new TimeCommand());
 
-        commands.put("setdesc", new SetDescCommand());
+        commands.put("set", new SetCommand());
 
     }
 
